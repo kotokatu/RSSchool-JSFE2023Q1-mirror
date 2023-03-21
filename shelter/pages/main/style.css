@@ -174,10 +174,15 @@ h3 {
   background-color: var(--color-primary);
 }
 
+.main section {
+  padding-top: 80px;
+  padding-bottom: 100px;
+}
+
 .about {
-  padding: 80px 175px 100px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  column-gap: 120px;
 }
 
 .about-image-container {
@@ -211,8 +216,6 @@ h3 {
 }
 
 .pets {
-  padding-top: 80px;
-  padding-bottom: 100px;
   text-align: center;
 }
 
@@ -274,8 +277,6 @@ h3 {
 }
 
 .help {
-  padding-top: 80px;
-  padding-bottom: 100px;
   text-align: center;
 }
 
@@ -309,8 +310,6 @@ h3 {
 }
 
 .donate {
-  padding-top: 80px;
-  padding-bottom: 100px;
   display: flex;
   justify-content: center;
   column-gap: 30px
