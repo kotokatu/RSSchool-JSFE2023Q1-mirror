@@ -1,0 +1,147 @@
+
+:root {
+  --color-primary: #F1CDB3;
+  --color-light: #FFFFFF;
+  --color-medium: #FAFAFA;
+  --color-dark: #CDCDCD;
+  --font-primary: 'Georgia', 'Helvetica', sans-serif;
+  --font-secondary: 'Arial', 'Helvetica', sans-serif;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.wrapper-dark {
+  background-color: #211F20;
+  background-image: url("../../assets/img/bg_gradient_light.png"), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%);
+ /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+
+}
+
+.container {
+  max-width: 1280px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+
+.header {
+  padding-top: 31px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 90px;
+}
+
+.logo-title {
+  margin-bottom: 10px;
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+}
+
+.logo-subtitle {
+  padding-left: 4px;
+  /* padding-top: 2px; */
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.1em;
+  color: var(--color-light);
+}
+
+.navigation {
+  flex-grow: 1;
+}
+
+.navigation-list {
+  max-width: 443px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.navigation-item {
+  padding-bottom: 6px;
+}
+
+.navigation-link {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-dark);
+  transition: .3s;
+}
+
+.navigation-link:active {
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 5px;
+}
+
+.hero {
+  min-height: 728px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hero-content {
+  max-width: 460px;
+  margin-top: 163px;
+}
+
+.hero-title {
+  max-width: 310px;
+  margin-bottom: 42px;
+  font-family: var(--font-primary);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 57px;
+  color: var(--color-light);
+}
+
+.hero-text {
+  font-family: var(--font-secondary);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-dark);
+}
+
+.hero-image-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+
+@media (hover: hover) {
+  .navigation-link:hover {
+    color: var(--color-medium);
+  }
+}
