@@ -57,13 +57,14 @@ h3 {
 }
 
 .button {
-  padding: 15px 45px;
+  padding: 13px 43px;
   font-family: var(--font-primary);
   font-size: 17px;
   line-height: 22px;
   letter-spacing: 0.06em;
   color: var(--color-dark-3xl);
   background-color: transparent;
+  border: 2px solid var(--color-primary);
   border-radius: 100px;
   white-space: nowrap;
   cursor: pointer;
@@ -168,7 +169,6 @@ h3 {
 }
 
 .hero-button {
-  border: none;
   background-color: var(--color-primary);
 }
 
@@ -176,6 +176,11 @@ h3 {
   padding: 80px 175px 100px;
   display: flex;
   justify-content: space-between;
+}
+
+.about-image-container {
+  display: flex;
+  align-items: flex-end;
 }
 
 .about-content {
@@ -189,11 +194,82 @@ h3 {
 }
 
 .about-text {
-  margin-bottom: 25px;
   font-family: var(--font-secondary);
   font-size: 15px;
   line-height: 24px;
   color: var(--color-dark-xl);
+}
+
+.about-text:first-of-type {
+  margin-bottom: 25px;
+}
+
+.wrapper-light {
+  background-color: var(--color-light-l);
+}
+
+.pets {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  text-align: center;
+}
+
+.pets-title {
+  margin: 0 auto 60px;
+  max-width: 400px;
+  text-align: center;
+  color: var(--color-dark-l);
+}
+
+.pets-slider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.prev-button, .next-button{
+  width: 52px;
+  height: 52px;
+  border: 2px solid var(--color-primary);
+  border-radius: 100%;
+  background-image: url("../../assets/svg/arrow.svg");
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.next-button {
+  transform: rotate(180deg);
+}
+
+.pets-list {
+  max-width: 990px;
+  display: flex;
+  justify-content: space-between;
+  gap: 90px;
+}
+
+.pets-item {
+  padding-bottom: 30px;
+  background-color: var(--color-light-s);
+}
+
+.pet-title {
+  margin: 25px auto 30px;
+  font-family: var(--font-primary);
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: var(--color-dark-l);
+}
+
+.pet-button {
+  border: 2px solid var(--color-primary);
+}
+
+.pets-button {
+  background-color: var(--color-primary);
 }
 
 
