@@ -24,6 +24,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: var(--font-primary);
+}
+
 a {
   text-decoration: none;
 }
@@ -38,11 +42,11 @@ img {
 }
 
 h3 {
-  font-family: var(--font-primary);
   font-weight: 400;
   font-size: 35px;
   line-height: 45px;
   letter-spacing: 0.06em;
+  color: var(--color-dark-l);
 }
 
 .wrapper-dark {
@@ -84,7 +88,6 @@ h3 {
 
 .logo-heading {
   margin-bottom: 10px;
-  font-family: var(--font-primary);
   font-size: 32px;
   font-weight: 400;
   line-height: 35px;
@@ -148,7 +151,6 @@ h3 {
 .hero-heading {
   max-width: 310px;
   margin-bottom: 41px;
-  font-family: var(--font-primary);
   font-size: 44px;
   font-weight: 400;
   line-height: 57px;
@@ -257,7 +259,6 @@ h3 {
 
 .pet-title {
   margin: 25px auto 30px;
-  font-family: var(--font-primary);
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
@@ -301,11 +302,66 @@ h3 {
 
 .help-title {
   margin-top: 30px;
-  font-family: var(--font-primary);
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
   color: var(--color-dark-l);
+}
+
+.donate {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: center;
+  column-gap: 30px
+}
+
+.donate-image-container {
+  display: flex;
+  align-items: center;
+}
+
+.donate-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  max-width: 380px;
+}
+
+.donate-heading {
+  max-width: 300px;
+}
+
+.donate-subheading {
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: 0.06em;
+  color: var(--color-dark-l);
+}
+
+.donate-card {
+  width: max-content;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: var(--color-primary);
+  border-radius: 9px;
+}
+
+.donate-card-number {
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: var(--color-dark-l);
+}
+
+.donate-legal {
+  font-family: var(--font-secondary);
+  font-style: italic;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--color-dark-m);
 }
 
 @media (hover: hover) {
