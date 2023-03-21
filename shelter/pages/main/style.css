@@ -82,7 +82,7 @@ h3 {
   margin-bottom: 90px;
 }
 
-.logo-title {
+.logo-heading {
   margin-bottom: 10px;
   font-family: var(--font-primary);
   font-size: 32px;
@@ -145,7 +145,7 @@ h3 {
   margin-top: 163px;
 }
 
-.hero-title {
+.hero-heading {
   max-width: 310px;
   margin-bottom: 41px;
   font-family: var(--font-primary);
@@ -187,7 +187,7 @@ h3 {
   max-width: 430px;
 }
 
-.about-title {
+.about-heading {
   max-width: 370px;
   margin: 14px 0 25px;
   color: var(--color-dark-l);
@@ -214,7 +214,7 @@ h3 {
   text-align: center;
 }
 
-.pets-title {
+.pets-heading {
   margin: 0 auto 60px;
   max-width: 400px;
   text-align: center;
@@ -272,7 +272,41 @@ h3 {
   background-color: var(--color-primary);
 }
 
+.help {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  text-align: center;
+}
 
+.help-heading {
+  max-width: 310px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+.help-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 120px;
+  row-gap: 55px;
+}
+
+.help-icon-container {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help-title {
+  margin-top: 30px;
+  font-family: var(--font-primary);
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: var(--color-dark-l);
+}
 
 @media (hover: hover) {
   .navigation-link:hover {
