@@ -1,3 +1,18 @@
+@font-face {
+  font-family: "Georgia";
+  src: url("../../assets/fonts/Georgia.woff2") format("woff2");
+  src: url("../../assets/fonts/Georgia.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Georgia";
+  src: url("../../assets/fonts/Georgia-Bold.woff2") format("woff2");
+  src: url("../../assets/fonts/Georgia-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
 
 :root {
   --color-primary: #F1CDB3;
@@ -43,8 +58,7 @@ img {
 }
 
 .container {
-  max-width: 1280px;
-  padding: 0 40px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -142,7 +156,7 @@ img {
   padding-bottom: 101px;
 }
 
-.pets {
+.our-friends {
   text-align: center;
 }
 

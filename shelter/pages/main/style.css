@@ -1,4 +1,20 @@
 
+@font-face {
+  font-family: "Georgia";
+  src: url("../../assets/fonts/Georgia.woff2") format("woff2");
+  src: url("../../assets/fonts/Georgia.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Georgia";
+  src: url("../../assets/fonts/Georgia-Bold.woff2") format("woff2");
+  src: url("../../assets/fonts/Georgia-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
 :root {
   --color-primary: #F1CDB3;
   --color-primary-light: #FDDCC4;
@@ -55,8 +71,7 @@ h3 {
 }
 
 .container {
-  max-width: 1280px;
-  padding: 0 40px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -140,12 +155,12 @@ h3 {
   cursor: default;
 }
 
-.hero {
+.not-only {
   display: flex;
   justify-content: space-between;
 }
 
-.hero-content {
+.not-only-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -154,7 +169,7 @@ h3 {
   margin-top: 163px;
 }
 
-.hero-heading {
+.not-only-heading {
   max-width: 310px;
   font-size: 44px;
   font-weight: 400;
@@ -162,19 +177,19 @@ h3 {
   color: var(--color-light-xl);
 }
 
-.hero-text {
+.not-only-text {
   font-family: var(--font-secondary);
   font-size: 15px;
   line-height: 24px;
   color: var(--color-dark-s);
 }
 
-.hero-image-container {
+.not-only-image-container {
   display: flex;
   align-items: flex-end;
 }
 
-.hero-button {
+.not-only-button {
   background-color: var(--color-primary);
 }
 
@@ -219,14 +234,14 @@ h3 {
   background-color: var(--color-light-l);
 }
 
-.pets {
+.our-friends {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.pets-heading {
+.our-friends-heading {
   margin: 0 auto 60px;
   max-width: 400px;
   text-align: center;
@@ -320,7 +335,7 @@ h3 {
   color: var(--color-dark-l);
 }
 
-.donate {
+.in-addition  {
   display: flex;
   justify-content: center;
   column-gap: 30px
