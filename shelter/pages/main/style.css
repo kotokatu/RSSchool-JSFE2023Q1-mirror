@@ -97,7 +97,6 @@ h3 {
 
 .logo-subtitle {
   padding-left: 4px;
-  /* padding-top: 2px; */
   font-family: var(--font-secondary);
   font-size: 13px;
   line-height: 15px;
@@ -361,6 +360,69 @@ h3 {
   font-size: 12px;
   line-height: 18px;
   color: var(--color-dark-m);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+}
+
+.contact-info,
+.address-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+}
+
+.contact-info {
+  max-width: 280px;
+  row-gap: 40px;
+}
+
+.address-info {
+  max-width: 302px;
+  row-gap: 33px;
+}
+
+.contact-info-heading,
+.address-info-heading {
+  color: var(--color-light-xl);
+}
+
+.email,
+.phone,
+.address {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+}
+
+.footer-icon {
+  height: 32px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex-shrink: 0;
+}
+
+.email-icon {
+  width: 40px;
+  background-image: url("../../assets/svg/mail.svg");
+}
+
+.phone-icon {
+  width: 40px;
+  background-image: url("../../assets/svg/phone.svg");
+}
+
+.address-icon {
+  width: 22px;
+  background-image: url("../../assets/svg/pin.svg");
 }
 
 @media (hover: hover) {
