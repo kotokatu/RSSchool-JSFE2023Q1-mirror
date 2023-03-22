@@ -71,7 +71,6 @@ h3 {
   border: 2px solid var(--color-primary);
   border-radius: 100px;
   white-space: nowrap;
-  cursor: pointer;
   /* transition: background-color 0.3s, border-width .1s; */
   -webkit-tap-highlight-color: transparent;
 }
@@ -426,7 +425,13 @@ h3 {
 }
 
 @media (hover: hover) {
+
+  button {
+    cursor: pointer;
+  }
+
   .navigation-link:hover {
     color: var(--color-light-s);
   }
+  
 }
