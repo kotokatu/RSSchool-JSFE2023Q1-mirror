@@ -120,7 +120,7 @@ h3 {
 }
 
 .navigation-link {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-secondary);
   font-size: 15px;
   line-height: 24px;
   color: var(--color-dark-s);
@@ -231,7 +231,7 @@ h3 {
   margin-bottom: 60px;
 }
 
-.prev-button, .next-button{
+.button-round {
   width: 52px;
   height: 52px;
   border: 2px solid var(--color-primary);
@@ -255,7 +255,9 @@ h3 {
 
 .pets-item {
   padding-bottom: 30px;
+  border-radius: 9px;
   background-color: var(--color-light-s);
+  overflow: hidden;
 }
 
 .pet-title {
@@ -433,5 +435,5 @@ h3 {
   .navigation-link:hover {
     color: var(--color-light-s);
   }
-  
+
 }
