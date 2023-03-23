@@ -277,7 +277,7 @@ h1, h2 {
   line-height: 23px;
   letter-spacing: 0.06em;
   color: var(--color-primary);
-  transition: color .4s, fill .4s;
+  transition: color .4s;
 }
 
 .email {
@@ -286,6 +286,7 @@ h1, h2 {
 
 .footer-icon {
   flex-shrink: 0;
+  transition: fill .4s;
 }
 
 @media (hover: hover) {
@@ -319,7 +320,7 @@ h1, h2 {
     color: var(--color-light-l);
   }
 
-  .footer-link:hover svg {
+  .footer-link:hover .footer-icon {
     fill: var(--color-light-l);
   }
 
