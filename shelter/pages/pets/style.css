@@ -50,6 +50,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -306,10 +307,28 @@ h1, h2 {
   transition: fill .4s;
 }
 
+.button:active,
+.button-round:active {
+  border: 2px solid var(--color-primary-light);
+  background-color: var(--color-primary-light);
+}
+
+.logo:active .logo-heading {
+  color: var(--color-dark-3xl);
+}
+
+.footer-link:active {
+  color: var(--color-light-l);
+}
+
+.footer-link:active .footer-icon {
+  fill: var(--color-light-l);
+}
+
 @media (hover: hover) {
 
   .logo:hover .logo-heading {
-    color: var(--color-dark-3xl)
+    color: var(--color-dark-3xl);
     }
 
   button,
@@ -343,6 +362,29 @@ h1, h2 {
 
   .footer-link:hover .footer-icon {
     fill: var(--color-light-l);
+  }
+
+  .button:not(.pet-button):active,
+  .button.pet-button:active,
+  .button-round:active {
+    border: 2px solid var(--color-primary);
+    background-color: var(--color-primary);
+  }
+
+  .donate-card:active {
+    background-color: var(--color-primary);
+  }
+
+  .logo:active .logo-heading {
+    color: var(--color-dark-l);
+  }
+
+  .footer-link:active {
+    color: var(--color-primary);
+  }
+
+  .footer-link:active .footer-icon {
+    fill: var(--color-primary);
   }
 
 }
