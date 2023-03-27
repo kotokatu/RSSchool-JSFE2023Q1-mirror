@@ -50,6 +50,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -377,7 +378,7 @@ h1, h2 {
   .logo:active .logo-heading {
     color: var(--color-dark-l);
   }
-  
+
   .footer-link:active {
     color: var(--color-primary);
   }
