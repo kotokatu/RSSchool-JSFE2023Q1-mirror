@@ -87,7 +87,9 @@ h2 {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
   margin: 0 auto;
 }
 
@@ -356,7 +358,7 @@ h2 {
 .in-addition  {
   display: flex;
   justify-content: center;
-  column-gap: 30px
+  gap: 30px
 }
 
 .donate-image-container {
@@ -414,7 +416,8 @@ h2 {
 
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 160px;
   padding-top: 40px;
 }
 
@@ -545,4 +548,99 @@ h2 {
     fill: var(--color-primary);
   }
 
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 768px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .header {
+    margin-bottom: 60px;
+  }
+
+  .not-only {
+    flex-direction: column;
+    gap: 100px;
+  }
+
+  .not-only-content {
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .not-only-button {
+    align-self: center;
+  }
+
+  .not-only-image-container {
+    justify-content: flex-end;
+  }
+
+  .not-only-image {
+    width: 569px;
+  }
+
+  .about {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-image-container {
+    order: 1;
+  }
+
+  .about-content {
+    margin-bottom: 80px;
+  }
+
+  .about-heading {
+    margin: 0 0 25px;
+  }
+
+  .pets-list {
+    gap: 40px;
+  }
+
+  .pets-item:nth-child(3) {
+    display: none;
+  }
+
+  .help-list {
+    margin: 0 auto;
+    justify-content: space-between;
+    max-width: 630px;
+    column-gap: 10px;
+  }
+
+  .help-item {
+    flex-basis: 170px;
+  }
+
+  .in-addition {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .donate-image-container {
+    order: 1;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    padding-top: 30px;
+    gap: 60px;
+  }
+
+  .contact-info,
+  .address-info {
+    padding-top: 0;
+  }
+
+  .footer-image-container {
+    padding-top: 5px;
+  }
 }
