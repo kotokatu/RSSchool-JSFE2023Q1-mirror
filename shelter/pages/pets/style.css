@@ -241,9 +241,8 @@ h1, h2 {
 
 .pagination {
   display: flex;
-  gap: 20px;
-  width: max-content;
-  /* margin: 0 auto; */
+  justify-content: space-between;
+  width: 340px;
 }
 
 .button-round {
@@ -476,18 +475,40 @@ h1, h2 {
 
 }
 
+@media (max-width: 640px) {
+
+  .pets-item:nth-child(n+4) {
+    display: none;
+  }
+
+  .pagination {
+    max-width: 300px;
+  }
+
+}
+
+@media (max-width: 500px) {
+  
+  h2 {
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+
+  .pets-heading {
+    margin-bottom: 42px;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+}
+
 @media (max-width: 320px) {
 
   .container {
     max-width: 300px;
     padding-left: 0;
     padding-right: 0;
-  }
-
-  h2 {
-    font-size: 25px;
-    line-height: 32px;
-    letter-spacing: 0.06em;
   }
 
   .header {
@@ -502,23 +523,6 @@ h1, h2 {
 
   .pets-list {
     margin-bottom: 42px;
-  }
-
-  .pets-heading {
-    margin-bottom: 42px;
-    font-size: 25px;
-    line-height: 32px;
-    letter-spacing: 0.06em;
-  }
-
-  .pets-item:nth-child(n+4) {
-    display: none;
-  }
-
-  .pagination {
-    width: 100%;
-    justify-content: space-between;
-    gap: 0;
   }
 
   .footer {
