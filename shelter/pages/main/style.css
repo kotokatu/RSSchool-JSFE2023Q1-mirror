@@ -835,10 +835,7 @@ h2 {
   .pets-slider {
     width: max-content;
     display: grid;
-    grid-template-columns: 1fr 1fr;
     grid-template-areas: "card card" "prev-button next-button";
-    align-items: center;
-    justify-content: space-between;
     column-gap: 0;
     row-gap: 20px;
     margin-bottom: 42px;
