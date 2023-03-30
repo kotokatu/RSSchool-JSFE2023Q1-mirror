@@ -688,7 +688,7 @@ h2 {
   }
 
   .not-only-image {
-    max-width: 569px;
+    max-width: calc(569 * 100% / 708);
   }
 
   .about {
@@ -752,78 +752,6 @@ h2 {
     display: none;
   }
 
-}
-
-@media (max-width: 320px) {
-
-  .container {
-    max-width: 300px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  h2 {
-    font-size: 25px;
-    line-height: 32px;
-    letter-spacing: 0.06em;
-  }
-
-  .main section {
-    padding-top: 42px;
-    padding-bottom: 42px;
-  }
-
-  .header {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .not-only-content {
-    max-width: 100%;
-    align-items: center;
-    text-align: center;
-    padding-bottom: 5px;
-
-  }
-
-  .not-only-heading {
-    max-width: 70%;
-    font-size: 25px;
-    line-height: 32px;
-    letter-spacing: 0.06em;
-  }
-
-  .not-only-image {
-    max-width: 260px;
-  }
-
-  .about {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .about-content {
-    max-width: 100%;
-    text-align: center;
-    margin-bottom: 42px;
-  }
-
-  .about-text {
-    text-align: justify;
-  }
-
-  .about-text:first-of-type {
-    margin-bottom: 22px;
-  }
-
-  .about-image {
-    max-width: 260px;
-  }
-  
-  .our-friends-heading {
-    margin-bottom: 42px;
-  }
-
   .our-friends {
     align-items: center;
   }
@@ -855,16 +783,71 @@ h2 {
     justify-self: center;
   }
 
-  .help-heading {
-    max-width: 80%;
+}
+
+@media (max-width: 500px) {
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h2 {
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+
+  .main section {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  .not-only-content {
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 5px;
+
+  }
+
+  .not-only-heading {
+    max-width: 75%;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+
+  .not-only-image {
+    max-width: 260px;
+  }
+
+
+  .about-content {
+    max-width: 100%;
+    text-align: center;
     margin-bottom: 42px;
   }
 
-  .help-list {
-    padding-left: 5px;
-    padding-right: 5px;
-    column-gap: 30px;
-    row-gap: 30px;
+  .about-text {
+    text-align: justify;
+  }
+
+  .about-text:first-of-type {
+    margin-bottom: 22px;
+  }
+
+  .about-image {
+    max-width: 260px;
+  }
+  
+  .our-friends-heading {
+    margin-bottom: 42px;
+  }
+
+  .help-heading {
+    max-width: 80%;
+    margin-bottom: 42px;
   }
 
   .help-item {
@@ -884,8 +867,6 @@ h2 {
   }
 
   .in-addition {
-    padding-left: 10px;
-    padding-right: 10px;
     gap: 42px;
   }
 
@@ -915,6 +896,38 @@ h2 {
   .donate-image-container {
     padding: 0 10px;
   }
+
+}
+
+@media (max-width: 320px) {
+
+  .container {
+    max-width: 300px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .about {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .help-list {
+    padding-left: 5px;
+    padding-right: 5px;
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+
+  .in-addition {
+    padding-left: 10px;
+    padding-right: 10px;
+   }
 
   .footer {
     align-items: center;
