@@ -664,10 +664,6 @@ h2 {
     justify-content: center;
   }
 
-  .footer-content {
-    justify-content: center;
-  }
-
   .footer-image-container {
     padding-top: 5px;
   }
@@ -743,6 +739,10 @@ h2 {
   .footer {
     padding-top: 30px;
     gap: 60px;
+  }
+
+  .footer-content {
+    justify-content: center;
   }
 
   .contact-info,

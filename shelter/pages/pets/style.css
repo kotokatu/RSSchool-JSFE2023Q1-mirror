@@ -438,10 +438,6 @@ h1, h2 {
     justify-content: center;
   }
 
-  .footer-content {
-    justify-content: center;
-  }
-
   .footer-image-container {
     padding-top: 5px;
   }
@@ -469,6 +465,10 @@ h1, h2 {
 
   .footer {
     padding-top: 30px;
+  }
+
+  .footer-content {
+    justify-content: center;
   }
 
   .contact-info,
