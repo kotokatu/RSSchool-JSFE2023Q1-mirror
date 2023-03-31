@@ -75,7 +75,9 @@ img {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1260px;
+  padding-left: 30px;
+  padding-right: 30px;
   margin: 0 auto;
 }
 
@@ -124,9 +126,12 @@ img {
 
 .navigation {
   flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .navigation-list {
+  flex-grow: 1;
   max-width: 443px;
   display: flex;
   justify-content: space-between;
@@ -160,6 +165,19 @@ img {
   pointer-events: none;
 }
 
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.burger-line {
+  width: 30px;
+  height: 2px;
+  background-color: #000000;
+}
+
 .wrapper-light {
   background-color: var(--color-light-l);
 }
@@ -169,12 +187,12 @@ img {
   background-image: url("../../assets/img/bg_gradient_transparent.png"), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%); /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
 }
 
-.main section {
+.our-friends {
   padding-top: 80px;
   padding-bottom: 101px;
-}
-
-.our-friends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -187,13 +205,14 @@ h1, h2 {
 
 .pets-heading {
   max-width: 400px;
-  margin: 0 auto 45px;
+  margin-bottom: 45px;
   color: var(--color-dark-l);
 }
 
 .pets-list {
-  display: grid;
-  grid-template-columns: repeat(4, 270px);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   column-gap: 40px;
   row-gap: 31px;
   padding: 15px 0;
@@ -222,9 +241,8 @@ h1, h2 {
 
 .pagination {
   display: flex;
-  gap: 20px;
-  width: max-content;
-  margin: 0 auto;
+  justify-content: space-between;
+  width: 340px;
 }
 
 .button-round {
@@ -261,7 +279,18 @@ h1, h2 {
 .footer {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 60px;
   padding-top: 40px;
+}
+
+.footer-content {
+  max-width: 740px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 60px;
+  flex-grow: 1;
 }
 
 .contact-info,
@@ -305,6 +334,12 @@ h1, h2 {
 .footer-icon {
   flex-shrink: 0;
   transition: fill .4s;
+}
+
+.footer-image-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .button:active,
@@ -385,6 +420,168 @@ h1, h2 {
 
   .footer-link:active .footer-icon {
     fill: var(--color-primary);
+  }
+
+}
+
+@media (max-width: 1259px) {
+
+  .pets-item:nth-child(7),
+  .pets-item:nth-child(8) {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+
+  .footer {
+    justify-content: center;
+  }
+
+  .footer-image-container {
+    padding-top: 5px;
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .container {
+    max-width: 800px;
+  }
+
+  .our-friends {
+    padding-bottom: 76px;
+  }
+
+  .pets-heading {
+    margin-bottom: 30px;
+  }
+
+  .pets-list {
+    padding: 0;
+    margin-bottom: 40px;
+  }
+
+  .footer {
+    padding-top: 30px;
+  }
+
+  .footer-content {
+    justify-content: center;
+  }
+
+  .contact-info,
+  .address-info {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .burger {
+    display: flex;
+  }
+
+  .navigation-list {
+    display: none;
+  }
+
+  .contact-info {
+    max-width: 302px;
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .pets-item:nth-child(n+4) {
+    display: none;
+  }
+
+  .pagination {
+    max-width: 300px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h2 {
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+
+  .pets-heading {
+    margin-bottom: 42px;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.06em;
+  }
+
+  
+  .footer {
+    align-items: center;
+    gap: 40px;
+  }
+
+  .footer-content {
+    gap: 40px;
+  }
+
+  .contact-info {
+    align-items: center;
+  }
+
+  .address-info {
+    row-gap: 40px;
+  }
+
+  .contact-info-heading,
+  .address-info-heading {
+    text-align: center;
+  }
+
+  .address-info-heading {
+    align-self: center;
+    max-width: 270px;
+  }
+
+  .footer-image-container {
+    padding-top: 0;
+  }
+
+  .footer-image {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 320px) {
+
+  .container {
+    max-width: 300px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .our-friends {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  .pets-list {
+    margin-bottom: 42px;
   }
 
 }
