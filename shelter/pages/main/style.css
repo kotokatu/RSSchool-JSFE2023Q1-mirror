@@ -316,7 +316,6 @@ h2 {
   max-width: 990px;
   display: flex;
   justify-content: space-between;
-  /* gap: 90px; */
 }
 
 .pets-item {
@@ -490,6 +489,15 @@ h2 {
   padding-top: 40px;
 }
 
+.footer-content {
+  max-width: 740px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 60px;
+  flex-grow: 1;
+}
+
 .contact-info,
 .address-info {
   display: flex;
@@ -655,7 +663,11 @@ h2 {
   .footer {
     justify-content: center;
   }
-  
+
+  .footer-content {
+    justify-content: center;
+  }
+
   .footer-image-container {
     padding-top: 5px;
   }
@@ -684,10 +696,8 @@ h2 {
   }
 
   .not-only-image-container {
+    align-self: flex-end;
     justify-content: flex-end;
-  }
-
-  .not-only-image {
     max-width: calc(569 * 100% / 708);
   }
 
@@ -783,9 +793,13 @@ h2 {
     justify-self: center;
   }
 
+  .contact-info {
+    max-width: 302px;
+  }
+
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
 
   .container {
     padding-left: 20px;
@@ -897,6 +911,42 @@ h2 {
     padding: 0 10px;
   }
 
+  
+  .footer {
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .footer-content {
+    gap: 40px;
+  }
+
+  .contact-info {
+    align-items: center;
+  }
+
+  .address-info {
+    row-gap: 40px;
+  }
+
+  .contact-info-heading,
+  .address-info-heading {
+    text-align: center;
+  }
+
+  .address-info-heading {
+    align-self: center;
+    max-width: 270px;
+  }
+
+  .footer-image-container {
+    padding-top: 0;
+  }
+
+  .footer-image {
+    max-width: 260px;
+  }
+
 }
 
 @media (max-width: 320px) {
@@ -928,35 +978,4 @@ h2 {
     padding-left: 10px;
     padding-right: 10px;
    }
-
-  .footer {
-    align-items: center;
-    gap: 40px;
-  }
-
-  .contact-info {
-    align-items: center;
-  }
-
-  .address-info {
-    row-gap: 40px;
-  }
-
-  .contact-info-heading,
-  .address-info-heading {
-    text-align: center;
-  }
-
-  .address-info-heading {
-    align-self: center;
-    max-width: 270px;
-  }
-
-  .footer-image-container {
-    padding-top: 0;
-  }
-
-  .footer-image {
-    max-width: 260px;
-  }
 }
