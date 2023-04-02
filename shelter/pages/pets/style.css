@@ -54,10 +54,14 @@
 }
 
 html {
+  position: relative;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
+  overflow-x: hidden;
   font-family: var(--font-primary);
 }
 
@@ -160,22 +164,12 @@ img {
   text-underline-offset: 7px;
 }
 
-.active {
+.navigation-link.active {
   cursor: default;
-  pointer-events: none;
 }
 
 .burger {
   display: none;
-  flex-direction: column;
-  gap: 8px;
-  margin-left: auto;
-}
-
-.burger-line {
-  width: 30px;
-  height: 2px;
-  background-color: #000000;
 }
 
 .wrapper-light {
@@ -263,6 +257,11 @@ h1, h2 {
 .button-round.disabled {
   color: var(--color-dark-s);
   border: 2px solid var(--color-dark-s);
+  pointer-events: none;
+}
+
+.button-round.active {
+  cursor: default;
   pointer-events: none;
 }
 
@@ -480,12 +479,82 @@ h1, h2 {
 @media (max-width: 767px) {
 
   .burger {
+    flex-direction: column;
+    gap: 8px;
+    margin-left: auto;
+    z-index: 3;
+  }
+
+  .burger-line {
+    width: 30px;
+    height: 2px;
+    background-color: #000000;
+  }
+
+  .burger {
     display: flex;
+    transition: transform .5s;
+  }
+
+  .burger.active {
+    transform: rotate(90deg);
+  }
+
+  body:has(.burger.active) {
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
+  body:has(.burger.active) > .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(41, 41, 41, 0.6);
+    z-index: 1;
   }
 
   .navigation-list {
-    display: none;
+    position: absolute;
+    top: 0;
+    padding-top: 40px;
+    left: 100%;
+    width: 320px;
+    height: 100vh;
+    background-color: var(--color-light-xl);
+    transition: 1s;
+    z-index: 2;
   }
+
+  .navigation-list.visible {
+    transform: translateX(-100%);
+  }
+
+  .navigation-list {
+    padding-top: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .navigation-item {
+    position: relative;
+    text-align: center;
+    padding-bottom: 0;
+  }
+
+  .navigation-link {
+    font-size: 32px;
+    line-height: 51px;
+  }
+
+  .navigation-link.active, 
+  .navigation-link:active {
+    text-underline-offset: 12px;
+  }
+
 
   .contact-info {
     max-width: 302px;
