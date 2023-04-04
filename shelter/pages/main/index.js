@@ -142,14 +142,14 @@ prevButton.addEventListener('click', () => {
 
 nextButton.addEventListener('click', () => {
   petsList.classList.add('animation-right');
-  prevButton.classList.add('disabled');
+  nextButton.classList.add('disabled');
   setTimeout(() => {
     slides.left = slides.active;
     slides.active = slides.right;
     createSlide("right");
     renderSlides();
     petsList.classList.remove('animation-right');
-    prevButton.classList.remove('disabled');
+    nextButton.classList.remove('disabled');
   }, 1000);
 })
 
