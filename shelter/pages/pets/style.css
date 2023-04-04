@@ -57,6 +57,7 @@ html {
   position: relative;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  height: -webkit-fill-available;
 }
 
 body {
@@ -502,6 +503,7 @@ h1, h2 {
 
   body:has(.burger.active) {
     height: 100vh;
+    height: -webkit-fill-available;
     overflow-y: hidden;
   }
 
