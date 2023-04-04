@@ -1,4 +1,4 @@
-[
+export const pets = [
   {
     "name": "Jennifer",
     "img": "../../assets/img/pets-jennifer.jpg",

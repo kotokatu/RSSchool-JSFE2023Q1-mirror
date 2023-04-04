@@ -1,3 +1,5 @@
+import { pets as data} from "../../assets/pets.js";
+
 window.onload = function () {
   addBurgerMenuHandler();
 }
@@ -30,19 +32,13 @@ const closeMenu = (burgerButton, navigationMenu) => {
 
 export { addBurgerMenuHandler }
 
-// Add pets
+// Carousel layout
+
 const petsList = document.querySelector('.pets-list');
-const pets = `../../assets/pets.json`;
-const res = await fetch(pets);
-const data = await res.json();
-const getRandomNum = () => {
-  return Math.floor(Math.random() * data.length);
-}
-let slides = { active: [], left: [], right: [] };
+const slides = { active: [], left: [], right: [] };
 const large = window.matchMedia("(min-width: 1201px)")
 const medium = window.matchMedia("(min-width: 768px) and (max-width: 1200px)");
 const small = window.matchMedia("(min-width: 1px) and (max-width: 767px)");
-
 let itemsCount;
 
 const handleLargeScreen = (e) => {
@@ -51,37 +47,37 @@ const handleLargeScreen = (e) => {
 
 const handleMediumScreen = (e) => {
   if (e.matches) itemsCount = 2;
-
 }
 
 const handleSmallScreen = (e) => {
   if (e.matches) itemsCount = 1;
-
 }
 
 handleLargeScreen(large);
 handleMediumScreen(medium);
 handleSmallScreen(small);
 
-const createSlidesData = () => {
-  for (let position in slides) {
-    createSlide(position);
-  }
+const getRandomNum = () => {
+  return Math.floor(Math.random() * data.length);
 }
 
-const createSlide = (position) => {
+const addSlide = (position) => {
   slides[position] = [];
   while (slides[position].length < itemsCount) {
     let randomNum = getRandomNum();
-    console.log(data[randomNum])
     if (slides[position].includes(data[randomNum]) || slides.active.includes(data[randomNum])) continue;
     slides[position].push(data[randomNum]);
   }
 }
 
-createSlidesData();
+const addSlides = () => {
+  for (let position in slides) {
+    addSlide(position);
+  }
+}
 
-let leftSlide, activeSlide, rightSlide;
+addSlides();
+
 const renderSlide = (position) => {
   let slide = document.createElement('div');
   slide.className = `slide ${position}-slide`;
@@ -96,43 +92,38 @@ const renderSlide = (position) => {
 
 const renderSlides = () => {
   petsList.replaceChildren();
-  leftSlide = renderSlide("left");
-  activeSlide = renderSlide("active");
-  rightSlide = renderSlide("right");
-  petsList.append(leftSlide, activeSlide, rightSlide);
-  console.log(slides)
+  petsList.append(renderSlide("left"), renderSlide("active"), renderSlide("right"));
 }
 
 renderSlides();
 
-
 large.addEventListener('change', (e) => {
   handleLargeScreen(e);
-  createSlidesData();
+  addSlides();
   renderSlides();
 });
 medium.addEventListener('change', (e) => {
   handleMediumScreen(e);
-  createSlidesData();
+  addSlides();
   renderSlides();
 });
 small.addEventListener('change', (e) => {
   handleSmallScreen(e);
-  createSlidesData();
+  addSlides();
   renderSlides();
 });
 
-// Carousel
+// Carousel Behaviour
 
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');
 prevButton.addEventListener('click', () => {
-  petsList.classList.add('animation-left');
   prevButton.classList.add('disabled');
+  petsList.classList.add('animation-left');
   setTimeout(() => {
     slides.right = slides.active;
     slides.active = slides.left;
-    createSlide("left");
+    addSlide("left");
     renderSlides();
     petsList.classList.remove('animation-left');
     prevButton.classList.remove('disabled');
@@ -141,12 +132,12 @@ prevButton.addEventListener('click', () => {
 })
 
 nextButton.addEventListener('click', () => {
-  petsList.classList.add('animation-right');
   nextButton.classList.add('disabled');
+  petsList.classList.add('animation-right');
   setTimeout(() => {
     slides.left = slides.active;
     slides.active = slides.right;
-    createSlide("right");
+    addSlide("right");
     renderSlides();
     petsList.classList.remove('animation-right');
     nextButton.classList.remove('disabled');
