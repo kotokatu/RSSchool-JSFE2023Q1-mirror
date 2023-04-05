@@ -507,7 +507,7 @@ h1, h2 {
     overflow-y: hidden;
   }
 
-  body:has(.burger.active) > .overlay {
+  .overlay {
     position: absolute;
     top: 0;
     bottom: 0;

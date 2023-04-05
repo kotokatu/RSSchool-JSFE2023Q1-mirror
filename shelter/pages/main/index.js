@@ -1,7 +1,9 @@
 import { pets as data} from "../../assets/pets.js";
+import { Modal } from "../modal.js";
 
 window.onload = function () {
   addBurgerMenuHandler();
+  addModalHandler();
 }
 
 /*****************************************************************************/
@@ -11,10 +13,14 @@ window.onload = function () {
 const addBurgerMenuHandler = () => {
   const burgerButton = document.querySelector('.burger');
   const navigationMenu = document.querySelector('.navigation-list');
+  const overlay = document.createElement('div');
+  overlay.className = "overlay";
   document.addEventListener('click', function (evt) {
     if (burgerButton.contains(evt.target) && !navigationMenu.classList.contains('visible')) {
+      document.body.append(overlay);
       openMenu(burgerButton, navigationMenu);
     } else if (evt.target.className == 'navigation-link' || !navigationMenu.contains(evt.target)) {
+      overlay.remove();
       closeMenu(burgerButton, navigationMenu);
     }
   })
@@ -31,6 +37,8 @@ const closeMenu = (burgerButton, navigationMenu) => {
 }
 
 export { addBurgerMenuHandler }
+
+/*****************************************************************************/
 
 // Carousel layout
 
@@ -83,7 +91,10 @@ const renderSlide = (position) => {
   slide.className = `slide ${position}-slide`;
   slide.innerHTML = '';
   slides[position].forEach(el => {
-    slide.innerHTML += `<div class="pets-item"><img class="pets-image" src="${el.img}" alt="${el.type}">
+    slide.innerHTML += `<div class="pets-item" id="${el.id}">
+    <div class="pet-image-container">
+    <img class="pet-image" src="${el.img}" alt="${el.type}">
+    </div>
     <p class="pet-title">${el.name}</p>
     <button class="button pet-button">Learn more</button></div>`
   });
@@ -143,5 +154,21 @@ nextButton.addEventListener('click', () => {
     nextButton.classList.remove('disabled');
   }, 1000);
 })
+
+/*****************************************************************************/
+
+// Modal
+
+const addModalHandler = () => {
+  const renderModal = (content) => {
+    const modal = new Modal(content);
+    modal.buildModal();
+  }
+  document.querySelector('.pets-list').addEventListener('click', (e) => {
+    data.forEach(el => {
+      if (e.target.closest('.pets-item').id === el.id) renderModal(el);
+    })
+  })
+}
 
 
