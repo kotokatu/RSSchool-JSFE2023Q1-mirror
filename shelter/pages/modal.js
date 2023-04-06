@@ -1,5 +1,3 @@
-import { pets as data } from "../assets/pets.js";
-
 export class Modal {
   constructor(content) {
     this.overlay;
@@ -15,7 +13,7 @@ export class Modal {
     this.modalCloseBtn = this.createDomNode(this.modalCloseBtn, 'button', 'button-round', 'modal-button');
     this.modal.append(this.modalCloseBtn);
     this.overlay.append(this.modal);
-    document.body.append(this.overlay);
+    document.body.append(this.overlay); 
     this.modalCloseBtn.addEventListener('click', this.removeModal)
   }
 

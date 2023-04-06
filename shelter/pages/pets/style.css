@@ -222,6 +222,11 @@ h1, h2 {
   transition: .4s;
 }
 
+.pet-image {
+  aspect-ratio: 1 / 1;
+  object-fit: none;
+}
+
 .pet-title {
   margin: 25px auto 30px;
   font-size: 20px;

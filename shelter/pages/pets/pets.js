@@ -1,4 +1,4 @@
-import { addBurgerMenuHandler } from "../main/index.js";
+import { addBurgerMenuHandler } from "../main/main.js";
 
 window.onload = function () {
   addBurgerMenuHandler();

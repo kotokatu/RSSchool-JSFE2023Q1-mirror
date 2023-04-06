@@ -1,4 +1,4 @@
-import { pets as data} from "../../assets/pets.js";
+import { data } from "../../assets/data.js";
 import { Modal } from "../modal.js";
 
 window.onload = function () {
@@ -42,7 +42,7 @@ export { addBurgerMenuHandler }
 
 // Carousel layout
 
-const petsList = document.querySelector('.pets-list');
+const petsList = document.querySelector('.main-page .pets-list');
 const slides = { active: [], left: [], right: [] };
 const large = window.matchMedia("(min-width: 1201px)")
 const medium = window.matchMedia("(min-width: 768px) and (max-width: 1200px)");
@@ -113,11 +113,13 @@ large.addEventListener('change', (e) => {
   addSlides();
   renderSlides();
 });
+
 medium.addEventListener('change', (e) => {
   handleMediumScreen(e);
   addSlides();
   renderSlides();
 });
+
 small.addEventListener('change', (e) => {
   handleSmallScreen(e);
   addSlides();
