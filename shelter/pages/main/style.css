@@ -60,6 +60,10 @@ html {
   height: -webkit-fill-available;
 }
 
+/* html::-webkit-scrollbar {
+  width: 0;
+} */
+
 body {
   position: relative;
   overflow-x: hidden;
@@ -346,10 +350,6 @@ h2,
   transition: .4s;
 }
 
-.pet-image-container {
-  display: flex;
-}
-
 .pet-image {
   aspect-ratio: 1 / 1;
   object-fit: none;
@@ -364,7 +364,7 @@ h2,
 }
 
 .pet-title {
-  margin: 30px auto;
+  margin: 25px auto 30px;
 }
 
 .pet-button {
@@ -638,17 +638,17 @@ html:has(.overlay) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(41, 41, 41);
+  background-color: rgba(41, 41, 41, 0.6);
   z-index: 1;
-  animation-name: opacity;
-  animation-duration: .5s;
-  animation-fill-mode: forwards;
+  /* animation-name: opacity;
+  animation-duration: .3s;
+  animation-fill-mode: forwards; */
 }
 
-@keyframes opacity {
+/* @keyframes opacity {
   from {background-color: rgba(41, 41, 41, 0)}
   to {background-color: rgba(41, 41, 41, 0.6)}
-}
+} */
 
 .modal {
   position: relative;
@@ -679,7 +679,6 @@ html:has(.overlay) {
   max-width: calc(351 * 100% / 900);
   margin-top: calc(50 * 100% / 900);
   margin-bottom: calc(30 * 100% / 900);
-  /* margin-right: 20px; */
   color: #000000;
 }
 
@@ -722,10 +721,6 @@ html:has(.overlay) {
 .modal-feature {
   font-weight: 700;
 }
-
-
-
-
 
 @media (hover: hover) {
 

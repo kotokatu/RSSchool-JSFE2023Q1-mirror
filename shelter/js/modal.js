@@ -1,30 +1,22 @@
-export class Modal {
-  constructor(content) {
-    this.overlay;
-    this.modal;
-    this.content = content;
-    this.modalCloseBtn;
-  }
+import { createDomNode } from "../index.js";
 
-  buildModal = () => {
-    this.overlay = this.createDomNode(this.overlay, 'div', 'overlay');
-    this.modal = this.createDomNode(this.modal, 'div', 'modal');
-    this.addModalContent(this.content);
-    this.modalCloseBtn = this.createDomNode(this.modalCloseBtn, 'button', 'button-round', 'modal-button');
-    this.modal.append(this.modalCloseBtn);
-    this.overlay.append(this.modal);
-    document.body.append(this.overlay); 
-    this.modalCloseBtn.addEventListener('click', this.removeModal);
+class Modal {
+  constructor() {}
+
+  renderModal = (content) => {
+    this.overlay = createDomNode('div', 'overlay');
+    this.modal = createDomNode('div', 'modal');
+    this.modalCloseBtn = createDomNode('button', 'button-round', 'modal-button');
     this.overlay.addEventListener('click', (e) => {
       if (!this.modal.contains(e.target)) this.removeModal();
     });
+    this.modalCloseBtn.addEventListener('click', this.removeModal);
+    this.addModalContent(content);
+    this.modal.append(this.modalCloseBtn);
+    this.overlay.append(this.modal);
+    document.body.append(this.overlay);
   }
 
-  createDomNode = (node, element, ...classes) => {
-    node = document.createElement(element);
-    node.classList.add(...classes);
-    return node;
-  }
 
   addModalContent = (content) => {
     this.modal.innerHTML = `<div class="modal-image-container">
@@ -58,4 +50,7 @@ export class Modal {
   removeModal = () => {
     this.overlay.remove();
   }
+
 }
+
+export const modal = new Modal();
