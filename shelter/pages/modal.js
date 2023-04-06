@@ -14,7 +14,10 @@ export class Modal {
     this.modal.append(this.modalCloseBtn);
     this.overlay.append(this.modal);
     document.body.append(this.overlay); 
-    this.modalCloseBtn.addEventListener('click', this.removeModal)
+    this.modalCloseBtn.addEventListener('click', this.removeModal);
+    this.overlay.addEventListener('click', (e) => {
+      if (!this.modal.contains(e.target)) this.removeModal();
+    });
   }
 
   createDomNode = (node, element, ...classes) => {

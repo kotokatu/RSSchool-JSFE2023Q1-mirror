@@ -638,8 +638,16 @@ html:has(.overlay) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(41, 41, 41, 0.6);
+  background-color: rgb(41, 41, 41);
   z-index: 1;
+  animation-name: opacity;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes opacity {
+  from {background-color: rgba(41, 41, 41, 0)}
+  to {background-color: rgba(41, 41, 41, 0.6)}
 }
 
 .modal {
