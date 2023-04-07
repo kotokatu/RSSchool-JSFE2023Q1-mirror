@@ -1,17 +1,17 @@
 import { addBurgerMenuHandler } from "./js/burger.js";
-import { modal } from "js/modal.js";
-import { Carousel } from "js/carousel.js";
-import { Pagination } from "js/pagination.js";
-import { data } from "js/data.js";
+import { modal } from "./js/modal.js";
+import { Carousel } from "./js/carousel.js";
+import { Pagination } from "./js/pagination.js";
+import { data } from "./js/data.js";
 
 
 window.onload = function () {
   preload();
   addBurgerMenuHandler();
-  if (location.pathname === '/shelter/pages/main/index.html') {
+  if (document.querySelector('.main-page')) {
     addCarouselHandler();
   }
-  if (location.pathname === '/shelter/pages/pets/index.html') {
+  if (document.querySelector('.pets-page')) {
     addPaginationHandler();
   }
 }
