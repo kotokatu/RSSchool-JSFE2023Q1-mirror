@@ -50,7 +50,7 @@
       </div>
     </section>
   </div>
-  <main class="main">
+  <main class="main main-page">
     <section class="about container">
       <div class="about-image-container">
         <img class="about-image" src="../../assets/img/about_image.png" alt="cat and dog">
@@ -72,23 +72,9 @@
         <h2 class="our-friends-heading">Our friends who <br> are looking for a house</h2>
         <div class="pets-slider">
           <button class=" button-round prev-button"></button>
-          <ul class="pets-list">
-            <li class="pets-item">
-              <img class="pets-image-1" src="../../assets/img/pets-katrine.jpg" alt="cat">
-              <p class="pet-title">Katrine</p>
-              <button class="button pet-button">Learn more</button>
-            </li>
-            <li class="pets-item">
-              <img class="pets-image-1" src="../../assets/img/pets-jennifer.jpg" alt="puppy">
-              <p class="pet-title">Jennifer</p>
-              <button class="button pet-button">Learn more</button>
-            </li>
-            <li class="pets-item">
-              <img class="pets-image-1" src="../../assets/img/pets-woody.jpg" alt="dog">
-              <p class="pet-title">Woody</p>
-              <button class="button pet-button">Learn more</button>
-            </li>
-          </ul>
+          <div class="pets-wrapper">
+            <div class="pets-list"></div>
+          </div>
           <button class="button-round next-button"></button>
         </div>
         <a class="button pets-button" href="../pets/index.html">Get to know the rest</a>
@@ -163,7 +149,6 @@
             Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
         </div>
       </section>
-
     </div>
   </main>
   <div class="wrapper-dark-footer">
@@ -229,5 +214,6 @@
       </div>
     </footer>
   </div>
-  <script src="../index.js"></script>
+
+  <script src="../../index.js" type="module"></script>
 </body>
