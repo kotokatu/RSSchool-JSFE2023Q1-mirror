@@ -7,19 +7,35 @@ export class Pagination {
     this.array = [];
     this.large = window.matchMedia("(min-width: 1260px)")
     this.medium = window.matchMedia("(min-width: 641px) and (max-width: 1259px)");
-    this.small = window.matchMedia("(max-width: 640px)");
+    this.small = window.matchMedia("(min-width: 1px) and (max-width: 640px)");
     this.itemsCount;
     this.page = 1;
+    this.sliceStart = 0;
+    this.prevBtn = document.querySelector('.prev-button');
+    this.nextBtn = document.querySelector('.next-button');
+    this.endBtn = document.querySelector('.end-button');
+    this.startBtn = document.querySelector('.start-button');
+    this.pageNumBtn = document.querySelector('.page-number');
   }
 
-  createArray = () => {
-    this.data = this.shuffleArray(data);
-    let tempArr = [];
-    while (tempArr.length < 48) {
-      tempArr = tempArr.concat(this.data);
+  handleLargeScreen = e => {
+    if (e.matches) {
+      this.itemsCount = 8;
+      return true;
     }
-    while (this.array.length < 48) {
-      this.array = this.array.concat(this.sliceArray(tempArr));
+  }
+
+  handleMediumScreen = e => {
+    if (e.matches) {
+      this.itemsCount = 6;
+      return true;
+    }
+  }
+
+  handleSmallScreen = e => {
+    if (e.matches) {
+      this.itemsCount = 3;
+      return true;
     }
   }
 
@@ -33,67 +49,115 @@ export class Pagination {
     return array;
   }
 
-  sliceArray = array => {
-    let slice = array.splice(0, 4);
-    return this.shuffleArray(slice);
+  createArray = () => {
+    this.data = this.shuffleArray(data);
+    let tempArr = [];
+    while (tempArr.length < 48) {
+      tempArr = tempArr.concat(this.data);
+    }
+    while (this.array.length < 48) {
+      this.array = this.array.concat(this.shuffleArray(tempArr.splice(0, 4)));
+    }
+  }
+
+  createSlice = () => {
+    let slice = this.array.slice(this.sliceStart, this.sliceStart + this.itemsCount);
+    return slice;
   }
 
   renderCards = () => {
     this.petsList.replaceChildren();
-    this.handleLargeScreen(this.large);
-    this.handleMediumScreen(this.medium);
-    this.handleSmallScreen(this.small);
-    let slice = this.array.slice(this.itemsCount * this.page - this.itemsCount, this.itemsCount * this.page);
-    slice.forEach(data => this.petsList.append(renderCard(data)));
+    this.createSlice().forEach(data => this.petsList.append(renderCard(data)));
   }
 
-  handleLargeScreen = (e) => {
-    if (e.matches) this.itemsCount = 8;
+  getPageNumber = () => {
+    this.page = Math.ceil((this.sliceStart + 1) / this.itemsCount);
+    this.sliceStart = this.page * this.itemsCount - this.itemsCount;
+    this.renderPageNumber();
   }
 
-  handleMediumScreen = (e) => {
-    if (e.matches) this.itemsCount = 6;
+  renderPageNumber = () => {
+    this.pageNumBtn.innerHTML = `${this.page}`;
+    this.toggleBtnsDisable();
   }
 
-  handleSmallScreen = (e) => {
-    if (e.matches) this.itemsCount = 3;
+  toggleBtnsDisable = () => {
+    if (this.page === 1) {
+      this.prevBtn.classList.add('disabled');
+      this.startBtn.classList.add('disabled');
+    };
+    if (this.page > 1) {
+      this.prevBtn.classList.remove('disabled');
+      this.startBtn.classList.remove('disabled');
+    };
+    if (this.page === this.array.length / this.itemsCount) {
+      this.nextBtn.classList.add('disabled');
+      this.endBtn.classList.add('disabled');
+    };
+    if (this.page !== this.array.length / this.itemsCount) {
+      this.nextBtn.classList.remove('disabled');
+      this.endBtn.classList.remove('disabled');
+    };
   }
 
   initPagination = () => {
+    this.handleSmallScreen(this.small);
+    this.handleMediumScreen(this.medium);
+    this.handleLargeScreen(this.large);
     this.createArray();
-    this.updatePageNumber();
+    this.renderPageNumber();
     this.renderCards();
-    this.large.addEventListener('change', () => {
-      this.renderCards()
+
+    this.large.addEventListener('change', (e) => {
+      if (this.handleLargeScreen(e)) {
+        this.getPageNumber();
+        this.renderCards();
+      }
     });
 
-    this.medium.addEventListener('change', () => {
-      this.renderCards()
+    this.medium.addEventListener('change', (e) => {
+      if (this.handleMediumScreen(e)) {
+        this.getPageNumber();
+        this.renderCards();
+      }
     });
 
-    this.small.addEventListener('change', () => {
-      this.renderCards()
+    this.small.addEventListener('change', (e) => {
+      if (this.handleSmallScreen(e)) {
+        this.getPageNumber();
+        this.renderCards();
+      }
     });
 
-    document.querySelector('.next-button').addEventListener('click', () => {
+    this.nextBtn.addEventListener('click', () => {
+      this.sliceStart = this.sliceStart + this.itemsCount;
       this.page++;
-      this.updatePageNumber();
+      this.renderPageNumber();
       this.renderCards();
     });
 
-    document.querySelector('.prev-button').addEventListener('click', () => {
+    this.prevBtn.addEventListener('click', () => {
+      this.sliceStart = this.sliceStart - this.itemsCount;
       this.page--;
-      this.updatePageNumber();
+      this.renderPageNumber();
+      this.renderCards();
+
+    });
+
+    this.endBtn.addEventListener('click', () => {
+      this.sliceStart = this.array.length - this.itemsCount;
+      this.page = this.array.length / this.itemsCount;
+      this.renderPageNumber();
+      this.renderCards();
+
+    });
+
+    this.startBtn.addEventListener('click', () => {
+      this.sliceStart = 0;
+      this.page = 1;
+      this.renderPageNumber();
       this.renderCards();
     });
   }
-
-  updatePageNumber = () => {
-    document.querySelector('.page-number').innerHTML = `${this.page}`;
-  }
-
-  // incrementPageNumber = () => {
-  //   this.page
-  // }
 
 }

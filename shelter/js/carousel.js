@@ -14,15 +14,24 @@ export class Carousel {
   }
 
   handleLargeScreen = (e) => {
-    if (e.matches) this.itemsCount = 3;
+    if (e.matches) {
+      this.itemsCount = 3;
+      return true;
+    }
   }
 
   handleMediumScreen = (e) => {
-    if (e.matches) this.itemsCount = 2;
+    if (e.matches) {
+      this.itemsCount = 2;
+      return true;
+    }
   }
 
   handleSmallScreen = (e) => {
-    if (e.matches) this.itemsCount = 1;
+    if (e.matches) {
+      this.itemsCount = 1;
+      return true;
+    }
   }
 
   getRandomNum = () => {
@@ -59,28 +68,31 @@ export class Carousel {
   }
 
   initCarousel = () => {
-    this.handleLargeScreen(this.large);
-    this.handleMediumScreen(this.medium);
     this.handleSmallScreen(this.small);
+    this.handleMediumScreen(this.medium);
+    this.handleLargeScreen(this.large);
     this.addSlides();
     this.renderSlides();
 
     this.large.addEventListener('change', (e) => {
-      this.handleLargeScreen(e);
-      this.addSlides();
-      this.renderSlides();
+      if (this.handleLargeScreen(e)) {
+        this.addSlides();
+        this.renderSlides();
+      }
     });
 
     this.medium.addEventListener('change', (e) => {
-      this.handleMediumScreen(e);
-      this.addSlides();
-      this.renderSlides();
+      if (this.handleMediumScreen(e)) {
+        this.addSlides();
+        this.renderSlides();
+      }
     });
 
     this.small.addEventListener('change', (e) => {
-      this.handleSmallScreen(e);
-      this.addSlides();
-      this.renderSlides();
+      if (this.handleSmallScreen(e)) {
+        this.addSlides();
+        this.renderSlides();
+      }
     });
 
     this.prevButton.addEventListener('click', () => {

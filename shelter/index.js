@@ -2,9 +2,11 @@ import { addBurgerMenuHandler } from "./js/burger.js";
 import { modal } from "./js/modal.js";
 import { Carousel } from "./js/carousel.js";
 import { Pagination } from "./js/pagination.js";
+import { data } from "./js/data.js";
 
 
 window.onload = function () {
+  preload();
   addBurgerMenuHandler();
   if (location.pathname === '/shelter/pages/main/index.html') {
     addCarouselHandler();
@@ -38,6 +40,19 @@ export const renderCard = (data) => {
   <button class="button pet-button">Learn more</button>`;
   card.addEventListener('click', () => modal.renderModal(data));
   return card;
+}
+
+const preload = () => {
+  data.forEach(item => {
+    const img = new Image();
+    img.src = item.img;
+    console.log(img.src)
+  })
+  data.forEach(item => {
+    const img = new Image();
+    img.src = item.imgHi;
+    console.log(img.src)
+  })
 }
 
 

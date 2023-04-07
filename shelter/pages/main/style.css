@@ -351,6 +351,7 @@ h2,
 }
 
 .pet-image {
+  height: 270px;
   aspect-ratio: 1 / 1;
   object-fit: none;
 }
