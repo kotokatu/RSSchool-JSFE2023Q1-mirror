@@ -8,10 +8,10 @@ import { data } from "./js/data.js";
 window.onload = function () {
   preload();
   addBurgerMenuHandler();
-  if (location.pathname === '/shelter/pages/main/index.html') {
+  if (document.querySelector('.main-page')) {
     addCarouselHandler();
   }
-  if (location.pathname === '/shelter/pages/pets/index.html') {
+  if (document.querySelector('.pets-page')) {
     addPaginationHandler();
   }
 }

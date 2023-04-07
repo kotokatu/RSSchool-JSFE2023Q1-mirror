@@ -1,5 +1,5 @@
 import { renderCard } from "../index.js";
-import { data } from "data.js";
+import { data } from "./data.js";
 
 export class Pagination {
   constructor() {
