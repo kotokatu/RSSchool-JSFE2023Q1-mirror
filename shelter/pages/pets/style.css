@@ -58,6 +58,7 @@ html {
   overflow-x: hidden;
   scroll-behavior: smooth;
   height: -webkit-fill-available;
+  width: 100vw;
 }
 
 body {
@@ -216,17 +217,14 @@ h1, h2,
 }
 
 .pets-item {
-  flex: 0 0 270px;
+  flex: 0 0 auto;
+  max-width: 270px;
   padding-bottom: 30px;
   border-radius: 9px;
   background-color: var(--color-light-s);
   overflow: hidden;
   transition: .4s;
 }
-
-/* .pets-item:nth-child(n+9) {
-  display: none;
-} */
 
 .pet-image {
   aspect-ratio: 1 / 1;
@@ -379,11 +377,6 @@ html:has(.overlay) {
   overflow-y: hidden;
 }
 
-/* body:has(.burger.active) {
-  overflow-y: hidden;
-  max-height: 100vh;
-  max-height: -webkit-fill-available;
-} */
 
 .overlay {
   position: fixed;
@@ -552,13 +545,6 @@ html:has(.overlay) {
 
 }
 
-@media (max-width: 1259px) {
-
-  /* .pets-item:nth-child(n+7) {
-    display: none;
-  } */
-}
-
 @media (max-width: 1100px) {
 
   .footer {
@@ -724,9 +710,10 @@ html:has(.overlay) {
 
 @media (max-width: 640px) {
 
-  /* .pets-list {
+  .pets-list {
     flex-direction: column;
-  } */
+    align-items: center;
+  }
 /* 
   .pets-item:nth-child(n+4) {
     display: none;
