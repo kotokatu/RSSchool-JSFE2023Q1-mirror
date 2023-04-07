@@ -46,12 +46,10 @@ const preload = () => {
   data.forEach(item => {
     const img = new Image();
     img.src = item.img;
-    console.log(img.src)
   })
   data.forEach(item => {
     const img = new Image();
     img.src = item.imgHi;
-    console.log(img.src)
   })
 }
 
