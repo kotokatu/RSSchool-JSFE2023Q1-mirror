@@ -11,7 +11,6 @@ export class Pagination {
       small: window.matchMedia("(max-width: 640px)")
     };
     this.page = 1;
-    this.sliceStart = 0;
     this.prevBtn = document.querySelector('.prev-button');
     this.nextBtn = document.querySelector('.next-button');
     this.endBtn = document.querySelector('.end-button');
@@ -51,7 +50,6 @@ export class Pagination {
   }
 
   renderCards = () => {
-    this.getPageNumber();
     this.petsList.replaceChildren();
     this.createSlice().forEach(data => this.petsList.append(renderCard(data)));
   }
@@ -86,27 +84,28 @@ export class Pagination {
   }
 
   initPagination = () => {
-    this.getItemsCount();
     this.createArray();
+    this.getItemsCount();
     this.renderPageNumber();
     this.renderCards();
 
     for (let size in this.media) {
       this.media[size].addEventListener('change', (e) => {
-        this.getItemsCount();
-        if (e.matches) this.renderCards();
+        if (e.matches) {
+          this.getItemsCount();
+          this.getPageNumber();
+          this.renderCards();
+        }
       });
     }
 
     this.nextBtn.addEventListener('click', () => {
-      this.sliceStart = this.sliceStart + this.itemsCount;
       this.page++;
       this.renderPageNumber();
       this.renderCards();
     });
 
     this.prevBtn.addEventListener('click', () => {
-      this.sliceStart = this.sliceStart - this.itemsCount;
       this.page--;
       this.renderPageNumber();
       this.renderCards();
@@ -114,7 +113,6 @@ export class Pagination {
     });
 
     this.endBtn.addEventListener('click', () => {
-      this.sliceStart = this.array.length - this.itemsCount;
       this.page = this.array.length / this.itemsCount;
       this.renderPageNumber();
       this.renderCards();
@@ -122,7 +120,6 @@ export class Pagination {
     });
 
     this.startBtn.addEventListener('click', () => {
-      this.sliceStart = 0;
       this.page = 1;
       this.renderPageNumber();
       this.renderCards();
