@@ -331,13 +331,13 @@ h2,
 
 .animation-right {
   animation-name: move-right;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
 }
 
 .animation-left {
   animation-name: move-left;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
 }
 
@@ -818,6 +818,14 @@ html:has(.overlay) {
     to {left: 620px;}
   }
 
+  .animation-right {
+    animation-duration: 1s;
+  }
+  
+  .animation-left {
+    animation-duration: 1s;
+  }
+
 }
 
 @media (max-width: 1100px) {
@@ -1048,6 +1056,14 @@ html:has(.overlay) {
   @keyframes move-left {
     from {left: 0px;}
     to {left: 290px;}
+  }
+
+  .animation-right {
+    animation-duration: 0.7s;
+  }
+
+  .animation-left {
+    animation-duration: 0.7s;
   }
 
   .prev-button {
