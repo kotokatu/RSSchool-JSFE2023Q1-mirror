@@ -98,30 +98,29 @@ export class Carousel {
     this.prevButton.addEventListener('click', () => {
       this.prevButton.classList.add('disabled');
       this.petsList.classList.add('animation-left');
-      setTimeout(() => {
-        this.slides.right = this.slides.active;
-        this.slides.active = this.slides.left;
-        this.addSlide("left");
-        this.renderSlides();
-        this.petsList.classList.remove('animation-left');
-        this.prevButton.classList.remove('disabled');
-      }, 1000);
-    })
+    });
 
     this.nextButton.addEventListener('click', () => {
       this.nextButton.classList.add('disabled');
       this.petsList.classList.add('animation-right');
-      setTimeout(() => {
+    });
+
+    this.petsList.addEventListener('animationend', (e) => {
+      if (e.target.classList.contains('animation-left')) {
+        this.petsList.classList.remove('animation-left');
+        this.slides.right = this.slides.active;
+        this.slides.active = this.slides.left;
+        this.addSlide("left");
+        this.prevButton.classList.remove('disabled');
+      }
+      if (e.target.classList.contains('animation-right')) {
+        this.petsList.classList.remove('animation-right');
         this.slides.left = this.slides.active;
         this.slides.active = this.slides.right;
         this.addSlide("right");
-        this.renderSlides();
-        this.petsList.classList.remove('animation-right');
         this.nextButton.classList.remove('disabled');
-      }, 1000);
-    })
+      }
+      this.renderSlides();
+    });
   }
-
 }
-
-

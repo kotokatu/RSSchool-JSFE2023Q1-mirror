@@ -35,7 +35,7 @@ export const createDomNode = (element, ...classes) => {
 export const renderCard = (data) => {
   const card = createDomNode('div', 'pets-item')
   card.setAttribute('id', `${data.id}`);
-  card.innerHTML = `<img class="pet-image" src="${data.img}" alt="${data.type}">
+  card.innerHTML = `<img class="pet-image" src="${data.img}" alt="${data.type}" width="270px" height="270px">
   <p class="pet-title">${data.name}</p>
   <button class="button pet-button">Learn more</button>`;
   card.addEventListener('click', () => modal.renderModal(data));

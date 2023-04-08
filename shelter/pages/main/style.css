@@ -331,13 +331,13 @@ h2,
 
 .animation-right {
   animation-name: move-right;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
 }
 
 .animation-left {
   animation-name: move-left;
-  animation-duration: 1s;
+  animation-duration: 1.5s;
   animation-fill-mode: forwards;
 }
 
@@ -818,6 +818,14 @@ html:has(.overlay) {
     to {left: 620px;}
   }
 
+  .animation-right {
+    animation-duration: 1s;
+  }
+  
+  .animation-left {
+    animation-duration: 1s;
+  }
+
 }
 
 @media (max-width: 1100px) {
@@ -980,10 +988,14 @@ html:has(.overlay) {
   .navigation-list {
     position: absolute;
     top: 0;
-    padding-top: 40px;
     left: 100%;
     width: 320px;
     height: 100vh;
+    min-height: 400px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: calc(40 * 100% / 823);
     background-color: var(--color-dark-3xl);
     transition: 1s;
     z-index: 2;
@@ -991,14 +1003,6 @@ html:has(.overlay) {
 
   .navigation-list.visible {
     transform: translateX(-100%);
-  }
-
-  .navigation-list {
-    padding-top: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    gap: 40px;
   }
 
   .navigation-item {
@@ -1052,6 +1056,14 @@ html:has(.overlay) {
   @keyframes move-left {
     from {left: 0px;}
     to {left: 290px;}
+  }
+
+  .animation-right {
+    animation-duration: 0.7s;
+  }
+
+  .animation-left {
+    animation-duration: 0.7s;
   }
 
   .prev-button {
