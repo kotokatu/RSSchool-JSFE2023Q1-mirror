@@ -46,7 +46,7 @@ export class Pagination {
 
   createSlice = () => {
     this.sliceStart = this.page * this.itemsCount - this.itemsCount;
-    return this.array.slice(this.sliceStart, this.sliceStart + this.itemsCount);
+    return this.array.slice(this.sliceStart, this.page * this.itemsCount);
   }
 
   renderCards = () => {
