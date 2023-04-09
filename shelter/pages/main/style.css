@@ -653,7 +653,7 @@ html:has(.overlay) {
 
 .modal {
   position: relative;
-  width: calc(900 * 100% / 1200);
+  width: calc(900 * 100vw / 1200);
   max-width: 900px;
   display: flex;
   justify-content: flex-start;
@@ -844,7 +844,7 @@ html:has(.overlay) {
 
   
   .modal {
-    width: calc(630 * 100% / 768);
+    width: calc(630 * 100vw / 768);
     gap: 2%;
   }
 
