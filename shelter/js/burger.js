@@ -7,7 +7,7 @@ export const addBurgerMenuHandler = () => {
     if (burgerButton.contains(evt.target) && !navigationMenu.classList.contains('visible')) {
       document.body.append(overlay);
       openMenu(burgerButton, navigationMenu);
-    } else if (evt.target.className == 'navigation-link' || !navigationMenu.contains(evt.target)) {
+    } else if (evt.target.classList.contains('navigation-link') || !navigationMenu.contains(evt.target)) {
       overlay.remove();
       closeMenu(burgerButton, navigationMenu);
     }
