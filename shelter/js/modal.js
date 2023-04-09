@@ -7,14 +7,14 @@ class Modal {
     this.overlay = createDomNode('div', 'overlay');
     this.modal = createDomNode('div', 'modal');
     this.modalCloseBtn = createDomNode('button', 'button-round', 'modal-button');
-    this.overlay.addEventListener('click', (e) => {
-      if (!this.modal.contains(e.target)) this.removeModal();
-    });
-    this.modalCloseBtn.addEventListener('click', this.removeModal);
     this.addModalContent(content);
     this.modal.append(this.modalCloseBtn);
     this.overlay.append(this.modal);
     document.body.append(this.overlay);
+    this.modalCloseBtn.addEventListener('click', this.removeModal);
+    this.overlay.addEventListener('click', (e) => {
+      if (!this.modal.contains(e.target)) this.removeModal();
+    });
   }
 
 

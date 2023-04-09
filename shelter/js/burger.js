@@ -12,6 +12,12 @@ export const addBurgerMenuHandler = () => {
       closeMenu(burgerButton, navigationMenu);
     }
   })
+  window.matchMedia("(min-width: 768px)").addEventListener('change', (e) => {
+    if (e.matches) {
+      overlay.remove();
+      closeMenu(burgerButton, navigationMenu);
+    }
+  })
 }
 
 const openMenu = (burgerButton, navigationMenu) => {
