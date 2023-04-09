@@ -663,11 +663,11 @@ html:has(.overlay) {
 }
 
 .modal-image-container {
-  align-self: center;
+  /* align-self: center; */
   display: flex;
   width: calc(500 * 100% / 900);
-  aspect-ratio: 1 / 1;
-  flex-shrink: 0;
+  /* aspect-ratio: 1 / 1; */
+  /* flex-shrink: 0; */
 }
 
 .modal-image {
