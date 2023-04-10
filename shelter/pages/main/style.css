@@ -337,7 +337,7 @@ h2,
 
 .animation-left {
   animation-name: move-left;
-  animation-duration: 1.5s;
+  animation-duration: 1.2s;
   animation-fill-mode: forwards;
 }
 
