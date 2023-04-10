@@ -98,26 +98,26 @@ export class Carousel {
     this.prevButton.addEventListener('click', () => {
       this.prevButton.classList.add('disabled');
       this.petsList.classList.add('animation-left');
+      this.slides.right = this.slides.active;
+      this.slides.active = this.slides.left;
+      this.addSlide("left");
     });
 
     this.nextButton.addEventListener('click', () => {
       this.nextButton.classList.add('disabled');
       this.petsList.classList.add('animation-right');
+      this.slides.left = this.slides.active;
+      this.slides.active = this.slides.right;
+      this.addSlide("right");
     });
 
     this.petsList.addEventListener('animationend', (e) => {
       if (e.target.classList.contains('animation-left')) {
         this.petsList.classList.remove('animation-left');
-        this.slides.right = this.slides.active;
-        this.slides.active = this.slides.left;
-        this.addSlide("left");
         this.prevButton.classList.remove('disabled');
       }
       if (e.target.classList.contains('animation-right')) {
         this.petsList.classList.remove('animation-right');
-        this.slides.left = this.slides.active;
-        this.slides.active = this.slides.right;
-        this.addSlide("right");
         this.nextButton.classList.remove('disabled');
       }
       this.renderSlides();
