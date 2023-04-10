@@ -8,10 +8,10 @@ import { data } from "./js/data.js";
 window.onload = function () {
   preload();
   addBurgerMenuHandler();
-  if (document.querySelector('.main-page')) {
+  if (document.body.id === 'main-page') {
     addCarouselHandler();
   }
-  if (document.querySelector('.pets-page')) {
+  if (document.body.id === 'pets-page') {
     addPaginationHandler();
   }
 }
