@@ -1,6 +1,6 @@
-https://www.youtube.com/watch?v=TXAWEFC04og
+[Self-introduction on Youtube.com](https://www.youtube.com/watch?v=TXAWEFC04og)
 
-Self-Introduction
+Transcript
 
 Hi! My name is Natasha and I’m an aspiring front-end developer. My journey in front-end development began last October when I got laid off from my previous job after having worked there for over 15 years. However, during all those 15 years I’d never felt the work I was doing there was fulfilling, so I thought this was a chance for me to start something new, something that would feel more satisfying and authentic. This led me to the IT field.
 Though it may seem that I just jumped on the “get into IT” bandwagon with this, and while there probably is some truth to it, I also gave it a lot of thought and I believe this line of work would be a good fit for me personality-wise.
