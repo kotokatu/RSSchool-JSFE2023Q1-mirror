@@ -1,0 +1,13 @@
+https://www.youtube.com/watch?v=TXAWEFC04og
+
+Self-Introduction
+
+Hi! My name is Natasha and I’m an aspiring front-end developer. My journey in front-end development began last October when I got laid off from my previous job after having worked there for over 15 years. However, during all those 15 years I’d never felt the work I was doing there was fulfilling, so I thought this was a chance for me to start something new, something that would feel more satisfying and authentic. This led me to the IT field.
+Though it may seem that I just jumped on the “get into IT” bandwagon with this, and while there probably is some truth to it, I also gave it a lot of thought and I believe this line of work would be a good fit for me personality-wise.
+Another thing that made me pursue a path in IT was: I wanted a challenge, which is something that had been lacking in my previous career as well. I wanted to know if I was still able to learn a new skill, especially something as complex as programming, given the fact that I had no previous training or experience in any kind of technological area.
+
+After spending some time considering my options, I decided to take a shot at front-end development. The main reason for this was that I already had some (though very basic) understanding of how web-sites are created, and I wanted to create. Soon after I began my learning process I came across the Rolling Scopes School and immediately enrolled in the pre-school front-end course, also known as Stage0. I successfully completed all the tasks of Stage0 and moved on to Stage1, and here I am.
+
+My main objective at the moment is improving my coding skills, which is something I expect to work on during Stage2. The most challenging tasks for me during the course of studies were the ones that required better code structuring, like Momentum and Minesweeper. Both had a lot of code that needed splitting, isolating and organizing for better comprehension and maintainability. I also strive for a deeper understanding of the Javascript language in order to be able to write better code performance- and efficiency-wise.These are some things I struggle with and look forward to addressing later on, hopefully with the guidance of a mentor.
+
+Overall, this has been an exciting and empowering experience, and though I know I’m still taking my first steps, I’m quite confident that with time and dedication on my part I will be able to fulfill my dream of becoming a professional front-end developer. I believe this occupation will bring me an opportunity to grow both personally and professionally, to work in an open-minded diverse environment and to build the lifestyle that I want for myself. That’s basically all I wanted to tell you about myself. Thank you for watching!
