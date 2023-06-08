@@ -2,8 +2,8 @@
   "parser": "@typescript-eslint/parser",  
   "plugins": ["prettier", "import", "@typescript-eslint"],
     "extends": [
-        "plugin:prettier/recommended",
-        "prettier",
+        // "plugin:prettier/recommended",
+        // "prettier",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended"
     ],
@@ -20,6 +20,7 @@
         "no-debugger": "off",
         "no-console": 0,
         "class-methods-use-this": "off",
-        "@typescript-eslint/no-explicit-any": 2
+        "@typescript-eslint/no-explicit-any": 2,
+        "@typescript-eslint/no-non-null-assertion": 0
     }
 }
