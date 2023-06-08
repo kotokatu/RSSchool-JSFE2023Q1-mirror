@@ -33,3 +33,15 @@ export type SourceResponse = {
   sources: Array<SourceItem>
 }
 
+export interface Options {
+  [key: string]: string;
+}
+
+export type Endpoint = 'sources' | 'everything';
+
+export interface Config {
+  endpoint: Endpoint;
+  options?: Options;
+}
+
+export type Callback<T> = (data?: T) => void;
