@@ -33,15 +33,21 @@ export interface SourceResponse {
   sources: SourceItem[]
 }
 
-export interface Options {
+interface ObjectKeys {
   [key: string]: string;
+}
+
+export interface Options extends ObjectKeys {
+  apiKey: string,
+  category: string,
+  sources: string,
 }
 
 export type Endpoint = 'sources' | 'everything';
 
 export interface Params {
-  endpoint: Endpoint;
-  options?: Options;
+  endpoint: Endpoint,
+  options?: Partial<Options>,
 }
 
 export type Callback<T> = (data?: T) => void;

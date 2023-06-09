@@ -3,7 +3,7 @@ import { Options, Callback, Params, Endpoint, Status } from "../../types/types";
 class Loader {
     constructor(
       private baseLink: string,
-      private options: Options) {
+      private options: Partial<Options>) {
     }
 
     public getResp<T>(
@@ -25,18 +25,18 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: Options, endpoint: Endpoint): string {
-        const urlOptions: Options = { ...this.options, ...options };
+    private makeUrl(options: Partial<Options>, endpoint: Endpoint): string {
+        const urlOptions: Partial<Options> = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
-        Object.keys(urlOptions).forEach((key: string): void => {
+        Object.keys(urlOptions).forEach((key: keyof Options): void => {
             url += `${key}=${urlOptions[key]}&`;
         });
 
         return url.slice(0, -1);
     }
 
-    private load<T>(method: string, endpoint: Endpoint, callback: Callback<T>, options: Options = {}) {
+    private load<T>(method: string, endpoint: Endpoint, callback: Callback<T>, options: Partial<Options> = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())

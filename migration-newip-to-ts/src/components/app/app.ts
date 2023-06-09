@@ -13,7 +13,7 @@ class App {
     }));
     this.controller.getSources((data: SourceResponse | undefined): void => {
       if (data) this.view.drawSources(data);
-    }, {});
+    });
     this.view.drawSelect();
     const selectElement: HTMLSelectElement = document.getElementById('category') as HTMLSelectElement;
     selectElement.addEventListener('change', (e: Event): void => {
