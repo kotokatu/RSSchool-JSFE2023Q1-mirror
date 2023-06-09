@@ -1,10 +1,7 @@
-import { Options, Callback, Params, Endpoint, Status } from "../../types/types";
+import { Options, Callback, Params, Endpoint, Status } from '../../types/types';
 
 class Loader {
-    constructor(
-      private baseLink: string,
-      private options: Partial<Options>) {
-    }
+    constructor(private baseLink: string, private options: Partial<Options>) {}
 
     public getResp<T>(
         { endpoint, options = {} }: Params,
@@ -19,8 +16,8 @@ class Loader {
         if (!res.ok) {
             if (res.status === Status.Unauthorized || res.status === Status.NotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-                throw Error(res.statusText);
-              }
+            throw Error(res.statusText);
+        }
         return res;
     }
 

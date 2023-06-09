@@ -1,15 +1,15 @@
 export interface SourceItem {
-  id: string,
-  name: string,
-  description: string,
-  url: string,
-  category: string,
-  language: string,
-  country: string
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    category: string;
+    language: string;
+    country: string;
 }
 
 export interface NewsItem {
-    source: Pick<SourceItem, 'id' | 'name'>
+    source: Pick<SourceItem, 'id' | 'name'>;
     author: string;
     title: string;
     description: string;
@@ -20,50 +20,68 @@ export interface NewsItem {
 }
 
 export interface NewsResponse {
-  status: string,
-  totalResults: number,
-  articles: NewsItem[]
+    status: string;
+    totalResults: number;
+    articles: NewsItem[];
 }
 
 export interface SourceResponse {
-  status: string,
-  sources: SourceItem[]
+    status: string;
+    sources: SourceItem[];
 }
 
 interface ObjectKeys {
-  [key: string]: string;
+    [key: string]: string;
 }
 
 export interface Options extends ObjectKeys {
-  apiKey: string,
-  category: string,
-  sources: string,
+    apiKey: string;
+    category: string;
+    sources: string;
+}
+
+export interface Params {
+    endpoint: Endpoint;
+    options?: Partial<Options>;
 }
 
 export type Endpoint = 'sources' | 'everything';
 
-export interface Params {
-  endpoint: Endpoint,
-  options?: Partial<Options>,
-}
-
 export type Callback<T> = (data?: T) => void;
 
 export enum Status {
-  BadRequest = 400,
-  Unauthorized = 401,
-  NotFound = 404,
-  TooManyRequests = 429,
-  ServerError = 500
- }
+    BadRequest = 400,
+    Unauthorized = 401,
+    NotFound = 404,
+    TooManyRequests = 429,
+    ServerError = 500,
+}
 
- export enum Category {
-  All = '',
-  Business = 'business',
-  Entertainment = 'entertainment',
-  General = 'general',
-  Health = 'health',
-  Science = 'science',
-  Sports = 'sports',
-  Technology = 'technology'
- }
+export enum Category {
+    All = '',
+    Business = 'business',
+    Entertainment = 'entertainment',
+    General = 'general',
+    Health = 'health',
+    Science = 'science',
+    Sports = 'sports',
+    Technology = 'technology',
+}
+
+export enum Language {
+    All = '',
+    Arabic = 'ar',
+    German = 'de',
+    English = 'en',
+    Spanish = 'es',
+    French = 'fr',
+    Hebrew = 'he',
+    Italian = 'it',
+    Dutch = 'nl',
+    Norwegian = 'no',
+    Portuguese = 'pt',
+    Russian = 'ru',
+    Swedish = 'sv',
+    Urdu = 'ud',
+    Chinese = 'zh',
+}

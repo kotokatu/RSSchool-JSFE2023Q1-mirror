@@ -6,7 +6,7 @@ class AppController extends AppLoader {
         super.getResp(
             {
                 endpoint: 'sources',
-                options
+                options,
             },
             callback
         );
