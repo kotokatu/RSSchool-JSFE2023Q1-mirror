@@ -3,7 +3,7 @@ import { NewsItem } from '../../../types/types';
 
 class News {
   public draw(data: NewsItem[]): void {
-    const news: NewsItem[] = data.length >= 10 ? data.filter((_item: NewsItem, idx: number): boolean => idx < 10) : data;
+    const news: readonly NewsItem[] = data.length >= 10 ? data.filter((_item: NewsItem, idx: number): boolean => idx < 10) : data;
 
     const fragment: DocumentFragment = document.createDocumentFragment();
     const newsItemTemp: HTMLTemplateElement | null = document.querySelector('#newsItemTemp');
@@ -17,7 +17,7 @@ class News {
         throw new Error()
       }
       if (idx % 2) (newsClone.querySelector('.news__item') as HTMLDivElement).classList.add('alt');
-      newsClone.querySelector<HTMLDivElement>('.news__meta-photo')!.style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'
+      (newsClone.querySelector('.news__meta-photo') as HTMLDivElement).style.backgroundImage = `url(${item.urlToImage || 'img/news_placeholder.jpg'
         })`;
       (newsClone.querySelector('.news__meta-author') as HTMLLIElement).textContent = item.author || item.source.name;
       (newsClone.querySelector('.news__meta-date') as HTMLLIElement).textContent = item.publishedAt

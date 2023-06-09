@@ -9,10 +9,9 @@ class Loader {
     public getResp<T>(
         { endpoint, options = {} }: Params,
         callback: Callback<T> = () => {
-          console.log()
             console.error('No callback for GET response');
         }
-    ) {
+    ): void {
         this.load('GET', endpoint, callback, options);
     }
 
@@ -36,7 +35,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private load<T>(method: string, endpoint: Endpoint, callback: Callback<T>, options: Partial<Options> = {}) {
+    private load<T>(method: string, endpoint: Endpoint, callback: Callback<T>, options: Partial<Options> = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())

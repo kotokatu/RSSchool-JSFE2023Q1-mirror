@@ -1,17 +1,3 @@
-export interface NewsItem {
-    source: {
-        id: string;
-        name: string;
-    };
-    author: string;
-    title: string;
-    description: string;
-    url: string;
-    urlToImage: string;
-    publishedAt: string;
-    content: string;
-}
-
 export interface SourceItem {
   id: string,
   name: string,
@@ -20,6 +6,17 @@ export interface SourceItem {
   category: string,
   language: string,
   country: string
+}
+
+export interface NewsItem {
+    source: Pick<SourceItem, 'id' | 'name'>
+    author: string;
+    title: string;
+    description: string;
+    url: string;
+    urlToImage: string;
+    publishedAt: string;
+    content: string;
 }
 
 export interface NewsResponse {
