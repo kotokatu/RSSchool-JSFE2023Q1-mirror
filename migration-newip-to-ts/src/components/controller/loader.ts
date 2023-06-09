@@ -1,4 +1,4 @@
-import { Options, Callback, Config, Endpoint } from "../../types/types";
+import { Options, Callback, Params, Endpoint, Status } from "../../types/types";
 
 class Loader {
     constructor(
@@ -7,7 +7,7 @@ class Loader {
     }
 
     public getResp<T>(
-        { endpoint, options = {} }: Config,
+        { endpoint, options = {} }: Params,
         callback: Callback<T> = () => {
           console.log()
             console.error('No callback for GET response');
@@ -18,11 +18,10 @@ class Loader {
 
     private errorHandler(res: Response): Response {
         if (!res.ok) {
-            if (res.status === 401 || res.status === 404)
+            if (res.status === Status.Unauthorized || res.status === Status.NotFound)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
-            throw Error(res.statusText);
-        }
-
+                throw Error(res.statusText);
+              }
         return res;
     }
 
@@ -41,8 +40,8 @@ class Loader {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())
-            .then((data) => callback(data))
-            .catch((err) => console.error(err));
+            .then((data: T) => callback(data))
+            .catch((err: Error) => console.error(err));
     }
 }
 

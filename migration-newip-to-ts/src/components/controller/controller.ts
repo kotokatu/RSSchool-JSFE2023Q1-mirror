@@ -1,11 +1,12 @@
 import AppLoader from './appLoader';
-import { Callback, SourceResponse, NewsResponse } from '../../types/types';
+import { Callback, SourceResponse, NewsResponse, Options } from '../../types/types';
 
 class AppController extends AppLoader {
-    getSources(callback: Callback<SourceResponse>): void {
+    getSources(callback: Callback<SourceResponse>, options: Options): void {
         super.getResp(
             {
                 endpoint: 'sources',
+                options
             },
             callback
         );

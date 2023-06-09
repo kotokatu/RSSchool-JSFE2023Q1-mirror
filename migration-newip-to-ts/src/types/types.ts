@@ -1,9 +1,9 @@
 export interface NewsItem {
     source: {
-        id: string | null;
+        id: string;
         name: string;
     };
-    author: string | null;
+    author: string;
     title: string;
     description: string;
     url: string;
@@ -22,15 +22,15 @@ export interface SourceItem {
   country: string
 }
 
-export type NewsResponse = {
+export interface NewsResponse {
   status: string,
   totalResults: number,
-  articles: Array<NewsItem>
+  articles: NewsItem[]
 }
 
-export type SourceResponse = {
+export interface SourceResponse {
   status: string,
-  sources: Array<SourceItem>
+  sources: SourceItem[]
 }
 
 export interface Options {
@@ -39,9 +39,28 @@ export interface Options {
 
 export type Endpoint = 'sources' | 'everything';
 
-export interface Config {
+export interface Params {
   endpoint: Endpoint;
   options?: Options;
 }
 
 export type Callback<T> = (data?: T) => void;
+
+export enum Status {
+  BadRequest = 400,
+  Unauthorized = 401,
+  NotFound = 404,
+  TooManyRequests = 429,
+  ServerError = 500
+ }
+
+ export enum Category {
+  All = '',
+  Business = 'business',
+  Entertainment = 'entertainment',
+  General = 'general',
+  Health = 'health',
+  Science = 'science',
+  Sports = 'sports',
+  Technology = 'technology'
+ }
