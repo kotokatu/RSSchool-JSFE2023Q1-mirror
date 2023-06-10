@@ -8,7 +8,7 @@ class App {
     private view = new AppView();
 
     public start(): void {
-        const sourcesElement: HTMLDivElement = getSafeElement('.sources');
+        const sourcesElement: HTMLDivElement = getSafeElement<HTMLDivElement>('.sources', document);
         sourcesElement.addEventListener('click', (e: Event): void =>
             this.controller.getNews(e, (data: NewsResponse | undefined) => {
                 if (data) this.view.drawNews(data);
@@ -20,8 +20,14 @@ class App {
             if (data) this.view.drawSources(data);
         });
 
-        const categorySelectElement: HTMLSelectElement = getSafeElement('.category__select');
-        const languageSelectElement: HTMLSelectElement = getSafeElement('.language__select');
+        const categorySelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
+            '.category__select',
+            document
+        );
+        const languageSelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
+            '.language__select',
+            document
+        );
 
         [categorySelectElement, languageSelectElement].forEach((elem) =>
             elem.addEventListener('change', (): void => {

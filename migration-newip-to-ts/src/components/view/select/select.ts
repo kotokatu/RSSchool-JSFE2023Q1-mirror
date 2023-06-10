@@ -6,8 +6,14 @@ export default class Select {
     public draw(): void {
         const categories: readonly [string, Category][] = Object.entries(Category);
         const languages: readonly [string, Language][] = Object.entries(Language);
-        const categorySelectElement: HTMLSelectElement = getSafeElement('.category__select');
-        const languageSelectElement: HTMLSelectElement = getSafeElement('.language__select');
+        const categorySelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
+            '.category__select',
+            document
+        );
+        const languageSelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
+            '.language__select',
+            document
+        );
         categories.forEach((category: readonly [string, Category]) => this.addOptions(category, categorySelectElement));
         languages.forEach((language: readonly [string, Language]) => this.addOptions(language, languageSelectElement));
     }
