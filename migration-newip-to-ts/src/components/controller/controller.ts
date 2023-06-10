@@ -13,8 +13,11 @@ class AppController extends AppLoader {
     }
 
     public getNews(e: Event, callback: Callback<NewsResponse>): void {
-        let target: HTMLElement = e.target as HTMLElement;
-        const newsContainer: HTMLElement = e.currentTarget as HTMLElement;
+        if (!(e.target instanceof HTMLElement && e.currentTarget instanceof HTMLElement)) {
+            throw new Error();
+        }
+        let target: HTMLElement = e.target;
+        const newsContainer: HTMLElement = e.currentTarget;
 
         while (target !== newsContainer) {
             if (target.classList.contains('source__item')) {

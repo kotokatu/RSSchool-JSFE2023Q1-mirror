@@ -1,6 +1,7 @@
 import './news.css';
 import { NewsItem } from '../../../types/types';
 import { getSafeElement } from '../../../helpers/helpers';
+import MyImage from '../../../img/news_placeholder.jpeg';
 
 class News {
     private newsElement: HTMLDivElement = getSafeElement<HTMLDivElement>('.news', document);
@@ -22,7 +23,7 @@ class News {
             }
             if (idx % 2) getSafeElement<HTMLDivElement>('.news__item', newsClone).classList.add('alt');
             getSafeElement<HTMLDivElement>('.news__meta-photo', newsClone).style.backgroundImage = `url(${
-                item.urlToImage || 'img/news_placeholder.jpg'
+                item.urlToImage || `${MyImage}`
             })`;
             getSafeElement<HTMLLIElement>('.news__meta-author', newsClone).textContent =
                 item.author || item.source.name;
