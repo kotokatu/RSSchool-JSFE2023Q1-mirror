@@ -1,9 +1,9 @@
-/* .filter-container {
-  display: flex;
-  gap: 10px;
-} */
+.filter-container {
+  text-align: center;
+}
 
 .category__select,
 .language__select {
-  width: 100px;
+  margin: 0.5em auto;
+  width: 200px;
 }

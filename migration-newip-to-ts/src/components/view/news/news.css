@@ -1,7 +1,11 @@
+.news {
+  padding: 20px 0;
+}
+
 .news__item {
     display: flex;
     flex-direction: column;
-    margin: 1rem auto;
+    margin: 0 auto;
     margin-bottom: 1.6%;
     background: #fff;
     color: #333;
