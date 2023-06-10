@@ -9,7 +9,7 @@ class App {
 
     public start(): void {
         const sourcesElement: HTMLDivElement = getSafeElement<HTMLDivElement>('.sources', document);
-        const sourcesContainer: HTMLDivElement = getSafeElement<HTMLDivElement>('.aside__container', document);
+        const sourcesContainer: HTMLDivElement = getSafeElement<HTMLDivElement>('.sources-container', document);
         sourcesElement.addEventListener('click', (e: Event): void =>
             this.controller.getNews(e, (data: NewsResponse | undefined) => {
                 if (data) this.view.drawNews(data);
@@ -41,7 +41,7 @@ class App {
                 );
             })
         );
-        getSafeElement<HTMLButtonElement>('.aside__button', document).addEventListener('click', (): void => {
+        getSafeElement<HTMLButtonElement>('.sources-button', document).addEventListener('click', (): void => {
             sourcesContainer.classList.toggle('visible');
         });
         window.addEventListener('beforeunload', (): void => {

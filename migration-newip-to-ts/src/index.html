@@ -5,6 +5,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
   <title>NewsPortal</title>
 </head>
 
@@ -12,10 +15,10 @@
   <header>
     <h1>News Portal</h1>
   </header>
-  <aside>
-    <button class="aside__button">Choose source</button>
-    <div class="aside__container">
-      <div class="filter filter-container">
+  <div class="sources-nav">
+    <button class="sources-button">Choose source</button>
+    <div class="sources-container">
+      <div class="filter-container">
         <div class="filter category">
           <p class="category__title">Filter sources by category:</p>
           <select class="category__select" name="category" id="category"></select>
@@ -27,7 +30,7 @@
       </div>
       <div class="sources buttons"></div>
     </div>
-  </aside>
+  </div>
   <main>
     <div class="news"></div>
   </main>

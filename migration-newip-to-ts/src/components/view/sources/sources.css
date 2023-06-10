@@ -1,3 +1,43 @@
+.sources-nav {
+  position: absolute;
+  top: 70px;
+  bottom: 50px;
+  width: 250px;
+  padding: 0.5rem 0;
+  background-color: #2e2e2e;
+  z-index: 3;
+  text-align: center;
+  overflow: hidden;
+}
+
+.sources-button {
+  display: none;
+}
+
+.sources-container {
+  position: relative;
+  top: 0;
+  height: 100%;
+  transition: 0.7s;
+  scrollbar-width: thin;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.sources-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sources-container::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.sources-container::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.15);
+  outline: 0;
+  border-radius: 3px;
+}
+
 .sources {
     /* display: flex; */
     /* flex-direction: column; */
