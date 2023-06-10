@@ -16,6 +16,7 @@ export class AppView {
     public drawSources(data: SourceResponse): void {
         const values: SourceItem[] | [] = data?.sources ? data.sources : [];
         this.sources.draw(values);
+        this.news.clear();
     }
 
     public drawSelect(): void {

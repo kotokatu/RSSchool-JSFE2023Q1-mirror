@@ -13,10 +13,12 @@ class App {
                 if (data) this.view.drawNews(data);
             })
         );
+        this.view.drawSelect();
+
         this.controller.getSources((data: SourceResponse | undefined): void => {
             if (data) this.view.drawSources(data);
         });
-        this.view.drawSelect();
+
         const categorySelectElement: HTMLSelectElement = document.querySelector(
             '.category__select'
         ) as HTMLSelectElement;
@@ -34,6 +36,10 @@ class App {
                 );
             })
         );
+        window.addEventListener('beforeunload', (): void => {
+            categorySelectElement.selectedIndex = 0;
+            languageSelectElement.selectedIndex = 0;
+        });
     }
 }
 

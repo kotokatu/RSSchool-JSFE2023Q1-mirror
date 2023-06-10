@@ -1,3 +1,4 @@
+import './select.css';
 import { Category, Language } from '../../../types/types';
 
 export default class Select {
@@ -10,17 +11,17 @@ export default class Select {
         const languageSelectElement: HTMLSelectElement = document.querySelector(
             '.language__select'
         ) as HTMLSelectElement;
-        categories.forEach((category: readonly [string, Category]) => {
-            const option: HTMLOptionElement = document.createElement('option');
-            option.innerText = category[0];
-            option.value = category[1];
-            categorySelectElement.append(option);
-        });
-        languages.forEach((language: readonly [string, Language]) => {
-            const option: HTMLOptionElement = document.createElement('option');
-            option.innerText = language[0];
-            option.value = language[1];
-            languageSelectElement.append(option);
-        });
+        categories.forEach((category: readonly [string, Category]) => this.addOptions(category, categorySelectElement));
+        languages.forEach((language: readonly [string, Language]) => this.addOptions(language, languageSelectElement));
+    }
+
+    private addOptions(
+        optionType: readonly [string, Category] | readonly [string, Language],
+        selectElement: HTMLSelectElement
+    ): void {
+        const option: HTMLOptionElement = document.createElement('option');
+        option.innerText = optionType[0];
+        option.value = optionType[1];
+        selectElement.append(option);
     }
 }

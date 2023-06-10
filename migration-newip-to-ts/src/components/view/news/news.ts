@@ -2,6 +2,8 @@ import './news.css';
 import { NewsItem } from '../../../types/types';
 
 class News {
+    private newsElement: HTMLDivElement = document.querySelector('.news') as HTMLDivElement;
+
     public draw(data: NewsItem[]): void {
         const news: readonly NewsItem[] =
             data.length >= 10 ? data.filter((_item: NewsItem, idx: number): boolean => idx < 10) : data;
@@ -37,10 +39,12 @@ class News {
 
             fragment.append(newsClone);
         });
+        this.clear();
+        this.newsElement.append(fragment);
+    }
 
-        const newsElement: HTMLDivElement = document.querySelector('.news') as HTMLDivElement;
-        newsElement.replaceChildren();
-        newsElement.append(fragment);
+    public clear() {
+        this.newsElement.replaceChildren();
     }
 }
 

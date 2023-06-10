@@ -1,0 +1,9 @@
+/* .filter-container {
+  display: flex;
+  gap: 10px;
+} */
+
+.category__select,
+.language__select {
+  width: 100px;
+}

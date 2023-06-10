@@ -37,6 +37,7 @@ interface ObjectKeys {
 export interface Options extends ObjectKeys {
     apiKey: string;
     category: string;
+    language: string;
     sources: string;
 }
 
