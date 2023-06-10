@@ -39,15 +39,7 @@
 }
 
 .sources {
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* flex-wrap: nowrap; */
-    /* width: 100%; */
-    /* height: 100%; */
     font: 300 0.85em 'Fira Sans', sans-serif;
-    /* align-items: center; */
-    /* overflow-y: scroll; */
-
 }
 
 .source__item {
@@ -68,7 +60,6 @@
     border-color: #ffffff;
     color: #ffffff;
     background-color: #525252;
-    /* box-shadow: 0 0.5em 0.5em -0.4em #ffffff; */
     transform: translateY(-0.25em);
 }
 
