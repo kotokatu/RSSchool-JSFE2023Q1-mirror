@@ -1,13 +1,14 @@
 import { NewsResponse, SourceResponse } from '../../types/types';
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
+import { getSafeElement } from '../../helpers/helpers';
 
 class App {
     private controller = new AppController();
     private view = new AppView();
 
     public start(): void {
-        const sourcesElement: HTMLDivElement = document.querySelector('.sources') as HTMLDivElement;
+        const sourcesElement: HTMLDivElement = getSafeElement('.sources');
         sourcesElement.addEventListener('click', (e: Event): void =>
             this.controller.getNews(e, (data: NewsResponse | undefined) => {
                 if (data) this.view.drawNews(data);
@@ -19,12 +20,8 @@ class App {
             if (data) this.view.drawSources(data);
         });
 
-        const categorySelectElement: HTMLSelectElement = document.querySelector(
-            '.category__select'
-        ) as HTMLSelectElement;
-        const languageSelectElement: HTMLSelectElement = document.querySelector(
-            '.language__select'
-        ) as HTMLSelectElement;
+        const categorySelectElement: HTMLSelectElement = getSafeElement('.category__select');
+        const languageSelectElement: HTMLSelectElement = getSafeElement('.language__select');
 
         [categorySelectElement, languageSelectElement].forEach((elem) =>
             elem.addEventListener('change', (): void => {

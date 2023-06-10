@@ -1,10 +1,11 @@
 import './sources.css';
 import { SourceItem } from '../../../types/types';
+import { getSafeElement } from '../../../helpers/helpers';
 
 class Sources {
     public draw(data: readonly SourceItem[]): void {
         const fragment: DocumentFragment = document.createDocumentFragment();
-        const sourceItemTemp: HTMLTemplateElement | null = document.querySelector('#sourceItemTemp');
+        const sourceItemTemp: HTMLTemplateElement = getSafeElement('#sourceItemTemp');
 
         data.forEach((item: SourceItem) => {
             if (sourceItemTemp instanceof HTMLTemplateElement) {
@@ -12,13 +13,13 @@ class Sources {
                 if (!(sourceClone instanceof DocumentFragment)) {
                     throw new Error();
                 }
-                (sourceClone.querySelector('.source__item-name') as HTMLDivElement).textContent = item.name;
-                (sourceClone.querySelector('.source__item') as HTMLDivElement).setAttribute('data-source-id', item.id);
+                getSafeElement('.source__item-name').textContent = item.name;
+                getSafeElement('.source__item').setAttribute('data-source-id', item.id);
 
                 fragment.append(sourceClone);
             }
         });
-        const sourcesElement: HTMLDivElement = document.querySelector('.sources') as HTMLDivElement;
+        const sourcesElement: HTMLDivElement = getSafeElement('.sources');
         sourcesElement.replaceChildren();
         sourcesElement.append(fragment);
     }

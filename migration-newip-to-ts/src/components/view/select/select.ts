@@ -1,16 +1,13 @@
 import './select.css';
 import { Category, Language } from '../../../types/types';
+import { getSafeElement } from '../../../helpers/helpers';
 
 export default class Select {
     public draw(): void {
         const categories: readonly [string, Category][] = Object.entries(Category);
         const languages: readonly [string, Language][] = Object.entries(Language);
-        const categorySelectElement: HTMLSelectElement = document.querySelector(
-            '.category__select'
-        ) as HTMLSelectElement;
-        const languageSelectElement: HTMLSelectElement = document.querySelector(
-            '.language__select'
-        ) as HTMLSelectElement;
+        const categorySelectElement: HTMLSelectElement = getSafeElement('.category__select');
+        const languageSelectElement: HTMLSelectElement = getSafeElement('.language__select');
         categories.forEach((category: readonly [string, Category]) => this.addOptions(category, categorySelectElement));
         languages.forEach((language: readonly [string, Language]) => this.addOptions(language, languageSelectElement));
     }
