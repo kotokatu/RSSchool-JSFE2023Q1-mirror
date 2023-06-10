@@ -13,17 +13,20 @@
     <h1>News Portal</h1>
   </header>
   <aside>
-    <div class="filter-container">
-      <div class="filter category">
-        <p class="category__title">Filter sources by category:</p>
-        <select class="category__select" name="category" id="category"></select>
+    <button class="aside__button">Choose source</button>
+    <div class="aside__container">
+      <div class="filter filter-container">
+        <div class="filter category">
+          <p class="category__title">Filter sources by category:</p>
+          <select class="category__select" name="category" id="category"></select>
+        </div>
+        <div class="filter language">
+          <p class="language__title">Filter sources by language:</p>
+          <select class="language__select" name="language" id="language"></select>
+        </div>
       </div>
-      <div class="filter language">
-        <p class="language__title">Filter sources by language:</p>
-        <select class="language__select" name="language" id="language"></select>
-      </div>
+      <div class="sources buttons"></div>
     </div>
-    <div class="sources buttons"></div>
   </aside>
   <main>
     <div class="news"></div>

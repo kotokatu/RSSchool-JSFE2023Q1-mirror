@@ -7,3 +7,8 @@
   margin: 0.5em auto;
   width: 200px;
 }
+
+.category__title,
+.language__title {
+  font-size: 0.8em;
+}
