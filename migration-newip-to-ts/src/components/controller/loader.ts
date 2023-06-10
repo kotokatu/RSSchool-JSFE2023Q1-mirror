@@ -5,7 +5,7 @@ class Loader {
 
     public getResp<T>(
         { endpoint, options = {} }: Params,
-        callback: Callback<T> = () => {
+        callback: Callback<T> = (): void => {
             console.error('No callback for GET response');
         }
     ): void {
@@ -35,9 +35,9 @@ class Loader {
     private load<T>(method: string, endpoint: Endpoint, callback: Callback<T>, options: Partial<Options> = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res: Response) => res.json())
-            .then((data: T) => callback(data))
-            .catch((err: Error) => console.error(err));
+            .then((res: Response): Promise<T> => res.json())
+            .then((data: T): void => callback(data))
+            .catch((err: Error): void => console.error(err));
     }
 }
 
