@@ -3,7 +3,7 @@ import { Callback, SourceResponse, NewsResponse, Options } from '../../types/typ
 
 class AppController extends AppLoader {
     public getSources(callback: Callback<SourceResponse>, options?: Partial<Options>): void {
-        super.getResp(
+        super.getResp<SourceResponse>(
             {
                 endpoint: 'sources',
                 options,
@@ -24,7 +24,7 @@ class AppController extends AppLoader {
                 const sourceId: string | null = target.getAttribute('data-source-id');
                 if (sourceId && newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
-                    super.getResp(
+                    super.getResp<NewsResponse>(
                         {
                             endpoint: 'everything',
                             options: {
