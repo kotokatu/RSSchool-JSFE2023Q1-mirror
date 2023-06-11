@@ -4,7 +4,5 @@ export function handleElement<T extends HTMLElement>(
     changeElementHandler: (elem: T) => void
 ): void {
     const elem: T | null = parentElement.querySelector(selector);
-    if (elem) {
-        changeElementHandler(elem);
-    }
+    elem ? changeElementHandler(elem) : console.error(`Element ${selector} not found`);
 }
