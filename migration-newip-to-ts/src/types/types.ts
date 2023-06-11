@@ -39,7 +39,7 @@ export interface Options extends Record<string, string | undefined> {
 
 export interface RequestParams {
     endpoint: Endpoint;
-    options?: Partial<Options>;
+    options?: Options;
 }
 
 export type HandleApiData<T> = (data?: T) => void;
