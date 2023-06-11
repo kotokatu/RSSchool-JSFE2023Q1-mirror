@@ -1,4 +1,4 @@
-import { Options, HandleApiData, Params, Endpoint, Status } from '../../types/types';
+import { Options, HandleApiData, Params, Endpoint, Status, Method } from '../../types/types';
 
 class Loader {
     constructor(private baseLink: string, private options: Partial<Options>) {}
@@ -9,7 +9,7 @@ class Loader {
             console.error('No callback for GET response');
         }
     ): void {
-        this.load<T>('GET', endpoint, callback, options);
+        this.load<T>(Method.Get, endpoint, callback, options);
     }
 
     private errorHandler(res: Response): Response {
@@ -34,12 +34,11 @@ class Loader {
     }
 
     private load<T>(
-        method: string,
+        method: Method,
         endpoint: Endpoint,
         callback: HandleApiData<T>,
         options: Partial<Options> = {}
     ): void {
-        console.log(options);
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response): Promise<T> => res.json())

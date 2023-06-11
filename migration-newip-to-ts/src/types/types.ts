@@ -92,3 +92,15 @@ export enum Language {
     Urdu = 'ud',
     Chinese = 'zh',
 }
+
+export enum Method {
+    Get = 'GET',
+    Head = 'HEAD',
+    Post = 'POST',
+    Put = 'PUT',
+    Delete = 'DELETE',
+    Options = 'OPTIONS',
+    Connect = 'CONNECT',
+    Trace = 'TRACE',
+    Patch = 'PATCH',
+}
