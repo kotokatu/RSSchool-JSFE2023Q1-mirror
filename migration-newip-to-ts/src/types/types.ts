@@ -42,7 +42,10 @@ export interface Params {
     options?: Partial<Options>;
 }
 
-export type SelectType = typeof Category | typeof Language;
+export type SelectOption = {
+    label: string;
+    value: string;
+};
 
 export type HandleApiData<T> = (data?: T) => void;
 
@@ -57,35 +60,6 @@ export enum Status {
     NotFound = 404,
     TooManyRequests = 429,
     ServerError = 500,
-}
-
-export enum Category {
-    All = '',
-    Business = 'business',
-    Entertainment = 'entertainment',
-    General = 'general',
-    Health = 'health',
-    Science = 'science',
-    Sports = 'sports',
-    Technology = 'technology',
-}
-
-export enum Language {
-    All = '',
-    Arabic = 'ar',
-    German = 'de',
-    English = 'en',
-    Spanish = 'es',
-    French = 'fr',
-    Hebrew = 'he',
-    Italian = 'it',
-    Dutch = 'nl',
-    Norwegian = 'no',
-    Portuguese = 'pt',
-    Russian = 'ru',
-    Swedish = 'sv',
-    Urdu = 'ud',
-    Chinese = 'zh',
 }
 
 export enum Method {

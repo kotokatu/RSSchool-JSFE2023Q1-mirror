@@ -1,9 +1,8 @@
 import './select.css';
-import { SelectType } from '../../../types/types';
 
 export default class Select {
-    public draw(selectType: SelectType, selectElement: HTMLSelectElement): void {
-        const optionsArray: readonly [string, string][] = Object.entries(selectType);
+    public draw(optionsList: Record<string, string>, selectElement: HTMLSelectElement): void {
+        const optionsArray: readonly [string, string][] = Object.entries(optionsList);
         optionsArray.forEach((optionItem: [string, string]) => this.addOptions(optionItem, selectElement));
     }
 

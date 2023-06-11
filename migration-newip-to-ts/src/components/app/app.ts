@@ -1,7 +1,8 @@
-import { NewsResponse, SourceResponse, Category, Language } from '../../types/types';
+import { NewsResponse, SourceResponse } from '../../types/types';
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { handleElement } from '../../helpers/helpers';
+import { CATEGORY_SELECT_OPTIONS, LANGUAGE_SELECT_OPTIONS } from '../view/select/selectConfigs';
 
 class App {
     private controller = new AppController();
@@ -31,7 +32,7 @@ class App {
         );
 
         handleElement<HTMLSelectElement>('.category__select', document, (elem) => {
-            this.view.drawSelect(Category, elem);
+            this.view.drawSelect(CATEGORY_SELECT_OPTIONS, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
                     (data?: SourceResponse): void => {
@@ -45,7 +46,7 @@ class App {
         });
 
         handleElement<HTMLSelectElement>('.language__select', document, (elem) => {
-            this.view.drawSelect(Language, elem);
+            this.view.drawSelect(LANGUAGE_SELECT_OPTIONS, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
                     (data?: SourceResponse): void => {
