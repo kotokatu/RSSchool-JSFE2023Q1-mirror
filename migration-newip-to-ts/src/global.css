@@ -60,13 +60,14 @@ footer {
   height: 50px;
   width: 100%;
   display: flex;
+  gap: 20px;
   align-items: center;
   justify-content: center;
+  font-size: 14px;
   background-color: #fff;
 }
 
 footer .copyright {
-  font-size: 14px;
   color: #333;
   text-align: center;
 }
@@ -81,6 +82,15 @@ footer .copyright a:hover {
 
 footer .copyright:before {
   content: '©';
+}
+
+footer .logo {
+  width: 90px;
+}
+
+footer .link {
+  color: #000000;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {

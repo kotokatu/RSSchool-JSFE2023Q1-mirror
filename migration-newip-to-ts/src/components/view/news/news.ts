@@ -1,7 +1,7 @@
 import './news.css';
 import { NewsItem } from '../../../types/types';
 import { handleElement } from '../../../helpers/helpers';
-import MyImage from '../../../img/news_placeholder.jpeg';
+import MyImage from '../../../assets/news_placeholder.jpeg';
 
 class News {
     newsElement: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.news');
