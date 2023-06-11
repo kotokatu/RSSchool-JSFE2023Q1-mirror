@@ -22,8 +22,8 @@ class Loader {
         return res;
     }
 
-    private makeUrl(options: Partial<Options>, endpoint: Endpoint): string {
-        const urlOptions: Partial<Options> = { ...this.options, ...options };
+    private makeUrl(options: Options, endpoint: Endpoint): string {
+        const urlOptions: Options = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key: keyof Options): void => {
@@ -33,12 +33,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    private load<T>(
-        method: Method,
-        endpoint: Endpoint,
-        callback: HandleApiData<T>,
-        options: Partial<Options> = {}
-    ): void {
+    private load<T>(method: Method, endpoint: Endpoint, callback: HandleApiData<T>, options: Options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response): Promise<T> => res.json())

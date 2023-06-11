@@ -30,11 +30,11 @@ export interface SourceResponse {
     sources: SourceItem[];
 }
 
-export interface Options extends Record<string, string> {
-    apiKey: string;
-    category: string;
-    language: string;
-    sources: string;
+export interface Options extends Record<string, string | undefined> {
+    apiKey?: string;
+    category?: string;
+    language?: string;
+    sources?: string;
 }
 
 export interface RequestParams {

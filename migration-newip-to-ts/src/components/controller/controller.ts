@@ -2,7 +2,7 @@ import AppLoader from './appLoader';
 import { HandleApiData, SourceResponse, NewsResponse, Options, Endpoint } from '../../types/types';
 
 class AppController extends AppLoader {
-    public getSources(callback: HandleApiData<SourceResponse>, options?: Partial<Options>): void {
+    public getSources(callback: HandleApiData<SourceResponse>, options?: Options): void {
         super.getResp<SourceResponse>(
             {
                 endpoint: Endpoint.Sources,
