@@ -10,21 +10,19 @@ class App {
     public start(): void {
         const sourcesElement: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources');
         const sourcesContainer: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources-container');
-        if (sourcesElement && sourcesContainer) {
-            sourcesElement.addEventListener('click', (e: Event): void =>
-                this.controller.getNews(e, (data?: NewsResponse) => {
-                    if (data) {
-                        this.view.drawNews(data);
-                    }
-                    sourcesContainer.classList.remove('visible');
-                })
-            );
-            handleElement<HTMLButtonElement>('.sources-button', document, (elem) => {
-                elem.addEventListener('click', (): void => {
-                    sourcesContainer.classList.toggle('visible');
-                });
+        sourcesElement?.addEventListener('click', (e: Event): void =>
+            this.controller.getNews(e, (data?: NewsResponse) => {
+                if (data) {
+                    this.view.drawNews(data);
+                }
+                sourcesContainer?.classList.remove('visible');
+            })
+        );
+        handleElement<HTMLButtonElement>('.sources-button', document, (elem) => {
+            elem.addEventListener('click', (): void => {
+                sourcesContainer?.classList.toggle('visible');
             });
-        }
+        });
         const languageSelectElement: HTMLSelectElement | null = document.querySelector<HTMLSelectElement>(
             '.language__select'
         );
