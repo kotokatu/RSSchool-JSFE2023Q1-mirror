@@ -48,7 +48,7 @@ class AppController extends AppLoader {
             {
                 endpoint: Endpoint.Headlines,
                 options: {
-                    sources: 'cnn',
+                    sources: 'abc-news',
                 },
             },
             callback
