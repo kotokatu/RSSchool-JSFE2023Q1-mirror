@@ -61,11 +61,10 @@ class App {
             }
         });
 
-        this.controller.getNews((data?: NewsResponse): void => {
+        this.controller.getHeadlines((data?: NewsResponse): void => {
             if (data) {
                 this.view.drawNews(data);
             }
-            sourcesContainer?.classList.remove('visible');
         });
 
         window.addEventListener('beforeunload', (): void => {
