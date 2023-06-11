@@ -1,7 +1,7 @@
 import { Options, HandleApiData, Params, Endpoint, Status, Method } from '../../types/types';
 
 class Loader {
-    constructor(private baseLink: string, private options: Partial<Options>) {}
+    constructor(private baseLink: string, private options: Pick<Options, 'apiKey'>) {}
 
     public getResp<T>(
         { endpoint, options = {} }: Params,

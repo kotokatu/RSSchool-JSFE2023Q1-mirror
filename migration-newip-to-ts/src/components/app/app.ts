@@ -12,14 +12,14 @@ class App {
         const sourcesElement: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources');
         const sourcesContainer: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources-container');
         sourcesElement?.addEventListener('click', (e: Event): void =>
-            this.controller.getNews(e, (data?: NewsResponse) => {
+            this.controller.getNews(e, (data?: NewsResponse): void => {
                 if (data) {
                     this.view.drawNews(data);
                 }
                 sourcesContainer?.classList.remove('visible');
             })
         );
-        handleElement<HTMLButtonElement>('.sources-button', document, (elem) => {
+        handleElement<HTMLButtonElement>('.sources-button', document, (elem: HTMLButtonElement): void => {
             elem.addEventListener('click', (): void => {
                 sourcesContainer?.classList.toggle('visible');
             });
@@ -31,7 +31,7 @@ class App {
             '.category__select'
         );
 
-        handleElement<HTMLSelectElement>('.category__select', document, (elem) => {
+        handleElement<HTMLSelectElement>('.category__select', document, (elem: HTMLSelectElement): void => {
             this.view.drawSelect(CATEGORY_SELECT_OPTIONS, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
@@ -45,7 +45,7 @@ class App {
             });
         });
 
-        handleElement<HTMLSelectElement>('.language__select', document, (elem) => {
+        handleElement<HTMLSelectElement>('.language__select', document, (elem: HTMLSelectElement): void => {
             this.view.drawSelect(LANGUAGE_SELECT_OPTIONS, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
