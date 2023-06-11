@@ -18,6 +18,7 @@ class Loader {
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
+
         return res;
     }
 

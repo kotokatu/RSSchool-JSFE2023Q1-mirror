@@ -9,12 +9,12 @@ export class AppView {
     private select: Select = new Select();
 
     public drawNews(data: NewsResponse): void {
-        const values: NewsItem[] | [] = data?.articles ? data.articles : [];
+        const values: NewsItem[] | [] = data?.articles || [];
         this.news.draw(values);
     }
 
     public drawSources(data: SourceResponse): void {
-        const values: SourceItem[] | [] = data?.sources ? data.sources : [];
+        const values: SourceItem[] | [] = data?.sources || [];
         this.sources.draw(values);
         this.news.clear();
     }

@@ -16,10 +16,12 @@ class News {
         news.forEach((item: NewsItem, idx: number): void => {
             if (newsItemTemp instanceof HTMLTemplateElement) {
                 const newsClone: Node = newsItemTemp.content.cloneNode(true);
+
                 if (newsClone instanceof DocumentFragment) {
                     if (idx % 2) {
                         handleElement<HTMLDivElement>('.news__item', newsClone, (elem) => elem.classList.add('alt'));
                     }
+
                     handleElement<HTMLDivElement>(
                         '.news__meta-photo',
                         newsClone,
@@ -60,6 +62,7 @@ class News {
             }
         });
         this.clear();
+
         if (this.newsElement) {
             this.newsElement.append(fragment);
         }

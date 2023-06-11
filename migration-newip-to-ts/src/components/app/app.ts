@@ -12,8 +12,10 @@ class App {
         const sourcesContainer: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources-container');
         if (sourcesElement && sourcesContainer) {
             sourcesElement.addEventListener('click', (e: Event): void =>
-                this.controller.getNews(e, (data: NewsResponse | undefined) => {
-                    if (data) this.view.drawNews(data);
+                this.controller.getNews(e, (data?: NewsResponse) => {
+                    if (data) {
+                        this.view.drawNews(data);
+                    }
                     sourcesContainer.classList.remove('visible');
                 })
             );
@@ -34,8 +36,10 @@ class App {
             this.view.drawSelect(Category, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
-                    (data: SourceResponse | undefined): void => {
-                        if (data) this.view.drawSources(data);
+                    (data?: SourceResponse): void => {
+                        if (data) {
+                            this.view.drawSources(data);
+                        }
                     },
                     { category: elem.value, language: languageSelectElement?.value }
                 );
@@ -46,21 +50,29 @@ class App {
             this.view.drawSelect(Language, elem);
             elem.addEventListener('change', (): void => {
                 this.controller.getSources(
-                    (data: SourceResponse | undefined): void => {
-                        if (data) this.view.drawSources(data);
+                    (data?: SourceResponse): void => {
+                        if (data) {
+                            this.view.drawSources(data);
+                        }
                     },
                     { category: categorySelectElement?.value, language: elem.value }
                 );
             });
         });
 
-        this.controller.getSources((data: SourceResponse | undefined): void => {
-            if (data) this.view.drawSources(data);
+        this.controller.getSources((data?: SourceResponse): void => {
+            if (data) {
+                this.view.drawSources(data);
+            }
         });
 
         window.addEventListener('beforeunload', (): void => {
-            if (categorySelectElement) categorySelectElement.selectedIndex = 0;
-            if (languageSelectElement) languageSelectElement.selectedIndex = 0;
+            if (categorySelectElement) {
+                categorySelectElement.selectedIndex = 0;
+            }
+            if (languageSelectElement) {
+                languageSelectElement.selectedIndex = 0;
+            }
         });
     }
 }

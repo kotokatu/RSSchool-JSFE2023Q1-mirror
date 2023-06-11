@@ -12,6 +12,7 @@ class Sources {
         data.forEach((item: SourceItem) => {
             if (sourceItemTemp instanceof HTMLTemplateElement) {
                 const sourceClone: Node = sourceItemTemp.content.cloneNode(true);
+
                 if (sourceClone instanceof DocumentFragment) {
                     handleElement<HTMLSpanElement>(
                         '.source__item-name',
