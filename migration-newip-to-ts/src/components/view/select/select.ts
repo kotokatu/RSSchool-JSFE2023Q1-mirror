@@ -1,27 +1,13 @@
 import './select.css';
-import { Category, Language } from '../../../types/types';
-import { getSafeElement } from '../../../helpers/helpers';
+import { SelectType } from '../../../types/types';
 
 export default class Select {
-    public draw(): void {
-        const categories: readonly [string, Category][] = Object.entries(Category);
-        const languages: readonly [string, Language][] = Object.entries(Language);
-        const categorySelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
-            '.category__select',
-            document
-        );
-        const languageSelectElement: HTMLSelectElement = getSafeElement<HTMLSelectElement>(
-            '.language__select',
-            document
-        );
-        categories.forEach((category: readonly [string, Category]) => this.addOptions(category, categorySelectElement));
-        languages.forEach((language: readonly [string, Language]) => this.addOptions(language, languageSelectElement));
+    public draw(selectType: SelectType, selectElement: HTMLSelectElement): void {
+        const optionsArray: readonly [string, string][] = Object.entries(selectType);
+        optionsArray.forEach((optionType: [string, string]) => this.addOptions(optionType, selectElement));
     }
 
-    private addOptions(
-        optionType: readonly [string, Category] | readonly [string, Language],
-        selectElement: HTMLSelectElement
-    ): void {
+    private addOptions(optionType: [string, string], selectElement: HTMLSelectElement): void {
         const option: HTMLOptionElement = document.createElement('option');
         option.innerText = optionType[0];
         option.value = optionType[1];

@@ -1,7 +1,7 @@
 import News from './news/news';
 import Sources from './sources/sources';
 import Select from './select/select';
-import { NewsItem, SourceItem, NewsResponse, SourceResponse } from '../../types/types';
+import { NewsItem, SourceItem, NewsResponse, SourceResponse, SelectType } from '../../types/types';
 
 export class AppView {
     private news: News = new News();
@@ -19,8 +19,8 @@ export class AppView {
         this.news.clear();
     }
 
-    public drawSelect(): void {
-        this.select.draw();
+    public drawSelect(selectType: SelectType, selectElement: HTMLSelectElement): void {
+        this.select.draw(selectType, selectElement);
     }
 }
 

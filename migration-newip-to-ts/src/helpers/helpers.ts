@@ -1,7 +1,10 @@
-export function getSafeElement<T extends HTMLElement>(selector: string, parentElement: DocumentFragment | Document): T {
-    const elem = parentElement.querySelector<T>(selector);
-    if (!elem) {
-        throw new Error('Element not found');
+export function handleElement<T extends HTMLElement>(
+    selector: string,
+    parentElement: DocumentFragment | Document,
+    changeElementHandler: (elem: T) => void
+): void {
+    const elem: T | null = parentElement.querySelector(selector);
+    if (elem) {
+        changeElementHandler(elem);
     }
-    return elem;
 }

@@ -38,6 +38,7 @@ class Loader {
         callback: HandleApiData<T>,
         options: Partial<Options> = {}
     ): void {
+        console.log(options);
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response): Promise<T> => res.json())

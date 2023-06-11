@@ -47,6 +47,13 @@ export enum Endpoint {
     Everything = 'everything',
 }
 
+export type SelectOption = {
+    label: string;
+    value: string;
+};
+
+export type SelectType = typeof Category | typeof Language;
+
 export type HandleApiData<T> = (data?: T) => void;
 
 export enum Status {
