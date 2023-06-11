@@ -30,11 +30,7 @@ export interface SourceResponse {
     sources: SourceItem[];
 }
 
-interface ObjectKeys {
-    [key: string]: string;
-}
-
-export interface Options extends ObjectKeys {
+export interface Options extends Record<string, string> {
     apiKey: string;
     category: string;
     language: string;
@@ -46,9 +42,12 @@ export interface Params {
     options?: Partial<Options>;
 }
 
-export type Endpoint = 'sources' | 'everything';
+export enum Endpoint {
+    Sources = 'sources',
+    Everything = 'everything',
+}
 
-export type Callback<T> = (data?: T) => void;
+export type HandleApiData<T> = (data?: T) => void;
 
 export enum Status {
     BadRequest = 400,

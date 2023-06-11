@@ -1,18 +1,18 @@
 import AppLoader from './appLoader';
-import { Callback, SourceResponse, NewsResponse, Options } from '../../types/types';
+import { HandleApiData, SourceResponse, NewsResponse, Options, Endpoint } from '../../types/types';
 
 class AppController extends AppLoader {
-    public getSources(callback: Callback<SourceResponse>, options?: Partial<Options>): void {
+    public getSources(callback: HandleApiData<SourceResponse>, options?: Partial<Options>): void {
         super.getResp<SourceResponse>(
             {
-                endpoint: 'sources',
+                endpoint: Endpoint.Sources,
                 options,
             },
             callback
         );
     }
 
-    public getNews(e: Event, callback: Callback<NewsResponse>): void {
+    public getNews(e: Event, callback: HandleApiData<NewsResponse>): void {
         if (!(e.target instanceof HTMLElement && e.currentTarget instanceof HTMLElement)) {
             throw new Error();
         }
@@ -26,7 +26,7 @@ class AppController extends AppLoader {
                     newsContainer.setAttribute('data-source', sourceId);
                     super.getResp<NewsResponse>(
                         {
-                            endpoint: 'everything',
+                            endpoint: Endpoint.Everything,
                             options: {
                                 sources: sourceId,
                             },

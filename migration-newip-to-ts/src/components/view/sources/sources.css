@@ -43,29 +43,29 @@
 }
 
 .source__item {
-    width: 200px;
-    background: none;
-    border: 2px solid #525252;
-    font: inherit;
-    line-height: 1;
-    margin: 0.5em auto;
-    padding: 0.8em 0.5em;
-    color: #c0c0c0;
-    transition: 0.25s;
-    cursor: pointer;
+  width: 200px;
+  background: none;
+  border: 2px solid #525252;
+  font: inherit;
+  line-height: 1;
+  margin: 0.5em auto;
+  padding: 0.8em 0.5em;
+  color: #c0c0c0;
+  transition: 0.25s;
+  cursor: pointer;
 }
 
 .source__item:hover,
 .source__item:focus {
-    border-color: #ffffff;
-    color: #ffffff;
-    background-color: #525252;
-    transform: translateY(-0.25em);
+  border-color: #ffffff;
+  color: #ffffff;
+  background-color: #525252;
+  transform: translateY(-0.25em);
 }
 
 .source__item-name {
-    font-weight: 400;
-    white-space: nowrap;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 @media (max-width: 640px) {

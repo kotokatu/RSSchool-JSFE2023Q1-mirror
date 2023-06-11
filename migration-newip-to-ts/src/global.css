@@ -8,9 +8,9 @@ html, body {
 }
 
 body {
-    color: #fff;
-    background: #17181c;
-    font-family: sans-serif;
+  color: #fff;
+  background: #17181c;
+  font-family: sans-serif;
 }
 
 main {
@@ -40,43 +40,47 @@ main {
 }
 
 header {
-    padding: 0 30px;
-    background-color: #fff;
-    min-height: 70px;
-    display: flex;
-    align-items: center;
+  padding: 0 30px;
+  background-color: #fff;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
 }
 
 header h1 {
-    font-family: 'Alfa Slab One', cursive;
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: #201e27;
+  font-family: 'Alfa Slab One', cursive;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #201e27;
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    height: 50px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
 }
+
 footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
 }
+
 footer .copyright a {
-    color: #444;
+  color: #444;
 }
+
 footer .copyright a:hover {
-    color: #555;
+  color: #555;
 }
+
 footer .copyright:before {
-    content: '©';
+  content: '©';
 }
 
 @media (max-width: 768px) {
@@ -129,4 +133,5 @@ footer .copyright:before {
     top: 110px;
     left: 0;
   }
+  
 }
