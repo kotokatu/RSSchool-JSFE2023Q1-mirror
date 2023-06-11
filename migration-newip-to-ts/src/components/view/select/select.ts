@@ -4,13 +4,13 @@ import { SelectType } from '../../../types/types';
 export default class Select {
     public draw(selectType: SelectType, selectElement: HTMLSelectElement): void {
         const optionsArray: readonly [string, string][] = Object.entries(selectType);
-        optionsArray.forEach((optionType: [string, string]) => this.addOptions(optionType, selectElement));
+        optionsArray.forEach((optionItem: [string, string]) => this.addOptions(optionItem, selectElement));
     }
 
-    private addOptions(optionType: [string, string], selectElement: HTMLSelectElement): void {
+    private addOptions(optionItem: [string, string], selectElement: HTMLSelectElement): void {
         const option: HTMLOptionElement = document.createElement('option');
-        option.innerText = optionType[0];
-        option.value = optionType[1];
+        option.innerText = optionItem[0];
+        option.value = optionItem[1];
         selectElement.append(option);
     }
 }

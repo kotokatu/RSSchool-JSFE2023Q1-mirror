@@ -42,19 +42,14 @@ export interface Params {
     options?: Partial<Options>;
 }
 
+export type SelectType = typeof Category | typeof Language;
+
+export type HandleApiData<T> = (data?: T) => void;
+
 export enum Endpoint {
     Sources = 'sources',
     Everything = 'everything',
 }
-
-export type SelectOption = {
-    label: string;
-    value: string;
-};
-
-export type SelectType = typeof Category | typeof Language;
-
-export type HandleApiData<T> = (data?: T) => void;
 
 export enum Status {
     BadRequest = 400,
