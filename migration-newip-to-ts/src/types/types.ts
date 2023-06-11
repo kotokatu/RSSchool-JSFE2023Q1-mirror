@@ -37,15 +37,10 @@ export interface Options extends Record<string, string> {
     sources: string;
 }
 
-export interface Params {
+export interface RequestParams {
     endpoint: Endpoint;
     options?: Partial<Options>;
 }
-
-export type SelectOption = {
-    label: string;
-    value: string;
-};
 
 export type HandleApiData<T> = (data?: T) => void;
 

@@ -1,10 +1,10 @@
-import { Options, HandleApiData, Params, Endpoint, Status, Method } from '../../types/types';
+import { Options, HandleApiData, RequestParams, Endpoint, Status, Method } from '../../types/types';
 
 class Loader {
     constructor(private baseLink: string, private options: Pick<Options, 'apiKey'>) {}
 
     public getResp<T>(
-        { endpoint, options = {} }: Params,
+        { endpoint, options = {} }: RequestParams,
         callback: HandleApiData<T> = (): void => {
             console.error('No callback for GET response');
         }

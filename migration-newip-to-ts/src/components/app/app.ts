@@ -24,12 +24,8 @@ class App {
                 sourcesContainer?.classList.toggle('visible');
             });
         });
-        const languageSelectElement: HTMLSelectElement | null = document.querySelector<HTMLSelectElement>(
-            '.language__select'
-        );
-        const categorySelectElement: HTMLSelectElement | null = document.querySelector<HTMLSelectElement>(
-            '.category__select'
-        );
+        const languageSelect: HTMLSelectElement | null = document.querySelector<HTMLSelectElement>('.language__select');
+        const categorySelect: HTMLSelectElement | null = document.querySelector<HTMLSelectElement>('.category__select');
 
         handleElement<HTMLSelectElement>('.category__select', document, (elem: HTMLSelectElement): void => {
             this.view.drawSelect(CATEGORY_SELECT_OPTIONS, elem);
@@ -40,7 +36,7 @@ class App {
                             this.view.drawSources(data);
                         }
                     },
-                    { category: elem.value, language: languageSelectElement?.value }
+                    { category: elem.value, language: languageSelect?.value }
                 );
             });
         });
@@ -54,7 +50,7 @@ class App {
                             this.view.drawSources(data);
                         }
                     },
-                    { category: categorySelectElement?.value, language: elem.value }
+                    { category: categorySelect?.value, language: elem.value }
                 );
             });
         });
@@ -66,11 +62,11 @@ class App {
         });
 
         window.addEventListener('beforeunload', (): void => {
-            if (categorySelectElement) {
-                categorySelectElement.selectedIndex = 0;
+            if (categorySelect) {
+                categorySelect.selectedIndex = 0;
             }
-            if (languageSelectElement) {
-                languageSelectElement.selectedIndex = 0;
+            if (languageSelect) {
+                languageSelect.selectedIndex = 0;
             }
         });
     }
