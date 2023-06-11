@@ -35,6 +35,7 @@ export interface Options extends Record<string, string | undefined> {
     category?: string;
     language?: string;
     sources?: string;
+    country?: string;
 }
 
 export interface RequestParams {
@@ -47,6 +48,7 @@ export type HandleApiData<T> = (data?: T) => void;
 export enum Endpoint {
     Sources = 'sources',
     Everything = 'everything',
+    Headlines = 'top-headlines',
 }
 
 export enum Status {

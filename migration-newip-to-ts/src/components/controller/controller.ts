@@ -12,8 +12,8 @@ class AppController extends AppLoader {
         );
     }
 
-    public getNews(e: Event, callback: HandleApiData<NewsResponse>): void {
-        if (e.target instanceof HTMLElement && e.currentTarget instanceof HTMLElement) {
+    public getNews(callback: HandleApiData<NewsResponse>, e?: Event): void {
+        if (e && e.target instanceof HTMLElement && e.currentTarget instanceof HTMLElement) {
             let target: HTMLElement = e.target;
             const newsContainer: HTMLElement = e.currentTarget;
 
@@ -40,6 +40,16 @@ class AppController extends AppLoader {
                     target = target.parentElement;
                 }
             }
+        } else {
+            super.getResp<NewsResponse>(
+                {
+                    endpoint: Endpoint.Headlines,
+                    options: {
+                        sources: 'cnn',
+                    },
+                },
+                callback
+            );
         }
     }
 }

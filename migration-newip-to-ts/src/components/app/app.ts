@@ -12,12 +12,12 @@ class App {
         const sourcesElement: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources');
         const sourcesContainer: HTMLDivElement | null = document.querySelector<HTMLDivElement>('.sources-container');
         sourcesElement?.addEventListener('click', (e: Event): void =>
-            this.controller.getNews(e, (data?: NewsResponse): void => {
+            this.controller.getNews((data?: NewsResponse): void => {
                 if (data) {
                     this.view.drawNews(data);
                 }
                 sourcesContainer?.classList.remove('visible');
-            })
+            }, e)
         );
         handleElement<HTMLButtonElement>('.sources-button', document, (elem: HTMLButtonElement): void => {
             elem.addEventListener('click', (): void => {
@@ -59,6 +59,13 @@ class App {
             if (data) {
                 this.view.drawSources(data);
             }
+        });
+
+        this.controller.getNews((data?: NewsResponse): void => {
+            if (data) {
+                this.view.drawNews(data);
+            }
+            sourcesContainer?.classList.remove('visible');
         });
 
         window.addEventListener('beforeunload', (): void => {
