@@ -2,16 +2,24 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintPlugin = require("eslint-webpack-plugin");
+const svgToMiniDataURI = require('mini-svg-data-uri');
 
 const baseConfig = {
   entry: path.resolve(__dirname, "./src/app"),
   mode: "development",
   module: {
     rules: [
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
-        type: "asset/resource",
-      },
+        {
+            test: /^((?!__inline).)*\.svg$|\.(png|jpg|jpeg|gif)$/i,
+            type: 'asset/resource',
+            generator: {
+              filename: '[name].[hash][ext]',
+            },
+          },
+          {
+            test: /(__inline)\.svg$/i,
+            type: 'asset/source',
+          },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",

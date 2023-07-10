@@ -55,16 +55,17 @@ export default class Pagination extends BaseComponent {
         this.pageNumElement.setTextContent(`Page # ${this.store.page}`);
     }
 
-    private updateButtonsState() {
+    public updateButtonsState() {
         if (this.store.page === DEFAULT_PAGINATION_PAGE) {
-            this.prevBtn.setAttr('disabled', 'true');
+            this.prevBtn.disable();
         } else {
-            this.prevBtn.removeAttr('disabled');
+            this.prevBtn.enable();
         }
+
         if (this.store.page === Math.ceil(this.store.carsCount / this.store.limit)) {
-            this.nextBtn.setAttr('disabled', 'true');
+            this.nextBtn.disable();
         } else {
-            this.nextBtn.removeAttr('disabled');
+            this.nextBtn.enable();
         }
     }
 }

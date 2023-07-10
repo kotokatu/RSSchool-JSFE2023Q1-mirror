@@ -1,22 +1,17 @@
-/* eslint-disable @typescript-eslint/lines-between-class-members */
 import { BaseComponent } from './components/base-component';
-// import NavigationButton from './components/navigation-button/navigation-button';
 import GaragePage from './components/pages/garage-page/garage-page';
+import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
-// import { PAGES } from './constants/constants';
 import { garageStore, winnersStore } from './store/store';
 import { PageName } from './types/types';
+import { getCarsCount, getWinnersCount } from './utils/api-utils';
 
 class App {
-    pages: Map<string, BaseComponent> = new Map();
-    pageContainer: BaseComponent | null;
-
+    pages: Map<PageName, BaseComponent> = new Map();
+    pageContainer: BaseComponent;
+    toGarageBtn: Button;
+    toWinnersBtn: Button;
     constructor(appRoot: HTMLElement) {
-        this.pageContainer = null;
-        this.createView(appRoot);
-    }
-
-    createView(appRoot: HTMLElement) {
         const header = new BaseComponent({
             tag: 'header',
             parent: appRoot,
@@ -27,40 +22,55 @@ class App {
             parent: header,
             classNames: ['navigation'],
         });
-        const garageBtn = new Button({
+
+        this.pageContainer = new BaseComponent({
+            parent: appRoot,
+            classNames: ['page-container'],
+        });
+        this.toGarageBtn = new Button({
             parent: navigation,
             classNames: ['garage-button'],
             content: 'TO GARAGE',
-            onClick: () => this.onNavBtnClick(PageName.Garage),
+            onClick: () => this.setActivePage(PageName.Garage),
         });
-        const winnersBtn = new Button({
+        this.toGarageBtn.disable();
+        this.toWinnersBtn = new Button({
             parent: navigation,
             classNames: ['winners-button'],
             content: 'TO WINNERS',
-            onClick: () => this.onNavBtnClick(PageName.Winners),
+            onClick: () => this.setActivePage(PageName.Winners),
         });
-        this.pageContainer = new BaseComponent({
-            parent: appRoot,
-            classNames: ['container'],
-        });
+        this.createPages();
+    }
+
+    async createInitialState() {
+        const carsCount = await getCarsCount();
+        garageStore.carsCount = carsCount;
+        const winnersCount = await getWinnersCount();
+        winnersStore.carsCount = winnersCount;
+    }
+
+    async createPages() {
+        await this.createInitialState();
         const garagePage = new GaragePage(garageStore);
         this.pages.set(PageName.Garage, garagePage);
-        // const winnersPage = new Page();
-        // this.pages.set(PageTitle.Winners, winnersPage);
+        const winnersPage = new WinnersPage(winnersStore);
+        this.pages.set(PageName.Winners, winnersPage);
         this.renderActivePage(PageName.Garage);
     }
 
-    onNavBtnClick(pageName: PageName) {
+    setActivePage(pageName: PageName) {
         this.renderActivePage(pageName);
+        this.toGarageBtn.changeState();
+        this.toWinnersBtn.changeState();
     }
 
     renderActivePage(pageName: PageName) {
-        if (this.pageContainer) {
-            this.pageContainer.removeChildren();
-            const page = this.pages.get(pageName);
-            if (page) {
-                this.pageContainer.insertChild(page);
-            }
+        this.pageContainer.removeChildren();
+        const page = this.pages.get(pageName);
+
+        if (page) {
+            this.pageContainer.insertChild(page);
         }
     }
 }

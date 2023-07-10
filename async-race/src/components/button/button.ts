@@ -6,6 +6,7 @@ export interface ButtonParams extends ComponentParams {
 }
 
 export class Button extends BaseComponent<HTMLButtonElement> {
+    isDisabled = false;
     constructor(params: ButtonParams) {
         super({
             tag: 'button',
@@ -17,5 +18,23 @@ export class Button extends BaseComponent<HTMLButtonElement> {
         if (params.onClick) {
             this.addListener('click', params.onClick);
         }
+    }
+
+    public changeState() {
+        if (this.isDisabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+    }
+
+    public disable() {
+        this.setAttr('disabled', 'true');
+        this.isDisabled = true;
+    }
+
+    public enable() {
+        this.removeAttr('disabled');
+        this.isDisabled = false;
     }
 }

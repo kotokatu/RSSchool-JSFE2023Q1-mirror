@@ -1,0 +1,7 @@
+.car {
+    width: 70px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

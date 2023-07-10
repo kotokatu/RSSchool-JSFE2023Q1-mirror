@@ -4,10 +4,12 @@ import Pagination from '../pagination/pagination';
 import { PageName } from '../../types/types';
 
 export default abstract class Page extends BaseComponent {
-    private store: Store;
-    carsCountElement: BaseComponent;
+    protected store: Store;
+    protected carsCountElement: BaseComponent;
+    protected pagination: Pagination;
+    protected mainContainer: BaseComponent;
     constructor(pageName: PageName, store: Store) {
-        super({ classNames: ['page'] });
+        super({ classNames: ['page', `${pageName}-page`] });
         this.store = store;
         const title: BaseComponent = new BaseComponent({
             tag: 'h2',
@@ -21,7 +23,8 @@ export default abstract class Page extends BaseComponent {
             classNames: ['cars-count'],
             content: `(#${this.store.carsCount})`,
         });
-        const pagination = new Pagination(
+        this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
+        this.pagination = new Pagination(
             this,
             this.store,
             this.onPrevBtnClick.bind(this),
