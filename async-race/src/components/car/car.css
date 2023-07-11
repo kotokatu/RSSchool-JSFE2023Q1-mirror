@@ -5,3 +5,8 @@
     justify-content: center;
     align-items: center;
 }
+
+.car svg {
+    width: 70px;
+    height: 40px;
+}

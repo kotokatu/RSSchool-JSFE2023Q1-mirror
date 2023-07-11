@@ -25,6 +25,14 @@ export const getCarsCount = async () => {
     return Number(res.headers.get('X-Total-Count'));
 };
 
+export const getWinners = async (pageNum: number, limit: number) => {
+    const url = `${BASE_URL}/winners?_page=${pageNum}&_limit=${limit}`;
+    const res = await fetch(url);
+    const cars = await res.json();
+    const carsCount = Number(res.headers.get('X-Total-Count'));
+    return { carsCount, cars };
+};
+
 export const getWinnersCount = async () => {
     const url = `${BASE_URL}/winners?_limit=0`;
     const res = await fetch(url);

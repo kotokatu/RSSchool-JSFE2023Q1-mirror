@@ -5,13 +5,13 @@ export type Store = {
 };
 
 export const garageStore = {
-    carsCount: 100,
+    carsCount: 0,
     page: 1,
     limit: 7,
 };
 
 export const winnersStore = {
-    carsCount: 1,
+    carsCount: 0,
     page: 1,
     limit: 10,
 };

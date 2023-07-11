@@ -6,7 +6,8 @@ export interface ButtonParams extends ComponentParams {
 }
 
 export class Button extends BaseComponent<HTMLButtonElement> {
-    isDisabled = false;
+    private isDisabled = false;
+
     constructor(params: ButtonParams) {
         super({
             tag: 'button',

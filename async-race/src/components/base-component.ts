@@ -13,12 +13,14 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
 
         if (parent instanceof BaseComponent) {
             parent.getNode().append(this.node);
-        } else if (parent instanceof HTMLElement) {
+        }
+
+        if (parent instanceof HTMLElement) {
             parent.append(this.node);
         }
 
         if (classNames) {
-            this.setClasses(classNames);
+            this.setCssClasses(classNames);
         }
 
         if (content) {
@@ -56,7 +58,7 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         this.node.removeAttribute(attr);
     }
 
-    public setClasses(classNames: string[]) {
+    public setCssClasses(classNames: string[]) {
         classNames.forEach((className: string) => this.node.classList.add(className));
     }
 
@@ -64,7 +66,7 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         classNames.forEach((className: string) => this.node.classList.remove(className));
     }
 
-    public removeChildren() {
+    public clearNode() {
         this.node.replaceChildren();
     }
 

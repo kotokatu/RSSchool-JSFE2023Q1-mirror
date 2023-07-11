@@ -9,13 +9,11 @@ export default class Pagination extends BaseComponent {
     nextBtn: Button;
     pageNumElement: BaseComponent;
     store: Store;
-    onPrev: () => void;
-    onNext: () => void;
-    constructor(parent: BaseComponent, store: Store, onPrev: () => void, onNext: () => void) {
+    onBtnClick: () => void;
+    constructor(parent: BaseComponent, store: Store, onBtnClick: () => void) {
         super({ parent, classNames: ['pagination-container'] });
         this.store = store;
-        this.onPrev = onPrev;
-        this.onNext = onNext;
+        this.onBtnClick = onBtnClick;
         this.pageNumElement = new BaseComponent({
             tag: 'span',
             parent: this,
@@ -26,29 +24,30 @@ export default class Pagination extends BaseComponent {
             parent: this,
             classNames: ['button-prev'],
             content: '<<',
-            onClick: this.handlePrevBtn.bind(this),
+            onClick: this.handlePrevBtnClick.bind(this),
         });
         this.nextBtn = new Button({
             parent: this,
             classNames: ['button-prev'],
             content: '>>',
-            onClick: this.handleNextBtn.bind(this),
+            onClick: this.handleNextBtnClick.bind(this),
         });
-        this.updateButtonsState();
     }
 
-    private handlePrevBtn() {
+    private handlePrevBtnClick() {
         this.store.page -= 1;
-        this.updatePageNum();
-        this.updateButtonsState();
-        this.onPrev();
+        this.update();
     }
 
-    private handleNextBtn() {
+    private handleNextBtnClick() {
         this.store.page += 1;
+        this.update();
+    }
+
+    private update() {
         this.updatePageNum();
         this.updateButtonsState();
-        this.onNext();
+        this.onBtnClick();
     }
 
     private updatePageNum() {

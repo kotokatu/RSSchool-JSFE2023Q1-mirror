@@ -2,6 +2,7 @@ import { BaseComponent } from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
 import { PageName } from '../../types/types';
+import { CarConfig } from '../../utils/api-utils';
 
 export default abstract class Page extends BaseComponent {
     protected store: Store;
@@ -24,15 +25,16 @@ export default abstract class Page extends BaseComponent {
             content: `(#${this.store.carsCount})`,
         });
         this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
-        this.pagination = new Pagination(
-            this,
-            this.store,
-            this.onPrevBtnClick.bind(this),
-            this.onNextBtnClick.bind(this)
-        );
+        this.updateView();
+        this.pagination = new Pagination(this, this.store, this.updateView.bind(this));
     }
 
-    abstract onNextBtnClick(): void;
+    protected updateCarsCount(carsCount: number) {
+        this.store.carsCount = carsCount;
+        this.pagination.updateButtonsState();
+        this.carsCountElement.setTextContent(`(#${this.store.carsCount})`);
+    }
 
-    abstract onPrevBtnClick(): void;
+    protected abstract updateView(): Promise<void>;
+    protected abstract updateMain(cars: CarConfig[]): void;
 }

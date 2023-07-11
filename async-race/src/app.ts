@@ -4,7 +4,8 @@ import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
 import { PageName } from './types/types';
-import { getCarsCount, getWinnersCount } from './utils/api-utils';
+import './css/style.css';
+import './css/normalize.css';
 
 class App {
     pages: Map<PageName, BaseComponent> = new Map();
@@ -22,11 +23,6 @@ class App {
             parent: header,
             classNames: ['navigation'],
         });
-
-        this.pageContainer = new BaseComponent({
-            parent: appRoot,
-            classNames: ['page-container'],
-        });
         this.toGarageBtn = new Button({
             parent: navigation,
             classNames: ['garage-button'],
@@ -40,18 +36,14 @@ class App {
             content: 'TO WINNERS',
             onClick: () => this.setActivePage(PageName.Winners),
         });
+        this.pageContainer = new BaseComponent({
+            parent: appRoot,
+            classNames: ['page-container'],
+        });
         this.createPages();
     }
 
-    async createInitialState() {
-        const carsCount = await getCarsCount();
-        garageStore.carsCount = carsCount;
-        const winnersCount = await getWinnersCount();
-        winnersStore.carsCount = winnersCount;
-    }
-
     async createPages() {
-        await this.createInitialState();
         const garagePage = new GaragePage(garageStore);
         this.pages.set(PageName.Garage, garagePage);
         const winnersPage = new WinnersPage(winnersStore);
@@ -66,7 +58,7 @@ class App {
     }
 
     renderActivePage(pageName: PageName) {
-        this.pageContainer.removeChildren();
+        this.pageContainer.clearNode();
         const page = this.pages.get(pageName);
 
         if (page) {

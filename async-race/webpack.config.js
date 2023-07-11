@@ -9,17 +9,13 @@ const baseConfig = {
   mode: "development",
   module: {
     rules: [
-        {
-            test: /^((?!__inline).)*\.svg$|\.(png|jpg|jpeg|gif)$/i,
-            type: 'asset/resource',
-            generator: {
-              filename: '[name].[hash][ext]',
-            },
-          },
-          {
-            test: /(__inline)\.svg$/i,
-            type: 'asset/source',
-          },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: '[name].[hash][ext]',
+        },
+      },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",

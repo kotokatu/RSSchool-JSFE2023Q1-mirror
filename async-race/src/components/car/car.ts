@@ -1,26 +1,24 @@
 import { BaseComponent } from '../base-component';
 import { CarConfig } from '../../utils/api-utils';
-import carSVG from '../../assets/car__inline.svg';
+import carSVG from '../../assets/car_icon.svg';
+import { createSVG } from '../../utils/utils';
 import './car.css';
 
 export default class Car extends BaseComponent {
-    public id: number;
-    private name: string;
     private color: string;
+    private svg: SVGSVGElement = createSVG(`${carSVG}#car_icon`);
     constructor(params: CarConfig) {
         super({ classNames: ['car'] });
-        this.id = params.id;
-        this.name = params.name;
         this.color = params.color;
         this.createCarView();
     }
 
     createCarView() {
-        this.setHtmlContent(carSVG);
+        this.node.append(this.svg);
         this.setColor(this.color);
     }
 
     setColor(color: string) {
-        this.node.style.fill = color;
+        this.svg.style.fill = color;
     }
 }

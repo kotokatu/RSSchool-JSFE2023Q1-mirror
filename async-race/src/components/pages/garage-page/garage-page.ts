@@ -9,26 +9,18 @@ import Car from '../../car/car';
 export default class GaragePage extends Page {
     constructor(store: Store) {
         super(PageName.Garage, store);
-        this.getCarsData();
     }
 
-    async getCarsData() {
-        const data = await getCars(this.store.page, this.store.limit);
-        if (data) {
-            this.carsCountElement.setTextContent(`(#${this.store.carsCount})`);
-            data.cars.forEach((config: CarConfig) =>
-                this.mainContainer.insertChild(new Car(config))
-            );
-        }
+    creatCar() {}
+
+    protected async updateView(): Promise<void> {
+        const { cars, carsCount } = await getCars(this.store.page, this.store.limit);
+        this.updateCarsCount(carsCount);
+        this.updateMain(cars);
     }
 
-    onNextBtnClick(): void {
-        this.mainContainer.removeChildren();
-        this.getCarsData();
-    }
-
-    onPrevBtnClick(): void {
-        this.mainContainer.removeChildren();
-        this.getCarsData();
+    protected updateMain(carConfigs: CarConfig[]): void {
+        this.mainContainer.clearNode();
+        carConfigs.forEach((config: CarConfig) => this.mainContainer.insertChild(new Car(config)));
     }
 }
