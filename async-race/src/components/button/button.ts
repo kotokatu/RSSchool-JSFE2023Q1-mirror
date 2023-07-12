@@ -30,7 +30,7 @@ export class Button extends BaseComponent<HTMLButtonElement> {
     }
 
     public disable() {
-        this.setAttr('disabled', 'true');
+        this.setAttributes({ disabled: '' });
         this.isDisabled = true;
     }
 

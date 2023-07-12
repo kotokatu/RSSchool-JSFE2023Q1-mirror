@@ -1,0 +1,30 @@
+input {
+  border: 0;
+  outline: 0;
+}
+
+input[type=text]:valid {
+  border: 2px solid rgb(32, 212, 32);
+}
+
+input[type=text]:invalid {
+  border: 2px solid rgb(212, 32, 32);
+}
+
+input[type=text]:placeholder-shown {
+  border: 2px solid black;
+}
+
+.input-error {
+  visibility: hidden;
+  margin: 0;
+  font-size: 13px;
+}
+
+.input-error.visible {
+  visibility: visible;
+}
+
+/* input[type=text]:invalid:not(:placeholder-shown) ~ .input-error {
+  visibility: visible;
+} */

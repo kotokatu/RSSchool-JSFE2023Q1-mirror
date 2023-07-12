@@ -14,10 +14,10 @@ export default class WinnersPage extends Page {
     async updateView(): Promise<void> {
         const { cars, carsCount } = await getWinners(this.store.page, this.store.limit);
         this.updateCarsCount(carsCount);
-        this.updateMain(cars);
+        this.updateCarsView(cars);
     }
 
-    updateMain(cars: CarConfig[]): void {
+    updateCarsView(cars: CarConfig[]): void {
         this.mainContainer.clearNode();
         cars.forEach((config: CarConfig) => this.mainContainer.insertChild(new Car(config)));
     }

@@ -25,8 +25,8 @@ export default abstract class Page extends BaseComponent {
             content: `(#${this.store.carsCount})`,
         });
         this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
-        this.updateView();
         this.pagination = new Pagination(this, this.store, this.updateView.bind(this));
+        this.updateView();
     }
 
     protected updateCarsCount(carsCount: number) {
@@ -36,5 +36,5 @@ export default abstract class Page extends BaseComponent {
     }
 
     protected abstract updateView(): Promise<void>;
-    protected abstract updateMain(cars: CarConfig[]): void;
+    protected abstract updateCarsView(cars: CarConfig[]): void;
 }

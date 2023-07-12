@@ -38,6 +38,12 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         }
     }
 
+    public prependChild(child: BaseComponent) {
+        if (child instanceof BaseComponent) {
+            this.node.prepend(child.getNode());
+        }
+    }
+
     public insertChildren(children: BaseComponent[]) {
         children.forEach((child: BaseComponent) => this.insertChild(child));
     }
@@ -50,8 +56,8 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         this.node.textContent = text;
     }
 
-    public setAttr(attr: string, value: string): void {
-        this.node.setAttribute(attr, value);
+    public setAttributes(attributes: Record<string, string>): void {
+        Object.entries(attributes).forEach(([attr, value]) => this.node.setAttribute(attr, value));
     }
 
     public removeAttr(attr: string): void {
@@ -74,7 +80,10 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         this.node.remove();
     }
 
-    public addListener(event: keyof HTMLElementEventMap, callback: (e: Event) => void): void {
+    public addListener(
+        event: keyof HTMLElementEventMap | string,
+        callback: (e: Event) => void
+    ): void {
         if (typeof callback === 'function') {
             this.node.addEventListener(event, callback);
         }

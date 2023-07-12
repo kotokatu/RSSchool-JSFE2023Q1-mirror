@@ -4,7 +4,7 @@ import carSVG from '../../assets/car_icon.svg';
 import { createSVG } from '../../utils/utils';
 import './car.css';
 
-export default class Car extends BaseComponent {
+export default class CarView extends BaseComponent {
     private color: string;
     private svg: SVGSVGElement = createSVG(`${carSVG}#car_icon`);
     constructor(params: CarConfig) {
