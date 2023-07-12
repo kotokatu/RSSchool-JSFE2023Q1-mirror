@@ -1,70 +1,61 @@
 import { BaseComponent } from '../base-component';
 import Input from '../input/input';
+import ErrorMessage from './invalid-input-message/invalid-input-message';
 import { Button } from '../button/button';
 import { generateRandomCarName, generateRandomColor } from '../../utils/utils';
 import { createCar, CarParams } from '../../utils/api-utils';
 
+export const garageUpdateEvent = new CustomEvent('garage-update', { bubbles: true });
+
 export default class CarGenerationControls extends BaseComponent {
-    textInput = new Input({
-        type: 'text',
-        required: '',
-        pattern: '.*\\S.*',
-        placeholder: 'Please enter a car name',
-    });
-    colorInput = new Input({ type: 'color' });
-    errorMessage = new BaseComponent({
-        tag: 'p',
-        classNames: ['input-error'],
-        content: 'Please enter a valid name',
-    });
-    garageUpdateEvent = new CustomEvent('garage-update', { bubbles: true });
+    nameInput!: Input;
+    colorInput!: Input;
+    invalidInputMessage!: ErrorMessage;
+
     constructor() {
         super({ classNames: ['add-car-wrapper'] });
-        this.textInput.addListener('input', () => this.hideErrorMessage());
-        this.createView();
+        this.render();
     }
 
-    private createView() {
+    private render() {
+        this.colorInput = new Input(this, { type: 'color' });
+        this.nameInput = new Input(this, {
+            type: 'text',
+            placeholder: 'Please enter a car name',
+            required: 'true',
+            pattern: '.*\\S.*',
+        });
+        this.nameInput.addListener('input', () => this.invalidInputMessage.hide());
         const createCarBtn = new Button({
             classNames: ['add-car-button'],
             parent: this,
             content: 'create car',
-            onClick: () => this.addCarsToView(this.getUserDefinedCarParams()),
+            onClick: () => this.addCars(this.getUserDefinedCarParams()),
         });
+        this.invalidInputMessage = new ErrorMessage('Please enter a valid name');
         const generateCarsBtn = new Button({
             classNames: ['generate-cars-button'],
             parent: this,
             content: 'generate cars',
-            onClick: () => this.addCarsToView(this.createRandomCarParams()),
+            onClick: () => this.addCars(this.createRandomCarParams()),
         });
-        this.insertChildren([
-            this.textInput,
-            this.colorInput,
-            createCarBtn,
-            this.errorMessage,
-            generateCarsBtn,
-        ]);
     }
 
-    private async addCarsToView(carParamsData: CarParams[] | null): Promise<void> {
+    private async addCars(carParamsData: CarParams[] | null): Promise<void> {
         if (carParamsData) {
-            await Promise.all(
-                carParamsData.map(async (carParams) => {
-                    await createCar(carParams);
-                })
-            );
-            this.node.dispatchEvent(this.garageUpdateEvent);
+            await Promise.allSettled(carParamsData.map((carParams) => createCar(carParams)));
+            this.node.dispatchEvent(garageUpdateEvent);
         }
     }
 
     private getUserDefinedCarParams(): CarParams[] | null {
-        if (this.textInput.getNode().checkValidity()) {
-            const name = this.textInput.getValue();
+        if (this.nameInput.getNode().checkValidity()) {
+            const name = this.nameInput.getValue();
             const color = this.colorInput.getValue();
-            this.textInput.clearInput();
+            this.nameInput.clearInput();
             return [{ name, color }];
         }
-        this.showErrorMessage();
+        this.invalidInputMessage.show();
         return null;
     }
 
@@ -78,13 +69,5 @@ export default class CarGenerationControls extends BaseComponent {
             i += 1;
         }
         return carParamsArray;
-    }
-
-    private showErrorMessage() {
-        this.errorMessage.setCssClasses(['visible']);
-    }
-
-    private hideErrorMessage() {
-        this.errorMessage.removeClasses(['visible']);
     }
 }

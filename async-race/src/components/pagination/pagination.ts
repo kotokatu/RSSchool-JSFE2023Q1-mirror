@@ -5,15 +5,19 @@ import { Store } from '../../store/store';
 const DEFAULT_PAGINATION_PAGE = 1;
 
 export default class Pagination extends BaseComponent {
-    prevBtn: Button;
-    nextBtn: Button;
-    pageNumElement: BaseComponent;
-    store: Store;
+    prevBtn!: Button;
+    nextBtn!: Button;
+    pageNumElement!: BaseComponent;
+    private store: Store;
     onBtnClick: () => void;
     constructor(parent: BaseComponent, store: Store, onBtnClick: () => void) {
         super({ parent, classNames: ['pagination-container'] });
         this.store = store;
         this.onBtnClick = onBtnClick;
+        this.render();
+    }
+
+    private render() {
         this.pageNumElement = new BaseComponent({
             tag: 'span',
             parent: this,

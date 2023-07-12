@@ -2,9 +2,11 @@ import { BaseComponent } from '../base-component';
 import './input.css';
 
 export default class Input extends BaseComponent<HTMLInputElement> {
-    constructor(attributes: Record<string, string>) {
-        super({ tag: 'input' });
-        this.setAttributes(attributes);
+    constructor(parent: BaseComponent, attributes?: Record<string, string>) {
+        super({ tag: 'input', parent });
+        if (attributes) {
+            this.setAttributes(attributes);
+        }
     }
 
     public disable() {
@@ -17,6 +19,10 @@ export default class Input extends BaseComponent<HTMLInputElement> {
 
     public getValue() {
         return this.node.value;
+    }
+
+    public setValue(value: string) {
+        this.node.value = value;
     }
 
     public clearInput() {

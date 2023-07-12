@@ -68,7 +68,7 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         classNames.forEach((className: string) => this.node.classList.add(className));
     }
 
-    public removeClasses(classNames: string[]) {
+    public removeCssClasses(classNames: string[]) {
         classNames.forEach((className: string) => this.node.classList.remove(className));
     }
 

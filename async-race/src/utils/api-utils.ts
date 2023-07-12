@@ -1,19 +1,19 @@
 const BASE_URL = 'http://127.0.0.1:3000';
 
-export interface CarConfig {
+export interface GetCarApiResponse {
     name: string;
     color: string;
     id: number;
 }
 
-export type CarParams = Omit<CarConfig, 'id'>;
+export type CarParams = Omit<GetCarApiResponse, 'id'>;
 
-export interface GetCarsResponse {
+export interface GetCarsApiResponse {
     carsCount: number;
-    cars: CarConfig[];
+    cars: GetCarApiResponse[];
 }
 
-export const getCars = async (pageNum: number, limit: number): Promise<GetCarsResponse> => {
+export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
     const url = `${BASE_URL}/garage?_page=${pageNum}&_limit=${limit}`;
     const res = await fetch(url);
     const cars = await res.json();
@@ -21,7 +21,7 @@ export const getCars = async (pageNum: number, limit: number): Promise<GetCarsRe
     return { carsCount, cars };
 };
 
-export const getCarsCount = async () => {
+export const getCarsCount = async (): Promise<number> => {
     const url = `${BASE_URL}/garage?_limit=0`;
     const res = await fetch(url);
     return Number(res.headers.get('X-Total-Count'));

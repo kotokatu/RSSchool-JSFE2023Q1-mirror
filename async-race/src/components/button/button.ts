@@ -2,7 +2,7 @@ import { BaseComponent, ComponentParams } from '../base-component';
 import './button.css';
 
 export interface ButtonParams extends ComponentParams {
-    onClick?: (e: Event) => void;
+    onClick: (e: Event) => void;
 }
 
 export class Button extends BaseComponent<HTMLButtonElement> {
