@@ -1,12 +1,16 @@
 .car {
-    width: 70px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .car svg {
-    width: 70px;
-    height: 40px;
+    width: 100px;
+    height: 30px;
+    stroke: black;
+    stroke-width: 10px;
+    stroke-linejoin: round;
+    paint-order: stroke;
 }

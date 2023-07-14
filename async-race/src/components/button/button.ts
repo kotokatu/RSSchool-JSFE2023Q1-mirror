@@ -11,8 +11,8 @@ export class Button extends BaseComponent<HTMLButtonElement> {
     constructor(params: ButtonParams) {
         super({
             tag: 'button',
-            parent: params.parent,
             classNames: ['button', ...(params.classNames ?? '')],
+            parent: params.parent,
             content: params.content,
         });
 

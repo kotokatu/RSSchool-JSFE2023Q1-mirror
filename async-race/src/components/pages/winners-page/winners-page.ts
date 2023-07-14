@@ -19,7 +19,6 @@ export default class WinnersPage extends Page {
 
     addCarsToView(cars: GetCarApiResponse[]): void {
         this.mainContainer.clearNode();
-        console.log(cars);
         cars.forEach((config: GetCarApiResponse) =>
             this.mainContainer.setTextContent(`${config.id}`)
         );

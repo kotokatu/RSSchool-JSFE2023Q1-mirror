@@ -13,6 +13,11 @@ export interface GetCarsApiResponse {
     cars: GetCarApiResponse[];
 }
 
+export interface StartEngineApiResponse {
+    velocity: number;
+    distance: number;
+}
+
 export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
     const url = `${BASE_URL}/garage?_page=${pageNum}&_limit=${limit}`;
     const res = await fetch(url);
@@ -57,4 +62,75 @@ export const createCar = async (data: CarParams) => {
         console.error(errorMessage);
     }
     return res.json();
+};
+
+export const updateCar = async (id: number, data: CarParams) => {
+    const url = `${BASE_URL}/garage/${id}`;
+    const fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(data),
+    };
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        console.error(errorMessage);
+    }
+    return res.json();
+};
+
+export const deleteCar = async (id: number) => {
+    const url = `${BASE_URL}/garage/${id}`;
+    const fetchOptions = {
+        method: 'DELETE',
+    };
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        console.error(errorMessage);
+    }
+    return res.json();
+};
+
+export const startEngine = async (id: number): Promise<StartEngineApiResponse> => {
+    const url = `${BASE_URL}/engine?id=${id}&status=started`;
+    const fetchOptions = {
+        method: 'PATCH',
+    };
+    const res = await fetch(url, fetchOptions);
+    // if (!res.ok) {
+    //     const errorMessage = await res.text();
+    //     console.error(errorMessage);
+    // }
+    return res.json();
+};
+
+export const stopEngine = async (id: number) => {
+    const url = `${BASE_URL}/engine?id=${id}&status=stopped`;
+    const fetchOptions = {
+        method: 'PATCH',
+    };
+    const res = await fetch(url, fetchOptions);
+    // if (!res.ok) {
+    //     const errorMessage = await res.text();
+    //     console.error(errorMessage);
+    // }
+    return res.json();
+};
+
+export const setDriveMode = async (id: number) => {
+    const url = `${BASE_URL}/engine?id=${id}&status=drive`;
+    const fetchOptions = {
+        method: 'PATCH',
+    };
+    const res = await fetch(url, fetchOptions);
+    // if (!res.ok) {
+    //     const errorMessage = await res.text();
+    //     console.error(errorMessage);
+    //     return;
+    // }
+    // return res.json();
 };

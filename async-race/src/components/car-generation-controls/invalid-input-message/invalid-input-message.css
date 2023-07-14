@@ -1,0 +1,9 @@
+.error {
+  visibility: hidden;
+  margin: 0;
+  font-size: 13px;
+}
+
+.error.visible {
+  visibility: visible;
+}

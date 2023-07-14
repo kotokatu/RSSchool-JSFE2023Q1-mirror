@@ -1,6 +1,6 @@
 import { BaseComponent } from '../base-component';
 import Input from '../input/input';
-import ErrorMessage from './invalid-input-message/invalid-input-message';
+import InvaliInputMessage from './invalid-input-message/invalid-input-message';
 import { Button } from '../button/button';
 import { generateRandomCarName, generateRandomColor } from '../../utils/utils';
 import { createCar, CarParams } from '../../utils/api-utils';
@@ -10,7 +10,7 @@ export const garageUpdateEvent = new CustomEvent('garage-update', { bubbles: tru
 export default class CarGenerationControls extends BaseComponent {
     nameInput!: Input;
     colorInput!: Input;
-    invalidInputMessage!: ErrorMessage;
+    invalidInputMessage!: InvaliInputMessage;
 
     constructor() {
         super({ classNames: ['add-car-wrapper'] });
@@ -32,7 +32,7 @@ export default class CarGenerationControls extends BaseComponent {
             content: 'create car',
             onClick: () => this.addCars(this.getUserDefinedCarParams()),
         });
-        this.invalidInputMessage = new ErrorMessage('Please enter a valid name');
+        this.invalidInputMessage = new InvaliInputMessage(this, 'Please enter a valid name');
         const generateCarsBtn = new Button({
             classNames: ['generate-cars-button'],
             parent: this,

@@ -10,13 +10,17 @@ export default class Car extends BaseComponent {
         this.createCarView(color);
     }
 
-    createCarView(color: string) {
+    private createCarView(color: string) {
         this.svg = createSVG(`${carSVG}#car_icon`);
         this.node.append(this.svg);
         this.setColor(color);
     }
 
-    setColor(color: string) {
+    public setColor(color: string) {
         this.svg.style.fill = color;
+    }
+
+    public resetPosition() {
+        this.node.style.transform = 'translateX(0)';
     }
 }

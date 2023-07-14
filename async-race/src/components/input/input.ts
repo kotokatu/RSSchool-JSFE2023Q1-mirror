@@ -2,10 +2,12 @@ import { BaseComponent } from '../base-component';
 import './input.css';
 
 export default class Input extends BaseComponent<HTMLInputElement> {
-    constructor(parent: BaseComponent, attributes?: Record<string, string>) {
+    constructor(parent: BaseComponent, attributes: Record<string, string>, value?: string) {
         super({ tag: 'input', parent });
-        if (attributes) {
-            this.setAttributes(attributes);
+        this.setAttributes(attributes);
+
+        if (value) {
+            this.setValue(value);
         }
     }
 

@@ -1,9 +1,4 @@
-.car-controls {
-  display: flex;
-  align-items: center;
-}
-
-.car-controls input[type=color] {
+.car-track-container input[type=color] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -11,15 +6,21 @@
   width: 30px;
   height: 32px;
   background-color: transparent;
-}
-
-.car-controls input[type=text] {
-  background-color: transparent;
-  border: 0;
   cursor: pointer;
 }
 
-.car-controls input[type=text]:focus {
+.car-track-container input[type=text] {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px dotted #000000;
+  cursor: pointer;
+}
+
+.car-track-container input[type=text]:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.car-track-container input[type=text]:focus {
   background-color: rgba(255, 255, 255, 0.4);
   cursor: auto;
 }
