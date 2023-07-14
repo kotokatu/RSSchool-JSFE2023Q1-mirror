@@ -1,5 +1,5 @@
-import { BaseComponent } from '../base-component';
-import Car from './car/car';
+import { BaseComponent } from '../../../base-component';
+import Car from '../car/car';
 import {
     GetCarApiResponse,
     CarParams,
@@ -8,12 +8,12 @@ import {
     startEngine,
     stopEngine,
     setDriveMode,
-} from '../../utils/api-utils';
-import Input from '../input/input';
-import { Button } from '../button/button';
-import { garageUpdateEvent } from '../car-generation-controls/car-generation-controls';
-import CarAnimationControls from '../car-animation-controls/car-animation-controls';
-import CarAnimation from '../animation/animation';
+} from '../../../../utils/api-utils';
+import Input from '../../../input/input';
+import { Button } from '../../../button/button';
+import { garageUpdateEvent } from '../../../car-generation-controls/car-generation-controls';
+import AnimationControls from '../animation-controls/animation-controls';
+import CarAnimation from '../car-animation/car-animation';
 import './car-track.css';
 
 export default class CarTrack extends BaseComponent {
@@ -28,7 +28,7 @@ export default class CarTrack extends BaseComponent {
         super({ classNames: ['car-track-container'] });
         this.id = params.id;
         this.car = new Car(params.color);
-        this.animation = new CarAnimation(this.car.getNode());
+        this.animation = new CarAnimation(this.car);
         this.render(params.name, params.color);
     }
 
@@ -49,14 +49,15 @@ export default class CarTrack extends BaseComponent {
             onClick: () => this.removeCar(),
         });
         const track = new BaseComponent({ parent: this, classNames: ['car-track'] });
-        const driveControls = new CarAnimationControls({
-            parent: track,
+        const driveControls = new AnimationControls({
             startButtonContent: 'A',
             stopButtonContent: 'B',
-            onStart: async () => this.startCar(),
+            onStart: () => this.startCar(),
             onStop: () => this.stopCar(),
         });
-        track.insertChild(this.car);
+        this.startBtn = driveControls.startBtn;
+        this.stopBtn = driveControls.stopBtn;
+        track.insertChildren([driveControls, this.car]);
     }
 
     getCarParams(): CarParams {
@@ -75,7 +76,7 @@ export default class CarTrack extends BaseComponent {
         this.node.dispatchEvent(garageUpdateEvent);
     }
 
-    async startCar() {
+    public async startCar() {
         const { velocity, distance } = await startEngine(this.id);
         const animationDuration = distance / velocity;
         this.animation.addAnimation(this.getTrackWidth(), animationDuration);
@@ -83,7 +84,7 @@ export default class CarTrack extends BaseComponent {
         this.animation.removeAnimation();
     }
 
-    async stopCar() {
+    public async stopCar() {
         this.animation.removeAnimation();
         this.car.resetPosition();
         await stopEngine(this.id);

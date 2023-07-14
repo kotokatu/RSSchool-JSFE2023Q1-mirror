@@ -1,6 +1,6 @@
-import { BaseComponent } from '../../base-component';
-import carSVG from '../../../assets/car_icon.svg';
-import { createSVG } from '../../../utils/utils';
+import { BaseComponent } from '../../../base-component';
+import carSVG from '../../../../assets/car_icon.svg';
+import { createSVG } from '../../../../utils/utils';
 import './car.css';
 
 export default class Car extends BaseComponent {

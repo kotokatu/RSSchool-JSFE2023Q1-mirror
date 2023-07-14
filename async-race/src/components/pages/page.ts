@@ -12,12 +12,11 @@ export default abstract class Page extends BaseComponent {
     constructor(pageName: PageName, store: Store) {
         super({ classNames: ['page', `${pageName}-page`] });
         this.store = store;
-        this.updateView();
-        this.render(pageName);
+        this.renderBaseView(pageName);
     }
 
-    protected render(pageName: PageName) {
-        const title: BaseComponent = new BaseComponent({
+    protected renderBaseView(pageName: PageName) {
+        const title = new BaseComponent({
             tag: 'h2',
             parent: this,
             classNames: ['page-title'],
@@ -30,7 +29,7 @@ export default abstract class Page extends BaseComponent {
             content: `(#${this.store.carsCount})`,
         });
         this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
-        this.pagination = new Pagination(this, this.store, this.updateView.bind(this));
+        this.pagination = new Pagination(this, this.store, this.renderMainView.bind(this));
     }
 
     protected updateCarsCount(carsCount: number) {
@@ -39,6 +38,6 @@ export default abstract class Page extends BaseComponent {
         this.carsCountElement.setTextContent(`(#${this.store.carsCount})`);
     }
 
-    protected abstract updateView(): Promise<void>;
-    protected abstract addCarsToView(cars: GetCarApiResponse[]): void;
+    protected abstract renderMainView(): void;
+    protected abstract addCarsToView(cars?: GetCarApiResponse[]): void;
 }

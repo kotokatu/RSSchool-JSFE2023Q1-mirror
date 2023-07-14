@@ -1,21 +1,20 @@
-import { Button } from '../button/button';
-import { BaseComponent } from '../base-component';
+import { Button } from '../../../button/button';
+import { BaseComponent } from '../../../base-component';
 
-type DriveControlsParams = {
-    parent: BaseComponent;
+type AnimationControlsParams = {
     startButtonContent: string;
     stopButtonContent: string;
     onStart: () => void;
     onStop: () => void;
 };
 
-export default class DriveControls extends BaseComponent {
+export default class AnimationControls extends BaseComponent {
     startBtn: Button;
     stopBtn: Button;
     onStart: () => void;
     onStop: () => void;
-    constructor(params: DriveControlsParams) {
-        super({ parent: params.parent, classNames: ['drive-controls'] });
+    constructor(params: AnimationControlsParams) {
+        super({ classNames: ['animation-controls'] });
         this.onStart = params.onStart;
         this.onStop = params.onStop;
         this.startBtn = new Button({
@@ -33,15 +32,15 @@ export default class DriveControls extends BaseComponent {
         this.stopBtn.disable();
     }
 
-    async handleStartBtnClick() {
+    handleStartBtnClick() {
         this.startBtn.disable();
         this.stopBtn.enable();
-        await this.onStart();
+        this.onStart();
     }
 
-    async handleStopBtnClick() {
+    handleStopBtnClick() {
         this.stopBtn.disable();
         this.startBtn.enable();
-        await this.onStop();
+        this.onStop();
     }
 }

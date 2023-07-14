@@ -44,6 +44,10 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         }
     }
 
+    public prependChildren(children: BaseComponent[]) {
+        children.forEach((child: BaseComponent) => this.prependChild(child));
+    }
+
     public insertChildren(children: BaseComponent[]) {
         children.forEach((child: BaseComponent) => this.insertChild(child));
     }

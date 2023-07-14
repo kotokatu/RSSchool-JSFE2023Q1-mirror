@@ -1,20 +1,20 @@
-import { BaseComponent } from '../base-component';
+import Car from '../car/car';
 
 export default class CarAnimation {
-    element: HTMLElement;
+    car: HTMLElement;
     start!: number;
     numberOfPixels!: number;
     duration!: number;
-    id!: number;
-    constructor(element: HTMLElement) {
-        this.element = element;
+    requestId!: number;
+    constructor(car: Car) {
+        this.car = car.getNode();
     }
 
     public addAnimation(numberOfPixels: number, duration: number) {
         this.start = 0;
-        this.numberOfPixels = numberOfPixels - this.element.clientWidth;
+        this.numberOfPixels = numberOfPixels - this.car.clientWidth;
         this.duration = duration;
-        requestAnimationFrame(this.animate.bind(this));
+        this.requestId = requestAnimationFrame(this.animate.bind(this));
     }
 
     private animate(timestamp: number) {
@@ -22,11 +22,13 @@ export default class CarAnimation {
         const elapsed = timestamp - this.start;
         const progress = elapsed / this.duration;
         const pos = this.numberOfPixels * progress;
-        this.element.style.transform = `translateX(${pos}px)`;
-        this.id = requestAnimationFrame(this.animate.bind(this));
+        this.car.style.transform = `translateX(${pos}px)`;
+        if (elapsed < this.duration) {
+            this.requestId = requestAnimationFrame(this.animate.bind(this));
+        }
     }
 
     public removeAnimation() {
-        cancelAnimationFrame(this.id);
+        cancelAnimationFrame(this.requestId);
     }
 }

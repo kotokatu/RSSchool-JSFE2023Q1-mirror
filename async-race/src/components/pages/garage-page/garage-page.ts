@@ -3,26 +3,51 @@ import { Store } from '../../../store/store';
 import Page from '../page';
 import { getCars, GetCarApiResponse } from '../../../utils/api-utils';
 import CarGenerationControls from '../../car-generation-controls/car-generation-controls';
-import CarTrack from '../../car-track/car-track';
+import AnimationControls from './animation-controls/animation-controls';
+import CarTrack from './car-track/car-track';
 
 export default class GaragePage extends Page {
+    carTracks: CarTrack[] = [];
     constructor(store: Store) {
         super(PageName.Garage, store);
+        this.addListener('garage-update', () => this.renderMainView());
+        this.renderPageControls();
+        this.renderMainView();
+    }
+
+    private renderPageControls(): void {
         const carGenerationControls = new CarGenerationControls();
-        this.prependChild(carGenerationControls);
-        this.addListener('garage-update', () => this.updateView());
+        const raceAnimationControls = new AnimationControls({
+            startButtonContent: 'race',
+            stopButtonContent: 'reset',
+            onStart: () => this.startRace(),
+            onStop: () => this.resetCars(),
+        });
+        this.prependChildren([raceAnimationControls, carGenerationControls]);
     }
 
-    protected async updateView(): Promise<void> {
+    protected async renderMainView(): Promise<void> {
         const { cars, carsCount } = await getCars(this.store.page, this.store.limit);
+        this.createCarTracks(cars);
         this.updateCarsCount(carsCount);
-        this.addCarsToView(cars);
+        this.addCarsToView();
     }
 
-    protected addCarsToView(carConfigs: GetCarApiResponse[]): void {
+    private createCarTracks(carsData: GetCarApiResponse[]): void {
+        this.carTracks = [];
+        carsData.forEach((data: GetCarApiResponse) => this.carTracks.push(new CarTrack(data)));
+    }
+
+    protected addCarsToView(): void {
         this.mainContainer.clearNode();
-        carConfigs.forEach((config: GetCarApiResponse) =>
-            this.mainContainer.insertChild(new CarTrack(config))
-        );
+        this.carTracks.forEach((carTrack) => this.mainContainer.insertChild(carTrack));
+    }
+
+    startRace() {
+        this.carTracks.map((carTrack) => carTrack.startCar());
+    }
+
+    resetCars() {
+        this.carTracks.map((carTrack) => carTrack.stopCar());
     }
 }
