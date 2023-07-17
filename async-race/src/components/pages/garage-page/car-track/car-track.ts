@@ -77,27 +77,29 @@ export default class CarTrack extends BaseComponent {
         this.node.dispatchEvent(garageUpdateEvent);
     }
 
-    public async getTime(): Promise<void> {
+    public async calculateTime(): Promise<void> {
+        this.time = 0;
         const { velocity, distance } = await startEngine(this.id);
         this.time = distance / velocity;
-        this.animation.addAnimation(this.getTrackWidth(), this.time);
     }
 
-    public async startAnimation(): Promise<number[]> {
+    public async animateCar(): Promise<number[]> {
+        this.animation.addAnimation(this.getTrackWidth(), this.time);
         return setDriveMode(this.id)
             .then(() => [this.id, this.time])
-            .catch((err: string) => Promise.reject(err))
             .finally(() => this.animation.removeAnimation());
     }
 
     public startCar(): void {
-        this.getTime()
-            // .then(() => {
-            //     this.startBtn.disable();
-            //     this.stopBtn.enable();
-            // })
-            .then(() => this.startAnimation())
-            .catch((err) => console.log(err));
+        this.calculateTime()
+            .then(() => this.animateCar())
+            .catch((err: Error) => {
+                if (err.name === 'AbortError') {
+                    console.log('User aborted request.');
+                } else {
+                    console.log(err);
+                }
+            });
     }
 
     public async stopCar() {

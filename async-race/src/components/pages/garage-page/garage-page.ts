@@ -44,21 +44,18 @@ export default class GaragePage extends Page {
     }
 
     async startRace() {
-        // Promise.all(this.carTracks.map((carTrack) => carTrack.getTime()))
-        // .then(() =>
         Promise.any(
             this.carTracks.map((carTrack) =>
-                carTrack.getTime().then(() => carTrack.startAnimation())
+                carTrack.calculateTime().then(() => carTrack.animateCar())
             )
         )
-            .then(
-                (data: number[]) => {
-                    console.log(data[0]);
-                    // this.addCarToWinners(data);
-                }
-                // )
-            )
-            .catch((err: string) => console.log(err));
+            .then((data: number[]) => {
+                console.log(data[0]);
+                // this.addCarToWinners(data);
+            })
+            .catch((err: Error) => {
+                if (err.name === 'AggregateError') console.log('User aborted all requests.');
+            });
     }
 
     resetCars() {
@@ -66,4 +63,6 @@ export default class GaragePage extends Page {
     }
 
     // addCarToWinners(data: number[]) {}
+
+    checkWinner(id: number) {}
 }
