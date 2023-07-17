@@ -24,6 +24,7 @@ export default class CarTrack extends BaseComponent {
     colorInput!: Input;
     startBtn!: Button;
     stopBtn!: Button;
+    time!: number;
     constructor(params: GetCarApiResponse) {
         super({ classNames: ['car-track-container'] });
         this.id = params.id;
@@ -76,12 +77,27 @@ export default class CarTrack extends BaseComponent {
         this.node.dispatchEvent(garageUpdateEvent);
     }
 
-    public async startCar() {
+    public async getTime(): Promise<void> {
         const { velocity, distance } = await startEngine(this.id);
-        const animationDuration = distance / velocity;
-        this.animation.addAnimation(this.getTrackWidth(), animationDuration);
-        await setDriveMode(this.id);
-        this.animation.removeAnimation();
+        this.time = distance / velocity;
+        this.animation.addAnimation(this.getTrackWidth(), this.time);
+    }
+
+    public async startAnimation(): Promise<number[]> {
+        return setDriveMode(this.id)
+            .then(() => [this.id, this.time])
+            .catch((err: string) => Promise.reject(err))
+            .finally(() => this.animation.removeAnimation());
+    }
+
+    public startCar(): void {
+        this.getTime()
+            // .then(() => {
+            //     this.startBtn.disable();
+            //     this.stopBtn.enable();
+            // })
+            .then(() => this.startAnimation())
+            .catch((err) => console.log(err));
     }
 
     public async stopCar() {

@@ -1,5 +1,7 @@
 const BASE_URL = 'http://127.0.0.1:3000';
 
+const controllers = new Map();
+
 export interface GetCarApiResponse {
     name: string;
     color: string;
@@ -16,6 +18,10 @@ export interface GetCarsApiResponse {
 export interface StartEngineApiResponse {
     velocity: number;
     distance: number;
+}
+
+export interface SetDriveModeApiResponse {
+    success: boolean;
 }
 
 export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
@@ -95,42 +101,49 @@ export const deleteCar = async (id: number) => {
     return res.json();
 };
 
+const abort = (id: number) => {
+    const controller = controllers.get(id);
+    controller.abort();
+    controllers.delete(id);
+};
+
 export const startEngine = async (id: number): Promise<StartEngineApiResponse> => {
+    const controller = new AbortController();
+    controllers.set(id, controller);
     const url = `${BASE_URL}/engine?id=${id}&status=started`;
     const fetchOptions = {
         method: 'PATCH',
+        signal: controller.signal,
     };
     const res = await fetch(url, fetchOptions);
-    // if (!res.ok) {
-    //     const errorMessage = await res.text();
-    //     console.error(errorMessage);
-    // }
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        return Promise.reject(errorMessage);
+    }
     return res.json();
 };
 
-export const stopEngine = async (id: number) => {
+export const stopEngine = async (id: number): Promise<void> => {
+    abort(id);
     const url = `${BASE_URL}/engine?id=${id}&status=stopped`;
     const fetchOptions = {
         method: 'PATCH',
     };
-    const res = await fetch(url, fetchOptions);
-    // if (!res.ok) {
-    //     const errorMessage = await res.text();
-    //     console.error(errorMessage);
-    // }
-    return res.json();
+    await fetch(url, fetchOptions);
 };
 
-export const setDriveMode = async (id: number) => {
+export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse> => {
+    const controller = new AbortController();
+    controllers.set(id, controller);
     const url = `${BASE_URL}/engine?id=${id}&status=drive`;
     const fetchOptions = {
         method: 'PATCH',
+        signal: controller.signal,
     };
     const res = await fetch(url, fetchOptions);
-    // if (!res.ok) {
-    //     const errorMessage = await res.text();
-    //     console.error(errorMessage);
-    //     return;
-    // }
-    // return res.json();
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        return Promise.reject(errorMessage);
+    }
+    return res.json();
 };

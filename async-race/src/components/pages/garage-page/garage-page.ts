@@ -43,11 +43,27 @@ export default class GaragePage extends Page {
         this.carTracks.forEach((carTrack) => this.mainContainer.insertChild(carTrack));
     }
 
-    startRace() {
-        this.carTracks.map((carTrack) => carTrack.startCar());
+    async startRace() {
+        // Promise.all(this.carTracks.map((carTrack) => carTrack.getTime()))
+        // .then(() =>
+        Promise.any(
+            this.carTracks.map((carTrack) =>
+                carTrack.getTime().then(() => carTrack.startAnimation())
+            )
+        )
+            .then(
+                (data: number[]) => {
+                    console.log(data[0]);
+                    // this.addCarToWinners(data);
+                }
+                // )
+            )
+            .catch((err: string) => console.log(err));
     }
 
     resetCars() {
-        this.carTracks.map((carTrack) => carTrack.stopCar());
+        this.carTracks.map((carTrack: CarTrack) => carTrack.stopCar());
     }
+
+    // addCarToWinners(data: number[]) {}
 }
