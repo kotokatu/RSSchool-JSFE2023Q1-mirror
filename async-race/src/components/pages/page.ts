@@ -2,7 +2,7 @@ import { BaseComponent } from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
 import { PageName } from '../../types/types';
-import { GetCarApiResponse } from '../../utils/api-utils';
+import { GetCarApiResponse, GetWinnerApiResponse } from '../../utils/api-utils';
 
 export default abstract class Page extends BaseComponent {
     protected store: Store;
@@ -29,7 +29,7 @@ export default abstract class Page extends BaseComponent {
             content: `(#${this.store.carsCount})`,
         });
         this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
-        this.pagination = new Pagination(this, this.store, this.renderMainView.bind(this));
+        this.pagination = new Pagination(this, this.store, () => this.renderMainView());
     }
 
     protected updateCarsCount(carsCount: number) {
@@ -38,6 +38,6 @@ export default abstract class Page extends BaseComponent {
         this.carsCountElement.setTextContent(`(#${this.store.carsCount})`);
     }
 
-    protected abstract renderMainView(): void;
-    protected abstract addCarsToView(cars?: GetCarApiResponse[]): void;
+    public abstract renderMainView(): void;
+    protected abstract addCarsToView(cars?: GetCarApiResponse[] | GetWinnerApiResponse[]): void;
 }

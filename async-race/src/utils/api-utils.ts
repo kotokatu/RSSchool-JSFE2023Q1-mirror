@@ -1,6 +1,23 @@
 const BASE_URL = 'http://127.0.0.1:3000';
 
 const controllers = new Map();
+const abort = (id: number): void => {
+    const controller = controllers.get(id);
+    controller.abort();
+    controllers.delete(id);
+};
+
+enum Endpoint {
+    Garage = 'garage',
+    Winners = 'winners',
+    Engine = 'engine',
+}
+
+enum CarStatus {
+    Started = 'started',
+    Stopped = 'stopped',
+    Drive = 'drive',
+}
 
 export interface GetCarApiResponse {
     name: string;
@@ -24,8 +41,19 @@ export interface SetDriveModeApiResponse {
     success: boolean;
 }
 
+export interface GetWinnerApiResponse {
+    id: number;
+    wins: number;
+    time: number;
+}
+
+export interface GetWinnersApiResponse {
+    carsCount: number;
+    cars: GetWinnerApiResponse[];
+}
+
 export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
-    const url = `${BASE_URL}/garage?_page=${pageNum}&_limit=${limit}`;
+    const url = `${BASE_URL}/${Endpoint.Garage}?_page=${pageNum}&_limit=${limit}`;
     const res = await fetch(url);
     const cars = await res.json();
     const carsCount = Number(res.headers.get('X-Total-Count'));
@@ -33,27 +61,78 @@ export const getCars = async (pageNum: number, limit: number): Promise<GetCarsAp
 };
 
 export const getCarsCount = async (): Promise<number> => {
-    const url = `${BASE_URL}/garage?_limit=0`;
+    const url = `${BASE_URL}/${Endpoint.Garage}?_limit=0`;
     const res = await fetch(url);
     return Number(res.headers.get('X-Total-Count'));
 };
 
-export const getWinners = async (pageNum: number, limit: number) => {
-    const url = `${BASE_URL}/winners?_page=${pageNum}&_limit=${limit}`;
+export const getWinners = async (
+    pageNum: number,
+    limit: number
+): Promise<GetWinnersApiResponse> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}?_page=${pageNum}&_limit=${limit}`;
     const res = await fetch(url);
     const cars = await res.json();
     const carsCount = Number(res.headers.get('X-Total-Count'));
     return { carsCount, cars };
 };
 
-export const getWinnersCount = async () => {
-    const url = `${BASE_URL}/winners?_limit=0`;
+export const getWinnersCount = async (): Promise<number> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}?_limit=0`;
     const res = await fetch(url);
     return Number(res.headers.get('X-Total-Count'));
 };
 
-export const createCar = async (data: CarParams) => {
-    const url = `${BASE_URL}/garage`;
+export const getWinner = async (id: number): Promise<GetWinnerApiResponse> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}/${id}`;
+    const res = await fetch(url);
+    return res.json();
+};
+
+export const createWinner = async (winnerData: GetWinnerApiResponse): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}`;
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(winnerData),
+    };
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        console.error(errorMessage);
+    }
+};
+
+export const deleteWinner = async (id: number): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}/${id}`;
+    const fetchOptions = {
+        method: 'DELETE',
+    };
+    await fetch(url, fetchOptions);
+};
+
+export const updateWinner = async (winnerData: GetWinnerApiResponse): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Winners}/${winnerData.id}`;
+    const fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({ wins: winnerData.wins, time: winnerData.time }),
+    };
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        console.error(errorMessage);
+    }
+};
+
+export const createCar = async (data: CarParams): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Garage}`;
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -67,11 +146,10 @@ export const createCar = async (data: CarParams) => {
         const errorMessage = await res.text();
         console.error(errorMessage);
     }
-    return res.json();
 };
 
-export const updateCar = async (id: number, data: CarParams) => {
-    const url = `${BASE_URL}/garage/${id}`;
+export const updateCar = async (id: number, data: CarParams): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Garage}/${id}`;
     const fetchOptions = {
         method: 'PUT',
         headers: {
@@ -85,32 +163,20 @@ export const updateCar = async (id: number, data: CarParams) => {
         const errorMessage = await res.text();
         console.error(errorMessage);
     }
-    return res.json();
 };
 
-export const deleteCar = async (id: number) => {
-    const url = `${BASE_URL}/garage/${id}`;
+export const deleteCar = async (id: number): Promise<void> => {
+    const url = `${BASE_URL}/${Endpoint.Garage}/${id}`;
     const fetchOptions = {
         method: 'DELETE',
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
-    return res.json();
-};
-
-const abort = (id: number) => {
-    const controller = controllers.get(id);
-    controller.abort();
-    controllers.delete(id);
+    await fetch(url, fetchOptions);
 };
 
 export const startEngine = async (id: number): Promise<StartEngineApiResponse> => {
     const controller = new AbortController();
     controllers.set(id, controller);
-    const url = `${BASE_URL}/engine?id=${id}&status=started`;
+    const url = `${BASE_URL}/${Endpoint.Engine}?id=${id}&status=${CarStatus.Started}`;
     const fetchOptions = {
         method: 'PATCH',
         signal: controller.signal,
@@ -125,17 +191,21 @@ export const startEngine = async (id: number): Promise<StartEngineApiResponse> =
 
 export const stopEngine = async (id: number): Promise<void> => {
     abort(id);
-    const url = `${BASE_URL}/engine?id=${id}&status=stopped`;
+    const url = `${BASE_URL}/${Endpoint.Engine}?id=${id}&status=${CarStatus.Stopped}`;
     const fetchOptions = {
         method: 'PATCH',
     };
-    await fetch(url, fetchOptions);
+    const res = await fetch(url, fetchOptions);
+    if (!res.ok) {
+        const errorMessage = await res.text();
+        console.error(errorMessage);
+    }
 };
 
 export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse> => {
     const controller = new AbortController();
     controllers.set(id, controller);
-    const url = `${BASE_URL}/engine?id=${id}&status=drive`;
+    const url = `${BASE_URL}/${Endpoint.Engine}?id=${id}&status=${CarStatus.Drive}`;
     const fetchOptions = {
         method: 'PATCH',
         signal: controller.signal,

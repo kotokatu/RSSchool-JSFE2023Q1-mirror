@@ -18,3 +18,5 @@ export const generateRandomCarName = (): string => {
 
 export const generateRandomColor = (): string =>
     `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
+export const formatTime = (timeInMs: number): string => (timeInMs / 1000).toFixed(2);

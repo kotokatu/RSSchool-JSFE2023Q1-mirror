@@ -2,7 +2,7 @@ import { BaseComponent } from '../../base-component';
 import { PageName } from '../../../types/types';
 import { Store } from '../../../store/store';
 import { Button } from '../../button/button';
-import { GetCarApiResponse, getWinners } from '../../../utils/api-utils';
+import { GetWinnerApiResponse, getWinners } from '../../../utils/api-utils';
 import Page from '../page';
 
 export default class WinnersPage extends Page {
@@ -11,16 +11,20 @@ export default class WinnersPage extends Page {
         this.renderMainView();
     }
 
-    protected async renderMainView(): Promise<void> {
+    public async renderMainView(): Promise<void> {
         const { cars, carsCount } = await getWinners(this.store.page, this.store.limit);
         this.updateCarsCount(carsCount);
         this.addCarsToView(cars);
     }
 
-    protected addCarsToView(carsData: GetCarApiResponse[]): void {
+    protected addCarsToView(winnersData: GetWinnerApiResponse[]): void {
         this.mainContainer.clearNode();
-        carsData.forEach((data: GetCarApiResponse) =>
-            this.mainContainer.setTextContent(`${data.id}`)
+        winnersData.forEach((winnerData: GetWinnerApiResponse) =>
+            this.mainContainer.insertChild(
+                new BaseComponent({
+                    content: `${winnerData.id} ${winnerData.wins} ${winnerData.time}`,
+                })
+            )
         );
     }
 }

@@ -4,6 +4,7 @@ import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
 import { PageName } from './types/types';
+import Page from './components/pages/page';
 import './css/style.css';
 import './css/normalize.css';
 
@@ -61,8 +62,11 @@ class App {
         this.pageContainer.clearNode();
         const page = this.pages.get(pageName);
 
-        if (page) {
+        if (page instanceof Page) {
             this.pageContainer.insertChild(page);
+            if (page instanceof WinnersPage) {
+                page.renderMainView();
+            }
         }
     }
 }
