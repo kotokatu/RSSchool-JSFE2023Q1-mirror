@@ -27,10 +27,9 @@ export class CarTrack extends BaseComponent {
     carName: string;
     carColor: string;
     animation: CarAnimation;
+    carAnimationControls!: AnimationControls;
     nameInput!: Input;
     colorInput!: Input;
-    startBtn!: Button;
-    stopBtn!: Button;
     time!: number;
     modal!: Modal;
     constructor(params: GetCarApiResponse) {
@@ -60,15 +59,13 @@ export class CarTrack extends BaseComponent {
             onClick: () => this.removeCar(),
         });
         const track = new BaseComponent({ parent: this, classNames: ['car-track'] });
-        const driveControls = new AnimationControls({
+        this.carAnimationControls = new AnimationControls({
             startButtonContent: 'A',
             stopButtonContent: 'B',
             onStart: () => this.startCar(),
-            onStop: () => this.stopCar(),
+            onStop: () => this.resetCar(),
         });
-        this.startBtn = driveControls.startBtn;
-        this.stopBtn = driveControls.stopBtn;
-        track.insertChildren([driveControls, this.car]);
+        track.insertChildren([this.carAnimationControls, this.car]);
     }
 
     getCarViewParams(): CarParams {
@@ -88,16 +85,11 @@ export class CarTrack extends BaseComponent {
         this.node.dispatchEvent(garageUpdateEvent);
     }
 
-    public async calculateTime(): Promise<void> {
+    public async calculateTime(isRaceMode?: boolean): Promise<void> {
+        this.carAnimationControls.startBtn.disable();
+        if (!isRaceMode) this.carAnimationControls.stopBtn.enable();
         const { velocity, distance } = await startEngine(this.carId);
         this.time = distance / velocity;
-    }
-
-    public async animateCar(): Promise<CarDriveData> {
-        this.animation.addAnimation(this.getTrackWidth(), this.time);
-        return setDriveMode(this.carId)
-            .then((): CarDriveData => ({ id: this.carId, time: Number(formatTime(this.time)) }))
-            .finally(() => this.animation.removeAnimation());
     }
 
     public startCar(): void {
@@ -112,7 +104,16 @@ export class CarTrack extends BaseComponent {
             });
     }
 
-    public async stopCar() {
+    public async animateCar(): Promise<CarDriveData> {
+        this.animation.addAnimation(this.getTrackWidth(), this.time);
+        return setDriveMode(this.carId)
+            .then((): CarDriveData => ({ id: this.carId, time: Number(formatTime(this.time)) }))
+            .finally(() => this.animation.removeAnimation());
+    }
+
+    public async resetCar(): Promise<void> {
+        this.carAnimationControls.startBtn.enable();
+        this.carAnimationControls.stopBtn.disable();
         this.animation.removeAnimation();
         this.car.resetPosition();
         if (this.modal) this.modal.destroy();

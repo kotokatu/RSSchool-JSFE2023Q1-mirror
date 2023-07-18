@@ -15,6 +15,8 @@ import { CarTrack, CarDriveData } from './car-track/car-track';
 
 export default class GaragePage extends Page {
     carTracks: CarTrack[] = [];
+    carGenerationControls!: CarGenerationControls;
+    raceAnimationControls!: AnimationControls;
     isRaceOn = false;
     constructor(store: Store) {
         super(PageName.Garage, store);
@@ -24,24 +26,28 @@ export default class GaragePage extends Page {
     }
 
     private renderPageControls(): void {
-        const carGenerationControls = new CarGenerationControls();
-        const raceAnimationControls = new AnimationControls({
+        this.carGenerationControls = new CarGenerationControls();
+        this.raceAnimationControls = new AnimationControls({
             startButtonContent: 'race',
             stopButtonContent: 'reset',
             onStart: () => this.createRace(),
-            onStop: () => this.resetCars(),
+            onStop: () => this.cancelRace(),
         });
-        this.prependChildren([raceAnimationControls, carGenerationControls]);
+        this.prependChildren([this.raceAnimationControls, this.carGenerationControls]);
     }
 
     public async renderMainView(): Promise<void> {
         if (this.isRaceOn) {
+            this.isRaceOn = false;
             this.resetCars();
+            this.raceAnimationControls.switchButtonsState();
+            this.carGenerationControls.enableControls();
         }
+
         const { cars, carsCount } = await getCars(this.store.page, this.store.limit);
         this.createCarTracks(cars);
         this.updateCarsCount(carsCount);
-        this.addCarsToView();
+        this.addCarTracksToView();
     }
 
     private createCarTracks(carsData: GetCarApiResponse[]): void {
@@ -49,16 +55,19 @@ export default class GaragePage extends Page {
         carsData.forEach((data: GetCarApiResponse) => this.carTracks.push(new CarTrack(data)));
     }
 
-    protected addCarsToView(): void {
+    protected addCarTracksToView(): void {
         this.mainContainer.clearNode();
         this.carTracks.forEach((carTrack) => this.mainContainer.insertChild(carTrack));
     }
 
-    async createRace() {
+    async createRace(): Promise<void> {
+        this.resetCars();
         this.isRaceOn = true;
+        this.raceAnimationControls.switchButtonsState();
+        this.carGenerationControls.disableControls();
         Promise.any(
             this.carTracks.map((carTrack) =>
-                carTrack.calculateTime().then(() => carTrack.animateCar())
+                carTrack.calculateTime(true).then(() => carTrack.animateCar())
             )
         )
             .then((carDriveData: CarDriveData) => {
@@ -66,13 +75,23 @@ export default class GaragePage extends Page {
                 this.showWinnerModal(carDriveData.id);
             })
             .catch((err: Error) => {
-                if (err.name === 'AggregateError') console.log('User aborted all requests.');
+                if (err.name === 'AggregateError') {
+                    console.log('User aborted all requests.');
+                } else {
+                    console.log(err);
+                }
             });
     }
 
-    resetCars(): void {
+    async resetCars(): Promise<void> {
+        Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.resetCar()));
+    }
+
+    async cancelRace() {
         this.isRaceOn = false;
-        Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.stopCar()));
+        await this.resetCars();
+        this.raceAnimationControls.switchButtonsState();
+        this.carGenerationControls.enableControls();
     }
 
     async addCarToWinners(carDriveData: CarDriveData): Promise<void> {

@@ -11,7 +11,8 @@ export default class CarGenerationControls extends BaseComponent {
     nameInput!: Input;
     colorInput!: Input;
     invalidInputMessage!: InvaliInputMessage;
-
+    createCarBtn!: Button;
+    generateCarsBtn!: Button;
     constructor() {
         super({ classNames: ['add-car-wrapper'] });
         this.render();
@@ -26,22 +27,22 @@ export default class CarGenerationControls extends BaseComponent {
             pattern: '.*\\S.*',
         });
         this.nameInput.addListener('input', () => this.invalidInputMessage.hide());
-        const createCarBtn = new Button({
+        this.createCarBtn = new Button({
             classNames: ['add-car-button'],
             parent: this,
             content: 'create car',
-            onClick: () => this.addCars(this.getUserDefinedCarParams()),
+            onClick: () => this.generateCars(this.getUserDefinedCarParams()),
         });
         this.invalidInputMessage = new InvaliInputMessage(this, 'Please enter a valid name');
-        const generateCarsBtn = new Button({
+        this.generateCarsBtn = new Button({
             classNames: ['generate-cars-button'],
             parent: this,
             content: 'generate cars',
-            onClick: () => this.addCars(this.createRandomCarParams()),
+            onClick: () => this.generateCars(this.createRandomCarParams()),
         });
     }
 
-    private async addCars(carParamsData: CarParams[] | null): Promise<void> {
+    private async generateCars(carParamsData: CarParams[] | null): Promise<void> {
         if (carParamsData) {
             await Promise.allSettled(carParamsData.map((carParams) => createCar(carParams)));
             this.node.dispatchEvent(garageUpdateEvent);
@@ -69,5 +70,19 @@ export default class CarGenerationControls extends BaseComponent {
             i += 1;
         }
         return carParamsArray;
+    }
+
+    disableControls() {
+        this.createCarBtn.disable();
+        this.generateCarsBtn.disable();
+        this.nameInput.disable();
+        this.colorInput.disable();
+    }
+
+    enableControls() {
+        this.createCarBtn.enable();
+        this.generateCarsBtn.enable();
+        this.nameInput.enable();
+        this.colorInput.enable();
     }
 }

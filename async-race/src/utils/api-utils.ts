@@ -1,12 +1,5 @@
 const BASE_URL = 'http://127.0.0.1:3000';
 
-const controllers = new Map();
-const abort = (id: number): void => {
-    const controller = controllers.get(id);
-    controller.abort();
-    controllers.delete(id);
-};
-
 enum Endpoint {
     Garage = 'garage',
     Winners = 'winners',
@@ -51,6 +44,14 @@ export interface GetWinnersApiResponse {
     carsCount: number;
     cars: GetWinnerApiResponse[];
 }
+
+const controllers = new Map();
+
+const abort = (id: number): void => {
+    const controller: AbortController = controllers.get(id);
+    controller?.abort();
+    controllers.delete(id);
+};
 
 export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
     const url = `${BASE_URL}/${Endpoint.Garage}?_page=${pageNum}&_limit=${limit}`;

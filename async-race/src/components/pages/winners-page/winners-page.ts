@@ -14,10 +14,10 @@ export default class WinnersPage extends Page {
     public async renderMainView(): Promise<void> {
         const { cars, carsCount } = await getWinners(this.store.page, this.store.limit);
         this.updateCarsCount(carsCount);
-        this.addCarsToView(cars);
+        this.addWinnersToView(cars);
     }
 
-    protected addCarsToView(winnersData: GetWinnerApiResponse[]): void {
+    protected addWinnersToView(winnersData: GetWinnerApiResponse[]): void {
         this.mainContainer.clearNode();
         winnersData.forEach((winnerData: GetWinnerApiResponse) =>
             this.mainContainer.insertChild(

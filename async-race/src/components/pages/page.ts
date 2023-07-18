@@ -39,5 +39,4 @@ export default abstract class Page extends BaseComponent {
     }
 
     public abstract renderMainView(): void;
-    protected abstract addCarsToView(cars?: GetCarApiResponse[] | GetWinnerApiResponse[]): void;
 }

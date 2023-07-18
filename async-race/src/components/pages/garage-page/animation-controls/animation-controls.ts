@@ -33,14 +33,15 @@ export default class AnimationControls extends BaseComponent {
     }
 
     handleStartBtnClick() {
-        this.startBtn.disable();
-        this.stopBtn.enable();
         this.onStart();
     }
 
     handleStopBtnClick() {
-        this.stopBtn.disable();
-        this.startBtn.enable();
         this.onStop();
+    }
+
+    switchButtonsState() {
+        this.startBtn.changeState();
+        this.stopBtn.changeState();
     }
 }
