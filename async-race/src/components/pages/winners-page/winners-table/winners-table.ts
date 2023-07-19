@@ -8,9 +8,14 @@ export default class WinnersTable extends BaseComponent {
     tableBody!: BaseComponent;
     timeCell!: TableHeaderCell;
     winsCell!: TableHeaderCell;
-
-    constructor(parent: BaseComponent, sortWinners: (sortBy: SortBase) => void) {
+    itemsLimit: number;
+    constructor(
+        parent: BaseComponent,
+        sortWinners: (sortBy: SortBase) => void,
+        itemsLimit: number
+    ) {
         super({ tag: 'table', parent, classNames: ['winners-table'] });
+        this.itemsLimit = itemsLimit;
         this.sortWinners = sortWinners;
         this.render();
     }
@@ -35,11 +40,15 @@ export default class WinnersTable extends BaseComponent {
         this.tableBody = new BaseComponent({ tag: 'tbody', parent: this });
     }
 
-    public renderRows(winnersData: GetWinnerApiResponse[]) {
+    public renderRows(winnersData: GetWinnerApiResponse[], pageNum: number) {
         this.tableBody.clearNode();
         winnersData.forEach(
             (winnerData: GetWinnerApiResponse, index: number) =>
-                new WinnersTableRow(this.tableBody, winnerData, index + 1)
+                new WinnersTableRow(
+                    this.tableBody,
+                    winnerData,
+                    (pageNum - 1) * this.itemsLimit + index + 1
+                )
         );
     }
 }

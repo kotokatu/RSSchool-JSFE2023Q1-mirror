@@ -81,6 +81,7 @@ export class CarTrack extends BaseComponent {
     private async updateCarViewParams(): Promise<void> {
         await updateCar(this.carId, this.getCarViewParams());
         emitter.emit(UpdateEvent.GarageUpdate);
+        emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
     private async removeCar(): Promise<void> {

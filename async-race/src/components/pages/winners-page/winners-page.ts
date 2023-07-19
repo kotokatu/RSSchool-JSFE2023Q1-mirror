@@ -12,7 +12,11 @@ export default class WinnersPage extends Page {
     constructor(store: Store) {
         super(PageName.Winners, store);
         emitter.listen(UpdateEvent.WinnersUpdate, this.renderMainView.bind(this));
-        this.winnersTable = new WinnersTable(this.mainContainer, this.sortWinners.bind(this));
+        this.winnersTable = new WinnersTable(
+            this.mainContainer,
+            this.sortWinners.bind(this),
+            this.store.limit
+        );
         this.renderMainView();
     }
 
@@ -24,7 +28,7 @@ export default class WinnersPage extends Page {
             this.sortOrder
         );
         this.updateCarsCount(winnersCount);
-        this.winnersTable.renderRows(winners);
+        this.winnersTable.renderRows(winners, this.store.page);
     }
 
     private sortWinners(sortBy: SortBase): void {
