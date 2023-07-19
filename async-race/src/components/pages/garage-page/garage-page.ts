@@ -11,7 +11,7 @@ import {
 } from '../../../utils/api-utils';
 import CarGenerationControls from '../../car-generation-controls/car-generation-controls';
 import AnimationControls from './animation-controls/animation-controls';
-import { CarTrack, CarDriveData } from './car-track/car-track';
+import { CarTrack, CarRaceData } from './car-track/car-track';
 
 export default class GaragePage extends Page {
     carTracks: CarTrack[] = [];
@@ -40,7 +40,7 @@ export default class GaragePage extends Page {
         if (this.isRaceOn) {
             this.isRaceOn = false;
             this.resetCars();
-            this.raceAnimationControls.switchButtonsState();
+            this.raceAnimationControls.startBtn.enable();
             this.carGenerationControls.enableControls();
         }
 
@@ -61,18 +61,17 @@ export default class GaragePage extends Page {
     }
 
     async createRace(): Promise<void> {
-        this.resetCars();
+        await this.resetCars();
         this.isRaceOn = true;
-        this.raceAnimationControls.switchButtonsState();
+        this.raceAnimationControls.startBtn.disable();
         this.carGenerationControls.disableControls();
         Promise.any(
             this.carTracks.map((carTrack) =>
-                carTrack.calculateTime(true).then(() => carTrack.animateCar())
+                carTrack.startCar(true).then(() => carTrack.animateCar())
             )
         )
-            .then((carDriveData: CarDriveData) => {
-                this.addCarToWinners(carDriveData);
-                this.showWinnerModal(carDriveData.id);
+            .then((carDriveData: CarRaceData) => {
+                this.handleRaceEnd(carDriveData);
             })
             .catch((err: Error) => {
                 if (err.name === 'AggregateError') {
@@ -83,29 +82,34 @@ export default class GaragePage extends Page {
             });
     }
 
-    async resetCars(): Promise<void> {
-        Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.resetCar()));
+    async resetCars(): Promise<void[]> {
+        return Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.resetCar()));
     }
 
     async cancelRace() {
         this.isRaceOn = false;
         await this.resetCars();
-        this.raceAnimationControls.switchButtonsState();
+        this.raceAnimationControls.startBtn.enable();
         this.carGenerationControls.enableControls();
     }
 
-    async addCarToWinners(carDriveData: CarDriveData): Promise<void> {
-        const winner: GetWinnerApiResponse = await getWinner(carDriveData.id);
+    handleRaceEnd(carRaceData: CarRaceData) {
+        this.addCarToWinners(carRaceData);
+        this.showWinnerModal(carRaceData.id);
+    }
+
+    async addCarToWinners(carRaceData: CarRaceData): Promise<void> {
+        const winner: GetWinnerApiResponse = await getWinner(carRaceData.id);
         if (!winner.id) {
-            const winnerData = { id: carDriveData.id, wins: 1, time: carDriveData.time };
-            await createWinner(winnerData);
+            const winnerData = { id: carRaceData.id, wins: 1, time: carRaceData.time };
+            createWinner(winnerData);
         } else {
             const winnerData = {
-                id: carDriveData.id,
+                id: carRaceData.id,
                 wins: winner.wins + 1,
-                time: winner.time > carDriveData.time ? carDriveData.time : winner.time,
+                time: winner.time > carRaceData.time ? carRaceData.time : winner.time,
             };
-            await updateWinner(winnerData);
+            updateWinner(winnerData);
         }
     }
 

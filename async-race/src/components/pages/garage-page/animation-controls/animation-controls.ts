@@ -29,7 +29,6 @@ export default class AnimationControls extends BaseComponent {
             content: params.stopButtonContent,
             onClick: () => this.handleStopBtnClick(),
         });
-        this.stopBtn.disable();
     }
 
     handleStartBtnClick() {

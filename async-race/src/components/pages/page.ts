@@ -2,7 +2,6 @@ import { BaseComponent } from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
 import { PageName } from '../../types/types';
-import { GetCarApiResponse, GetWinnerApiResponse } from '../../utils/api-utils';
 
 export default abstract class Page extends BaseComponent {
     protected store: Store;

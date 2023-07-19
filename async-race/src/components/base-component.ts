@@ -32,9 +32,11 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
         return this.node;
     }
 
-    public insertChild(child: BaseComponent) {
+    public insertChild(child: BaseComponent | Element) {
         if (child instanceof BaseComponent) {
             this.node.append(child.getNode());
+        } else {
+            this.node.append(child);
         }
     }
 

@@ -4,8 +4,7 @@ import InvaliInputMessage from './invalid-input-message/invalid-input-message';
 import { Button } from '../button/button';
 import { generateRandomCarName, generateRandomColor } from '../../utils/utils';
 import { createCar, CarParams } from '../../utils/api-utils';
-
-export const garageUpdateEvent = new CustomEvent('garage-update', { bubbles: true });
+import { garageUpdateEvent } from '../../events';
 
 export default class CarGenerationControls extends BaseComponent {
     nameInput!: Input;

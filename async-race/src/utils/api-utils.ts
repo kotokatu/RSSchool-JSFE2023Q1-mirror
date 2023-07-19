@@ -12,6 +12,17 @@ enum CarStatus {
     Drive = 'drive',
 }
 
+export enum SortOrder {
+    Ascending = 'ASC',
+    Descending = 'DESC',
+}
+
+export enum SortBase {
+    Id = 'id',
+    Wins = 'wins',
+    Time = 'time',
+}
+
 export interface GetCarApiResponse {
     name: string;
     color: string;
@@ -41,8 +52,8 @@ export interface GetWinnerApiResponse {
 }
 
 export interface GetWinnersApiResponse {
-    carsCount: number;
-    cars: GetWinnerApiResponse[];
+    winnersCount: number;
+    winners: GetWinnerApiResponse[];
 }
 
 const controllers = new Map();
@@ -51,6 +62,12 @@ const abort = (id: number): void => {
     const controller: AbortController = controllers.get(id);
     controller?.abort();
     controllers.delete(id);
+};
+
+export const getCar = async (id: number): Promise<GetCarApiResponse> => {
+    const url = `${BASE_URL}/${Endpoint.Garage}/${id}`;
+    const res = await fetch(url);
+    return res.json();
 };
 
 export const getCars = async (pageNum: number, limit: number): Promise<GetCarsApiResponse> => {
@@ -69,13 +86,15 @@ export const getCarsCount = async (): Promise<number> => {
 
 export const getWinners = async (
     pageNum: number,
-    limit: number
+    limit: number,
+    sort: SortBase = SortBase.Id,
+    order: SortOrder = SortOrder.Ascending
 ): Promise<GetWinnersApiResponse> => {
-    const url = `${BASE_URL}/${Endpoint.Winners}?_page=${pageNum}&_limit=${limit}`;
+    const url = `${BASE_URL}/${Endpoint.Winners}?_page=${pageNum}&_limit=${limit}&_sort=${sort}&_order=${order}`;
     const res = await fetch(url);
-    const cars = await res.json();
-    const carsCount = Number(res.headers.get('X-Total-Count'));
-    return { carsCount, cars };
+    const winners = await res.json();
+    const winnersCount = Number(res.headers.get('X-Total-Count'));
+    return { winnersCount, winners };
 };
 
 export const getWinnersCount = async (): Promise<number> => {

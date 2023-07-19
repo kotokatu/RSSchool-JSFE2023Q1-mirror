@@ -1,0 +1,12 @@
+.marker {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.marker.arrow-down {
+  transform: rotate(180deg);
+}
+
+.marker.visible {
+  visibility: visible;
+}
