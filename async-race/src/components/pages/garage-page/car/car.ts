@@ -7,12 +7,12 @@ export default class Car extends BaseComponent {
     private svg!: SVGSVGElement;
     constructor(color: string) {
         super({ classNames: ['car'] });
-        this.createCarView(color);
+        this.render(color);
     }
 
-    private createCarView(color: string) {
-        this.svg = createSVG(`${carSVG}#car_icon`);
-        this.node.append(this.svg);
+    private render(color: string) {
+        this.svg = createSVG(`${carSVG}#car_icon`, 'car-icon');
+        this.insertChild(this.svg);
         this.setColor(color);
     }
 

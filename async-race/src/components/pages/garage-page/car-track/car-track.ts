@@ -12,7 +12,7 @@ import {
 } from '../../../../utils/api-utils';
 import Input from '../../../input/input';
 import { Button } from '../../../button/button';
-import { garageUpdateEvent, raceStartEvent } from '../../../../events';
+import { garageUpdateEvent } from '../../../../events';
 import AnimationControls from '../animation-controls/animation-controls';
 import CarAnimation from '../car-animation/car-animation';
 import { formatTime } from '../../../../utils/utils';
@@ -90,6 +90,7 @@ export class CarTrack extends BaseComponent {
     }
 
     public async startCar(isRaceMode?: boolean): Promise<void> {
+        this.isCarStarted = true;
         this.carAnimationControls.startBtn.disable();
         if (!isRaceMode) {
             this.carAnimationControls.stopBtn.enable();
@@ -98,7 +99,6 @@ export class CarTrack extends BaseComponent {
         this.deleteCarBtn.disable();
         const { velocity, distance } = await startEngine(this.carId);
         this.time = distance / velocity;
-        this.isCarStarted = true;
     }
 
     public async animateCar(): Promise<CarRaceData> {
@@ -122,10 +122,10 @@ export class CarTrack extends BaseComponent {
 
     public async resetCar(): Promise<void> {
         if (this.isCarStarted) {
+            this.carAnimationControls.stopBtn.disable();
             await stopEngine(this.carId);
             this.animation.removeAnimation();
             this.carAnimationControls.startBtn.enable();
-            this.carAnimationControls.stopBtn.disable();
             this.updateCarBtn.enable();
             this.deleteCarBtn.enable();
             this.car.resetPosition();

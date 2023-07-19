@@ -1,14 +1,13 @@
-import { BaseComponent } from '../../../base-component';
-import { GetWinnerApiResponse, getCar, CarParams } from '../../../../utils/api-utils';
-import carSVG from '../../../../assets/car_icon.svg';
-import { createSVG } from '../../../../utils/utils';
+import { BaseComponent } from '../../../../base-component';
+import { GetWinnerApiResponse, getCar, CarParams } from '../../../../../utils/api-utils';
+import carSVG from '../../../../../assets/car_icon.svg';
+import { createSVG } from '../../../../../utils/utils';
 
-export default class WinnersRow extends BaseComponent {
+export default class WinnersTableRow extends BaseComponent {
     id: number;
     time: number;
     wins: number;
     index: number;
-    carViewParams!: CarParams;
     constructor(parent: BaseComponent, winnerData: GetWinnerApiResponse, index: number) {
         super({ tag: 'tr', parent, classNames: ['winners-table-row'] });
         this.id = winnerData.id;
@@ -19,7 +18,7 @@ export default class WinnersRow extends BaseComponent {
     }
 
     async render() {
-        this.carViewParams = await getCar(this.id);
+        const carViewParams = await getCar(this.id);
         const indexCell = new BaseComponent({
             tag: 'td',
             parent: this,
@@ -31,14 +30,14 @@ export default class WinnersRow extends BaseComponent {
             parent: this,
             classNames: ['winners-table-cell', 'image-cell'],
         });
-        const carIcon = createSVG(`${carSVG}#car_icon`);
-        carIcon.style.fill = this.carViewParams.color;
+        const carIcon = createSVG(`${carSVG}#car_icon`, 'car-icon');
+        carIcon.style.fill = carViewParams.color;
         imageCell.insertChild(carIcon);
         const nameCell = new BaseComponent({
             tag: 'td',
             parent: this,
             classNames: ['winners-table-cell', 'name-cell'],
-            content: this.carViewParams.name,
+            content: carViewParams.name,
         });
         const winsCell = new BaseComponent({
             tag: 'td',
@@ -49,7 +48,7 @@ export default class WinnersRow extends BaseComponent {
         const timeCell = new BaseComponent({
             tag: 'td',
             parent: this,
-            classNames: ['winners-table-cell', 'wins-cell'],
+            classNames: ['winners-table-cell', 'time-cell'],
             content: this.time.toString(),
         });
     }

@@ -7,7 +7,7 @@ import Page from '../page';
 export default class WinnersPage extends Page {
     winnersTable: WinnersTable;
     sortBy: SortBase = SortBase.Id;
-    sortOrder: SortOrder = SortOrder.Descending;
+    sortOrder: SortOrder = SortOrder.Ascending;
 
     constructor(store: Store) {
         super(PageName.Winners, store);
@@ -31,7 +31,7 @@ export default class WinnersPage extends Page {
     private setSortParams(sortBy: SortBase): void {
         if (sortBy !== this.sortBy) {
             this.sortBy = sortBy;
-            this.sortOrder = SortOrder.Descending;
+            this.sortOrder = SortOrder.Ascending;
         } else {
             this.sortOrder =
                 this.sortOrder === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;

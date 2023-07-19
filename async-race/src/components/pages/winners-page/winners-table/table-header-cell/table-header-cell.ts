@@ -1,4 +1,4 @@
-import { BaseComponent } from '../base-component';
+import { BaseComponent } from '../../../../base-component';
 import './table-header-cell.css';
 
 export default class TableHeaderCell extends BaseComponent {
@@ -13,20 +13,24 @@ export default class TableHeaderCell extends BaseComponent {
         });
         if (onClick) {
             this.onClick = onClick;
-            this.addListener('click', this.handleClick.bind(this));
-            this.marker = new BaseComponent({
-                tag: 'span',
-                parent: this,
-                content: '↓',
-                classNames: ['marker', 'arrow-down'],
-            });
+            this.renderMarker();
         }
+    }
+
+    private renderMarker() {
+        this.addListener('click', () => this.handleClick());
+        this.marker = new BaseComponent({
+            tag: 'span',
+            parent: this,
+            content: '↓',
+            classNames: ['marker'],
+        });
     }
 
     private handleClick() {
         this.onClick?.();
         this.marker?.setCssClasses(['visible']);
-        this.marker?.getNode().classList.toggle('arrow-down');
+        this.marker?.getNode().classList.toggle('arrow-up');
     }
 
     public hideMarker() {

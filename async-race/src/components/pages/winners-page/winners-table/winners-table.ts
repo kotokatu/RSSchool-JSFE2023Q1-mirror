@@ -1,13 +1,14 @@
 import { BaseComponent } from '../../../base-component';
-import { GetWinnerApiResponse, SortBase, SortOrder } from '../../../../utils/api-utils';
-import WinnersRow from './winners-row';
-import TableHeaderCell from '../../../table/table-header-cell';
+import { GetWinnerApiResponse, SortBase } from '../../../../utils/api-utils';
+import WinnersTableRow from './table-row/table-row';
+import TableHeaderCell from './table-header-cell/table-header-cell';
 
 export default class WinnersTable extends BaseComponent {
     sortWinners: (sortBy: SortBase) => void;
     tableBody!: BaseComponent;
     timeCell!: TableHeaderCell;
     winsCell!: TableHeaderCell;
+
     constructor(parent: BaseComponent, sortWinners: (sortBy: SortBase) => void) {
         super({ tag: 'table', parent, classNames: ['winners-table'] });
         this.sortWinners = sortWinners;
@@ -38,7 +39,7 @@ export default class WinnersTable extends BaseComponent {
         this.tableBody.clearNode();
         winnersData.forEach(
             (winnerData: GetWinnerApiResponse, index: number) =>
-                new WinnersRow(this.tableBody, winnerData, index + 1)
+                new WinnersTableRow(this.tableBody, winnerData, index + 1)
         );
     }
 }

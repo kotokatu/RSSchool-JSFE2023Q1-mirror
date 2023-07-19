@@ -3,7 +3,7 @@
   visibility: hidden;
 }
 
-.marker.arrow-down {
+.marker.arrow-up {
   transform: rotate(180deg);
 }
 
