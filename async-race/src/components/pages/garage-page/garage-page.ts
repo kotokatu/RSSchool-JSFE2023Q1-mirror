@@ -1,6 +1,5 @@
-import { PageName } from '../../../types/types';
 import { Store } from '../../../store/store';
-import Page from '../page';
+import { Page, PageName } from '../page';
 import {
     getCars,
     GetCarApiResponse,
@@ -12,6 +11,7 @@ import {
 import CarGenerationControls from '../../car-generation-controls/car-generation-controls';
 import AnimationControls from './animation-controls/animation-controls';
 import { CarTrack, CarRaceData } from './car-track/car-track';
+import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class GaragePage extends Page {
     carTracks: CarTrack[] = [];
@@ -20,7 +20,7 @@ export default class GaragePage extends Page {
     isRaceOn = false;
     constructor(store: Store) {
         super(PageName.Garage, store);
-        this.addListener('garage-update', () => this.renderMainView());
+        emitter.listen(UpdateEvent.GarageUpdate, this.renderMainView.bind(this));
         this.renderPageControls();
         this.renderMainView();
     }
@@ -93,24 +93,25 @@ export default class GaragePage extends Page {
         this.carGenerationControls.enableControls();
     }
 
-    handleRaceEnd(carRaceData: CarRaceData) {
-        this.addCarToWinners(carRaceData);
+    private handleRaceEnd(carRaceData: CarRaceData) {
         this.showWinnerModal(carRaceData.id);
+        this.addCarToWinners(carRaceData);
     }
 
     async addCarToWinners(carRaceData: CarRaceData): Promise<void> {
         const winner: GetWinnerApiResponse = await getWinner(carRaceData.id);
         if (!winner.id) {
             const winnerData = { id: carRaceData.id, wins: 1, time: carRaceData.time };
-            createWinner(winnerData);
+            await createWinner(winnerData);
         } else {
             const winnerData = {
                 id: carRaceData.id,
                 wins: winner.wins + 1,
                 time: winner.time > carRaceData.time ? carRaceData.time : winner.time,
             };
-            updateWinner(winnerData);
+            await updateWinner(winnerData);
         }
+        emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
     showWinnerModal(id: number) {

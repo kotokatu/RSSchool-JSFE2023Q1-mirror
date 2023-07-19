@@ -3,7 +3,7 @@ import GaragePage from './components/pages/garage-page/garage-page';
 import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
-import Page from './components/pages/page';
+import { Page } from './components/pages/page';
 import './css/style.css';
 import './css/normalize.css';
 
@@ -59,9 +59,6 @@ class App {
     renderActivePage(page: Page) {
         this.pageContainer.clearNode();
         this.pageContainer.insertChild(page);
-        if (page instanceof WinnersPage) {
-            page.renderMainView();
-        }
     }
 }
 

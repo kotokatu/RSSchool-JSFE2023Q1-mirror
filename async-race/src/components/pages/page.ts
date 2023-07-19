@@ -1,9 +1,13 @@
 import { BaseComponent } from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
-import { PageName } from '../../types/types';
 
-export default abstract class Page extends BaseComponent {
+export enum PageName {
+    Garage = 'garage',
+    Winners = 'winners',
+}
+
+export abstract class Page extends BaseComponent {
     protected store: Store;
     protected carsCountElement!: BaseComponent;
     protected pagination!: Pagination;

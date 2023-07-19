@@ -1,23 +1,22 @@
-import { PageName } from '../../../types/types';
 import { Store } from '../../../store/store';
 import WinnersTable from './winners-table/winners-table';
 import { getWinners, SortBase, SortOrder } from '../../../utils/api-utils';
-import Page from '../page';
+import { Page, PageName } from '../page';
+import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class WinnersPage extends Page {
-    winnersTable: WinnersTable;
+    winnersTable!: WinnersTable;
     sortBy: SortBase = SortBase.Id;
     sortOrder: SortOrder = SortOrder.Ascending;
 
     constructor(store: Store) {
         super(PageName.Winners, store);
-        this.winnersTable = new WinnersTable(this.mainContainer, this.renderMainView.bind(this));
+        emitter.listen(UpdateEvent.WinnersUpdate, this.renderMainView.bind(this));
+        this.winnersTable = new WinnersTable(this.mainContainer, this.sortWinners.bind(this));
+        this.renderMainView();
     }
 
-    public async renderMainView(sortBy?: SortBase): Promise<void> {
-        if (sortBy) {
-            this.setSortParams(sortBy);
-        }
+    public async renderMainView(): Promise<void> {
         const { winners, winnersCount } = await getWinners(
             this.store.page,
             this.store.limit,
@@ -28,7 +27,7 @@ export default class WinnersPage extends Page {
         this.winnersTable.renderRows(winners);
     }
 
-    private setSortParams(sortBy: SortBase): void {
+    private sortWinners(sortBy: SortBase): void {
         if (sortBy !== this.sortBy) {
             this.sortBy = sortBy;
             this.sortOrder = SortOrder.Ascending;
@@ -36,5 +35,6 @@ export default class WinnersPage extends Page {
             this.sortOrder =
                 this.sortOrder === SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
         }
+        this.renderMainView();
     }
 }

@@ -4,7 +4,7 @@ import InvaliInputMessage from './invalid-input-message/invalid-input-message';
 import { Button } from '../button/button';
 import { generateRandomCarName, generateRandomColor } from '../../utils/utils';
 import { createCar, CarParams } from '../../utils/api-utils';
-import { garageUpdateEvent } from '../../events';
+import { emitter, UpdateEvent } from '../../utils/event-emitter';
 
 export default class CarGenerationControls extends BaseComponent {
     nameInput!: Input;
@@ -44,7 +44,7 @@ export default class CarGenerationControls extends BaseComponent {
     private async generateCars(carParamsData: CarParams[] | null): Promise<void> {
         if (carParamsData) {
             await Promise.allSettled(carParamsData.map((carParams) => createCar(carParams)));
-            this.node.dispatchEvent(garageUpdateEvent);
+            emitter.emit(UpdateEvent.GarageUpdate);
         }
     }
 

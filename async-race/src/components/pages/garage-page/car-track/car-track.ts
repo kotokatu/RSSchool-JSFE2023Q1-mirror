@@ -12,11 +12,11 @@ import {
 } from '../../../../utils/api-utils';
 import Input from '../../../input/input';
 import { Button } from '../../../button/button';
-import { garageUpdateEvent } from '../../../../events';
 import AnimationControls from '../animation-controls/animation-controls';
 import CarAnimation from '../car-animation/car-animation';
 import { formatTime } from '../../../../utils/utils';
 import Modal from '../modal/modal';
+import { emitter, UpdateEvent } from '../../../../utils/event-emitter';
 import './car-track.css';
 
 export type CarRaceData = { id: number; time: number };
@@ -80,13 +80,14 @@ export class CarTrack extends BaseComponent {
 
     private async updateCarViewParams(): Promise<void> {
         await updateCar(this.carId, this.getCarViewParams());
-        this.node.dispatchEvent(garageUpdateEvent);
+        emitter.emit(UpdateEvent.GarageUpdate);
     }
 
     private async removeCar(): Promise<void> {
         await deleteCar(this.carId);
         await deleteWinner(this.carId);
-        this.node.dispatchEvent(garageUpdateEvent);
+        emitter.emit(UpdateEvent.GarageUpdate);
+        emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
     public async startCar(isRaceMode?: boolean): Promise<void> {
@@ -108,7 +109,7 @@ export class CarTrack extends BaseComponent {
             .finally(() => this.animation.removeAnimation());
     }
 
-    private createSingleCarRace(): void {
+    private async createSingleCarRace(): Promise<void> {
         this.startCar()
             .then(() => this.animateCar())
             .catch((err: Error) => {
