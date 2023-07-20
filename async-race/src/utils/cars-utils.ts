@@ -1,7 +1,7 @@
 import { CarViewParams, createCar } from './api-utils';
 import { getRandomNumber } from './utils';
 
-export const CAR_MODELS = [
+const CAR_MODELS = [
     'Classic',
     'Corolla',
     'Beetle',
@@ -21,7 +21,7 @@ export const CAR_MODELS = [
     'CX-5',
 ];
 
-export const CAR_MAKES = [
+const CAR_MAKES = [
     'Ford',
     'Lada',
     'Volkswagen',
@@ -51,13 +51,13 @@ const generateRandomCarName = (): string => {
 const generateRandomCarColor = (): string =>
     `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
-export const createRandomCarsParams = (): CarViewParams[] => {
-    const carsParams: CarViewParams[] = Array(RANDOM_CARS_QUANTITY).fill('');
-    return carsParams.map(() => ({
-        name: generateRandomCarName(),
-        color: generateRandomCarColor(),
-    }));
-};
+export const createRandomCarsParams = (): CarViewParams[] =>
+    Array(RANDOM_CARS_QUANTITY)
+        .fill('')
+        .map(() => ({
+            name: generateRandomCarName(),
+            color: generateRandomCarColor(),
+        }));
 
 export const generateCars = async (carParamsData: CarViewParams[] | null): Promise<void> => {
     if (carParamsData) {
