@@ -1,3 +1,7 @@
+.car-track-container {
+  width: 90vw;
+}
+
 .car-track-container input[type=color] {
   appearance: none;
   -webkit-appearance: none;

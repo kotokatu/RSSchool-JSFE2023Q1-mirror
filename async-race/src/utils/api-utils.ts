@@ -200,7 +200,7 @@ export const stopEngine = async (id: number): Promise<void> => {
     await fetch(url, fetchOptions);
 };
 
-export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse | void> => {
+export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse> => {
     const controller = new AbortController();
     controllers.set(id, controller);
     const url = `${BASE_URL}/${Endpoint.Engine}?id=${id}&status=${CarStatus.Drive}`;
@@ -210,7 +210,7 @@ export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse 
     };
     const res = await fetch(url, fetchOptions);
     if (!res.ok) {
-        return Promise.reject();
+        return { success: false };
     }
     return res.json();
 };

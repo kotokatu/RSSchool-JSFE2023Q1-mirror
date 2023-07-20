@@ -10,6 +10,7 @@ import {
     stopEngine,
     setDriveMode,
     deleteWinner,
+    SetDriveModeApiResponse,
 } from '../../../../utils/api-utils';
 import ColorInput from '../../../input/color-input/color-input';
 import TextInput from '../../../input/text-input/text-input';
@@ -125,11 +126,17 @@ export default class CarTrack extends BaseComponent {
         this.time = distance / velocity;
     }
 
-    public async animateCar(): Promise<CarRaceData> {
+    public async animateCar(): Promise<CarRaceData | never> {
         this.animation.addAnimation(this.getTrackWidth(), this.time);
-        return setDriveMode(this.carId)
-            .then((): CarRaceData => ({ id: this.carId, time: Number(formatTime(this.time)) }))
-            .finally(() => this.animation.removeAnimation());
+        return setDriveMode(this.carId).then(
+            (res: SetDriveModeApiResponse): Promise<CarRaceData | never> => {
+                if (res.success) {
+                    return Promise.resolve({ id: this.carId, time: Number(formatTime(this.time)) });
+                }
+                this.animation.removeAnimation();
+                return Promise.reject();
+            }
+        );
     }
 
     private async createSingleCarRace(): Promise<void> {
