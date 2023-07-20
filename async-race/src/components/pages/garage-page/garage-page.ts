@@ -29,7 +29,7 @@ export default class GaragePage extends Page {
             startButtonContent: 'race',
             stopButtonContent: 'reset',
             onStart: () => this.createRace(),
-            onStop: () => this.cancelRace(),
+            onStop: () => this.resetRace(),
         });
         this.prependChildren([this.raceAnimationControls, this.carGenerationControls]);
     }
@@ -62,27 +62,32 @@ export default class GaragePage extends Page {
         await this.resetCars();
         this.isRaceOn = true;
         this.raceAnimationControls.startBtn.disable();
+        this.raceAnimationControls.stopBtn.disable();
         this.carGenerationControls.disableControls();
-        Promise.any(
-            this.carTracks.map((carTrack) =>
-                carTrack.startCar(true).then(() => carTrack.animateCar())
-            )
-        )
+        const promises = this.carTracks.map((carTrack) =>
+            carTrack.startCar(true).then(() => carTrack.animateCar())
+        );
+        Promise.any(promises)
             .then((carDriveData: CarRaceData) => {
                 this.handleRaceEnd(carDriveData);
             })
             .catch(() => {});
+        Promise.allSettled(promises)
+            .catch(() => {})
+            .finally(() => {
+                this.raceAnimationControls.stopBtn.enable();
+                this.carGenerationControls.enableControls();
+            });
     }
 
     async resetCars(): Promise<void[]> {
         return Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.resetCar()));
     }
 
-    async cancelRace() {
+    async resetRace() {
         this.isRaceOn = false;
         await this.resetCars();
         this.raceAnimationControls.startBtn.enable();
-        this.carGenerationControls.enableControls();
     }
 
     private async handleRaceEnd(carRaceData: CarRaceData) {
