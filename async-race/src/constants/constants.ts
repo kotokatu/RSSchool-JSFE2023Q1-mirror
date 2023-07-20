@@ -36,3 +36,5 @@ export const CAR_MAKES = [
     'Hyundai',
     'Kia',
 ];
+
+export const RANDOM_CARS_QUANTITY = 100;

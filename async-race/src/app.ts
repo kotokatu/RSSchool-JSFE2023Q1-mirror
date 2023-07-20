@@ -8,18 +8,24 @@ import './css/style.css';
 import './css/normalize.css';
 
 class App {
-    appRoot: HTMLElement;
-    garagePage = new GaragePage(garageStore);
-    winnersPage = new WinnersPage(winnersStore);
-    pageContainer!: BaseComponent;
-    toGarageBtn!: Button;
-    toWinnersBtn!: Button;
+    private appRoot: HTMLElement;
+
+    private garagePage = new GaragePage(garageStore);
+
+    private winnersPage = new WinnersPage(winnersStore);
+
+    private pageContainer!: BaseComponent;
+
+    private toGarageBtn!: Button;
+
+    private toWinnersBtn!: Button;
+
     constructor(appRoot: HTMLElement) {
         this.appRoot = appRoot;
         this.render();
     }
 
-    render() {
+    private render(): void {
         const header = new BaseComponent({
             tag: 'header',
             parent: this.appRoot,
@@ -50,13 +56,13 @@ class App {
         this.renderActivePage(this.garagePage);
     }
 
-    setActivePage(page: Page) {
+    private setActivePage(page: Page): void {
         this.renderActivePage(page);
-        this.toGarageBtn.changeState();
-        this.toWinnersBtn.changeState();
+        this.toGarageBtn.toggleState();
+        this.toWinnersBtn.toggleState();
     }
 
-    renderActivePage(page: Page) {
+    private renderActivePage(page: Page): void {
         this.pageContainer.clearNode();
         this.pageContainer.insertChild(page);
     }

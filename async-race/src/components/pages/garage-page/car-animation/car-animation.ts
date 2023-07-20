@@ -2,22 +2,27 @@ import Car from '../car/car';
 
 export default class CarAnimation {
     car: HTMLElement;
+
     start!: number;
+
     numberOfPixels!: number;
+
     duration!: number;
+
     requestId!: number;
+
     constructor(car: Car) {
         this.car = car.getNode();
     }
 
-    public addAnimation(numberOfPixels: number, duration: number) {
+    public addAnimation(numberOfPixels: number, duration: number): void {
         this.start = 0;
         this.numberOfPixels = numberOfPixels - this.car.clientWidth;
         this.duration = duration;
         this.requestId = requestAnimationFrame(this.animate.bind(this));
     }
 
-    private animate(timestamp: number) {
+    private animate(timestamp: number): void {
         this.start = this.start || timestamp;
         const elapsed = timestamp - this.start;
         const progress = elapsed / this.duration;
@@ -28,7 +33,7 @@ export default class CarAnimation {
         }
     }
 
-    public removeAnimation() {
+    public removeAnimation(): void {
         cancelAnimationFrame(this.requestId);
     }
 }

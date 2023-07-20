@@ -9,38 +9,33 @@ type AnimationControlsParams = {
 };
 
 export default class AnimationControls extends BaseComponent {
-    startBtn: Button;
-    stopBtn: Button;
-    onStart: () => void;
-    onStop: () => void;
+    public startBtn!: Button;
+
+    public stopBtn!: Button;
+
+    private onStart: () => void;
+
+    private onStop: () => void;
+
     constructor(params: AnimationControlsParams) {
         super({ classNames: ['animation-controls'] });
         this.onStart = params.onStart;
         this.onStop = params.onStop;
+        this.render(params.startButtonContent, params.stopButtonContent);
+    }
+
+    private render(startButtonContent: string, stopButtonContent: string): void {
         this.startBtn = new Button({
             parent: this,
             classNames: ['button-start'],
-            content: params.startButtonContent,
-            onClick: () => this.handleStartBtnClick(),
+            content: startButtonContent,
+            onClick: this.onStart,
         });
         this.stopBtn = new Button({
             parent: this,
             classNames: ['button-stop'],
-            content: params.stopButtonContent,
-            onClick: () => this.handleStopBtnClick(),
+            content: stopButtonContent,
+            onClick: this.onStop,
         });
-    }
-
-    handleStartBtnClick() {
-        this.onStart();
-    }
-
-    handleStopBtnClick() {
-        this.onStop();
-    }
-
-    switchButtonsState() {
-        this.startBtn.changeState();
-        this.stopBtn.changeState();
     }
 }

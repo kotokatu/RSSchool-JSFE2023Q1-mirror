@@ -5,22 +5,23 @@ import './car.css';
 
 export default class Car extends BaseComponent {
     private svg!: SVGSVGElement;
+
     constructor(color: string) {
         super({ classNames: ['car'] });
         this.render(color);
     }
 
-    private render(color: string) {
+    private render(color: string): void {
         this.svg = createSVG(`${carSVG}#car_icon`, 'car-icon');
         this.insertChild(this.svg);
         this.setColor(color);
     }
 
-    public setColor(color: string) {
+    public setColor(color: string): void {
         this.svg.style.fill = color;
     }
 
-    public resetPosition() {
+    public resetPosition(): void {
         this.node.style.transform = 'translateX(0)';
     }
 }

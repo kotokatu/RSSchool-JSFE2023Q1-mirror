@@ -94,4 +94,12 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
             this.node.addEventListener(event, callback);
         }
     }
+
+    public disable() {
+        this.setAttributes({ disabled: '' });
+    }
+
+    public enable() {
+        this.removeAttr('disabled');
+    }
 }

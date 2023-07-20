@@ -6,21 +6,19 @@ import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class WinnersPage extends Page {
     winnersTable!: WinnersTable;
+
     sortBy: SortBase = SortBase.Id;
+
     sortOrder: SortOrder = SortOrder.Ascending;
 
     constructor(store: Store) {
         super(PageName.Winners, store);
         emitter.listen(UpdateEvent.WinnersUpdate, this.renderMainView.bind(this));
-        this.winnersTable = new WinnersTable(
-            this.mainContainer,
-            this.sortWinners.bind(this),
-            this.store.limit
-        );
+        this.winnersTable = new WinnersTable(this.mainContainer, this.sortWinners.bind(this));
         this.renderMainView();
     }
 
-    public async renderMainView(): Promise<void> {
+    protected async renderMainView(): Promise<void> {
         const { winners, winnersCount } = await getWinners(
             this.store.page,
             this.store.limit,

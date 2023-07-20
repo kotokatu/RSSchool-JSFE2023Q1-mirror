@@ -11,11 +11,11 @@ export default class InvalidInputMessage extends BaseComponent {
         });
     }
 
-    public show() {
+    public show(): void {
         this.setCssClasses(['visible']);
     }
 
-    public hide() {
+    public hide(): void {
         this.removeCssClasses(['visible']);
     }
 }

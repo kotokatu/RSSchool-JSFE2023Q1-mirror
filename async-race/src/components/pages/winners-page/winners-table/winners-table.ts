@@ -5,17 +5,15 @@ import TableHeaderCell from './table-header-cell/table-header-cell';
 
 export default class WinnersTable extends BaseComponent {
     sortWinners: (sortBy: SortBase) => void;
+
     tableBody!: BaseComponent;
+
     timeCell!: TableHeaderCell;
+
     winsCell!: TableHeaderCell;
-    itemsLimit: number;
-    constructor(
-        parent: BaseComponent,
-        sortWinners: (sortBy: SortBase) => void,
-        itemsLimit: number
-    ) {
+
+    constructor(parent: BaseComponent, sortWinners: (sortBy: SortBase) => void) {
         super({ tag: 'table', parent, classNames: ['winners-table'] });
-        this.itemsLimit = itemsLimit;
         this.sortWinners = sortWinners;
         this.render();
     }
@@ -47,7 +45,7 @@ export default class WinnersTable extends BaseComponent {
                 new WinnersTableRow(
                     this.tableBody,
                     winnerData,
-                    (pageNum - 1) * this.itemsLimit + index + 1
+                    pageNum - 1 ? `${pageNum - 1}${index + 1}` : `${index + 1}`
                 )
         );
     }

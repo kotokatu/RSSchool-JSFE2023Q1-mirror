@@ -1,23 +1,21 @@
 import { Store } from '../../../store/store';
 import { Page, PageName } from '../page';
-import {
-    getCars,
-    GetCarApiResponse,
-    getWinner,
-    GetWinnerApiResponse,
-    createWinner,
-    updateWinner,
-} from '../../../utils/api-utils';
-import CarGenerationControls from '../../car-generation-controls/car-generation-controls';
+import { getCars, GetCarApiResponse, CarRaceData } from '../../../utils/api-utils';
+import addCarToWinners from '../../../utils/winners-utils';
+import CarGenerationControls from './car-generation-controls/car-generation-controls';
 import AnimationControls from './animation-controls/animation-controls';
-import { CarTrack, CarRaceData } from './car-track/car-track';
+import CarTrack from './car-track/car-track';
 import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class GaragePage extends Page {
     carTracks: CarTrack[] = [];
+
     carGenerationControls!: CarGenerationControls;
+
     raceAnimationControls!: AnimationControls;
+
     isRaceOn = false;
+
     constructor(store: Store) {
         super(PageName.Garage, store);
         emitter.listen(UpdateEvent.GarageUpdate, this.renderMainView.bind(this));
@@ -36,7 +34,7 @@ export default class GaragePage extends Page {
         this.prependChildren([this.raceAnimationControls, this.carGenerationControls]);
     }
 
-    public async renderMainView(): Promise<void> {
+    protected async renderMainView(): Promise<void> {
         if (this.isRaceOn) {
             this.isRaceOn = false;
             this.resetCars();
@@ -51,8 +49,7 @@ export default class GaragePage extends Page {
     }
 
     private createCarTracks(carsData: GetCarApiResponse[]): void {
-        this.carTracks = [];
-        carsData.forEach((data: GetCarApiResponse) => this.carTracks.push(new CarTrack(data)));
+        this.carTracks = carsData.map((data: GetCarApiResponse) => new CarTrack(data));
     }
 
     protected addCarTracksToView(): void {
@@ -61,6 +58,7 @@ export default class GaragePage extends Page {
     }
 
     async createRace(): Promise<void> {
+        if (!this.carTracks.length) return;
         await this.resetCars();
         this.isRaceOn = true;
         this.raceAnimationControls.startBtn.disable();
@@ -73,13 +71,7 @@ export default class GaragePage extends Page {
             .then((carDriveData: CarRaceData) => {
                 this.handleRaceEnd(carDriveData);
             })
-            .catch((err: Error) => {
-                if (err.name === 'AggregateError') {
-                    console.log('User aborted all requests.');
-                } else {
-                    console.log(err);
-                }
-            });
+            .catch(() => {});
     }
 
     async resetCars(): Promise<void[]> {
@@ -93,29 +85,14 @@ export default class GaragePage extends Page {
         this.carGenerationControls.enableControls();
     }
 
-    private handleRaceEnd(carRaceData: CarRaceData) {
-        this.showWinnerModal(carRaceData.id);
-        this.addCarToWinners(carRaceData);
-    }
-
-    async addCarToWinners(carRaceData: CarRaceData): Promise<void> {
-        const winner: GetWinnerApiResponse = await getWinner(carRaceData.id);
-        if (!winner.id) {
-            const winnerData = { id: carRaceData.id, wins: 1, time: carRaceData.time };
-            await createWinner(winnerData);
-        } else {
-            const winnerData = {
-                id: carRaceData.id,
-                wins: winner.wins + 1,
-                time: winner.time > carRaceData.time ? carRaceData.time : winner.time,
-            };
-            await updateWinner(winnerData);
-        }
+    private async handleRaceEnd(carRaceData: CarRaceData) {
+        this.showWinModal(carRaceData.id);
+        await addCarToWinners(carRaceData);
         emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
-    showWinnerModal(id: number) {
+    showWinModal(id: number) {
         const winnerCarTrack = this.carTracks.find((carTrack) => carTrack.carId === id);
-        winnerCarTrack?.createModal();
+        winnerCarTrack?.createWinModal();
     }
 }

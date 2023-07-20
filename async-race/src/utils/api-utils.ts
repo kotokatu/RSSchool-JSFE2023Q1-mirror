@@ -29,7 +29,9 @@ export interface GetCarApiResponse {
     id: number;
 }
 
-export type CarParams = Omit<GetCarApiResponse, 'id'>;
+export type CarViewParams = Omit<GetCarApiResponse, 'id'>;
+
+export type CarRaceData = { id: number; time: number };
 
 export interface GetCarsApiResponse {
     carsCount: number;
@@ -119,11 +121,7 @@ export const createWinner = async (winnerData: GetWinnerApiResponse): Promise<vo
         },
         body: JSON.stringify(winnerData),
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
+    await fetch(url, fetchOptions);
 };
 
 export const deleteWinner = async (id: number): Promise<void> => {
@@ -144,14 +142,10 @@ export const updateWinner = async (winnerData: GetWinnerApiResponse): Promise<vo
         },
         body: JSON.stringify({ wins: winnerData.wins, time: winnerData.time }),
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
+    await fetch(url, fetchOptions);
 };
 
-export const createCar = async (data: CarParams): Promise<void> => {
+export const createCar = async (data: CarViewParams): Promise<void> => {
     const url = `${BASE_URL}/${Endpoint.Garage}`;
     const fetchOptions = {
         method: 'POST',
@@ -161,14 +155,10 @@ export const createCar = async (data: CarParams): Promise<void> => {
         },
         body: JSON.stringify(data),
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
+    await fetch(url, fetchOptions);
 };
 
-export const updateCar = async (id: number, data: CarParams): Promise<void> => {
+export const updateCar = async (id: number, data: CarViewParams): Promise<void> => {
     const url = `${BASE_URL}/${Endpoint.Garage}/${id}`;
     const fetchOptions = {
         method: 'PUT',
@@ -178,11 +168,7 @@ export const updateCar = async (id: number, data: CarParams): Promise<void> => {
         },
         body: JSON.stringify(data),
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
+    await fetch(url, fetchOptions);
 };
 
 export const deleteCar = async (id: number): Promise<void> => {
@@ -202,10 +188,6 @@ export const startEngine = async (id: number): Promise<StartEngineApiResponse> =
         signal: controller.signal,
     };
     const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        return Promise.reject(errorMessage);
-    }
     return res.json();
 };
 
@@ -215,14 +197,10 @@ export const stopEngine = async (id: number): Promise<void> => {
     const fetchOptions = {
         method: 'PATCH',
     };
-    const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
-        const errorMessage = await res.text();
-        console.error(errorMessage);
-    }
+    await fetch(url, fetchOptions);
 };
 
-export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse> => {
+export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse | void> => {
     const controller = new AbortController();
     controllers.set(id, controller);
     const url = `${BASE_URL}/${Endpoint.Engine}?id=${id}&status=${CarStatus.Drive}`;
@@ -232,8 +210,7 @@ export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse>
     };
     const res = await fetch(url, fetchOptions);
     if (!res.ok) {
-        const errorMessage = await res.text();
-        return Promise.reject(errorMessage);
+        return Promise.reject();
     }
     return res.json();
 };

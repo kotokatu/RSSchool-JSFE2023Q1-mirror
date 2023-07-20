@@ -1,14 +1,18 @@
 import { BaseComponent } from '../../../../base-component';
-import { GetWinnerApiResponse, getCar, CarParams } from '../../../../../utils/api-utils';
+import { GetWinnerApiResponse, getCar } from '../../../../../utils/api-utils';
 import carSVG from '../../../../../assets/car_icon.svg';
 import { createSVG } from '../../../../../utils/utils';
 
 export default class WinnersTableRow extends BaseComponent {
     id: number;
+
     time: number;
+
     wins: number;
-    index: number;
-    constructor(parent: BaseComponent, winnerData: GetWinnerApiResponse, index: number) {
+
+    index: string;
+
+    constructor(parent: BaseComponent, winnerData: GetWinnerApiResponse, index: string) {
         super({ tag: 'tr', parent, classNames: ['winners-table-row'] });
         this.id = winnerData.id;
         this.time = winnerData.time;
@@ -23,7 +27,7 @@ export default class WinnersTableRow extends BaseComponent {
             tag: 'td',
             parent: this,
             classNames: ['winners-table-cell', 'index-cell'],
-            content: this.index.toString(),
+            content: this.index,
         });
         const imageCell = new BaseComponent({
             tag: 'td',

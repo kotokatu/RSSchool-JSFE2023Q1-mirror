@@ -3,7 +3,9 @@ import './table-header-cell.css';
 
 export default class TableHeaderCell extends BaseComponent {
     onClick?: () => void;
+
     marker?: BaseComponent;
+
     constructor(parent: BaseComponent, content: string, onClick?: () => void) {
         super({
             tag: 'th',

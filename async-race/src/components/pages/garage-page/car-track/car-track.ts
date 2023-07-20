@@ -2,7 +2,8 @@ import { BaseComponent } from '../../../base-component';
 import Car from '../car/car';
 import {
     GetCarApiResponse,
-    CarParams,
+    CarViewParams,
+    CarRaceData,
     updateCar,
     deleteCar,
     startEngine,
@@ -10,7 +11,8 @@ import {
     setDriveMode,
     deleteWinner,
 } from '../../../../utils/api-utils';
-import Input from '../../../input/input';
+import ColorInput from '../../../input/color-input/color-input';
+import TextInput from '../../../input/text-input/text-input';
 import { Button } from '../../../button/button';
 import AnimationControls from '../animation-controls/animation-controls';
 import CarAnimation from '../car-animation/car-animation';
@@ -19,22 +21,33 @@ import Modal from '../modal/modal';
 import { emitter, UpdateEvent } from '../../../../utils/event-emitter';
 import './car-track.css';
 
-export type CarRaceData = { id: number; time: number };
+export default class CarTrack extends BaseComponent {
+    private isCarStarted = false;
 
-export class CarTrack extends BaseComponent {
-    car: Car;
-    carId: number;
-    carName: string;
-    carColor: string;
-    animation: CarAnimation;
-    isCarStarted = false;
-    carAnimationControls!: AnimationControls;
-    nameInput!: Input;
-    colorInput!: Input;
-    time!: number;
-    modal!: Modal;
-    updateCarBtn!: Button;
-    deleteCarBtn!: Button;
+    private car: Car;
+
+    public carId: number;
+
+    private carName: string;
+
+    private carColor: string;
+
+    private animation: CarAnimation;
+
+    private carAnimationControls!: AnimationControls;
+
+    private carNameInput!: TextInput;
+
+    private carColorInput!: ColorInput;
+
+    private time!: number;
+
+    private modal!: Modal;
+
+    private updateCarBtn!: Button;
+
+    private deleteCarBtn!: Button;
+
     constructor(params: GetCarApiResponse) {
         super({ classNames: ['car-track-container'] });
         this.car = new Car(params.color);
@@ -45,10 +58,19 @@ export class CarTrack extends BaseComponent {
         this.render();
     }
 
-    private render() {
+    private render(): void {
         const header = new BaseComponent({ parent: this, classNames: ['car-track-header'] });
-        this.nameInput = new Input(header, { type: 'text' }, this.carName);
-        this.colorInput = new Input(header, { type: 'color' }, this.carColor);
+        this.carNameInput = new TextInput(
+            header,
+            { required: '', pattern: '.*\\S.*' },
+            this.carName
+        );
+        this.carNameInput.addListener('change', () => {
+            if (!this.carNameInput.getNode().checkValidity()) {
+                this.carNameInput.setValue(this.carName);
+            }
+        });
+        this.carColorInput = new ColorInput(header, this.carColor);
         this.updateCarBtn = new Button({
             classNames: ['button-save'],
             parent: header,
@@ -61,25 +83,25 @@ export class CarTrack extends BaseComponent {
             content: 'remove',
             onClick: () => this.removeCar(),
         });
-        const track = new BaseComponent({ parent: this, classNames: ['car-track'] });
+        const carTrack = new BaseComponent({ parent: this, classNames: ['car-track'] });
         this.carAnimationControls = new AnimationControls({
             startButtonContent: 'A',
             stopButtonContent: 'B',
             onStart: () => this.createSingleCarRace(),
             onStop: () => this.resetCar(),
         });
-        track.insertChildren([this.carAnimationControls, this.car]);
+        carTrack.insertChildren([this.carAnimationControls, this.car]);
         this.carAnimationControls.stopBtn.disable();
     }
 
-    private getCarViewParams(): CarParams {
-        const name = this.nameInput.getValue();
-        const color = this.colorInput.getValue();
-        return { name, color };
+    private setCarViewParams(): void {
+        this.carName = this.carNameInput.getValue();
+        this.carColor = this.carColorInput.getValue();
     }
 
     private async updateCarViewParams(): Promise<void> {
-        await updateCar(this.carId, this.getCarViewParams());
+        this.setCarViewParams();
+        await updateCar(this.carId, { name: this.carName, color: this.carColor });
         emitter.emit(UpdateEvent.GarageUpdate);
         emitter.emit(UpdateEvent.WinnersUpdate);
     }
@@ -113,35 +135,28 @@ export class CarTrack extends BaseComponent {
     private async createSingleCarRace(): Promise<void> {
         this.startCar()
             .then(() => this.animateCar())
-            .catch((err: Error) => {
-                if (err.name === 'AbortError') {
-                    console.log('User aborted the request.');
-                } else {
-                    console.log(err);
-                }
-            });
+            .catch(() => {});
     }
 
     public async resetCar(): Promise<void> {
-        if (this.isCarStarted) {
-            this.carAnimationControls.stopBtn.disable();
-            await stopEngine(this.carId);
-            this.animation.removeAnimation();
-            this.carAnimationControls.startBtn.enable();
-            this.updateCarBtn.enable();
-            this.deleteCarBtn.enable();
-            this.car.resetPosition();
-            this.modal?.destroy();
-        }
+        if (!this.isCarStarted) return;
+
         this.isCarStarted = false;
-        return Promise.resolve();
+        this.carAnimationControls.stopBtn.disable();
+        await stopEngine(this.carId);
+        this.animation.removeAnimation();
+        this.car.resetPosition();
+        this.carAnimationControls.startBtn.enable();
+        this.updateCarBtn.enable();
+        this.deleteCarBtn.enable();
+        this.modal?.destroy();
     }
 
     private getTrackWidth(): number {
         return this.node.clientWidth;
     }
 
-    public createModal(): void {
+    public createWinModal(): void {
         this.modal = new Modal(this, this.carName, formatTime(this.time));
     }
 }

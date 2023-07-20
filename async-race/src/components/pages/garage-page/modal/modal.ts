@@ -2,7 +2,9 @@ import { BaseComponent } from '../../../base-component';
 
 export default class Modal extends BaseComponent {
     carName: string;
+
     time: string;
+
     constructor(parent: BaseComponent, carName: string, time: string) {
         super({ parent, classNames: ['modal', 'car-track-modal'] });
         this.carName = carName;

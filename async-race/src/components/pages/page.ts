@@ -9,9 +9,13 @@ export enum PageName {
 
 export abstract class Page extends BaseComponent {
     protected store: Store;
+
     protected carsCountElement!: BaseComponent;
+
     protected pagination!: Pagination;
+
     protected mainContainer!: BaseComponent;
+
     constructor(pageName: PageName, store: Store) {
         super({ classNames: ['page', `${pageName}-page`] });
         this.store = store;
@@ -41,5 +45,5 @@ export abstract class Page extends BaseComponent {
         this.carsCountElement.setTextContent(`(#${this.store.carsCount})`);
     }
 
-    public abstract renderMainView(): void;
+    protected abstract renderMainView(): void;
 }
