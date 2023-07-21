@@ -5,11 +5,11 @@ import { Page, PageName } from '../page';
 import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class WinnersPage extends Page {
-    winnersTable!: WinnersTable;
+    private winnersTable!: WinnersTable;
 
-    sortBy: SortBase = SortBase.Id;
+    private sortBy: SortBase = SortBase.Id;
 
-    sortOrder: SortOrder = SortOrder.Ascending;
+    private sortOrder: SortOrder = SortOrder.Ascending;
 
     constructor(store: Store) {
         super(PageName.Winners, store);

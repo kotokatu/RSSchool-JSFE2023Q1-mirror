@@ -5,15 +5,15 @@ import { Store } from '../../store/store';
 const DEFAULT_PAGINATION_PAGE = 1;
 
 export default class Pagination extends BaseComponent {
-    prevBtn!: Button;
+    private prevBtn!: Button;
 
-    nextBtn!: Button;
+    private nextBtn!: Button;
 
-    pageNumElement!: BaseComponent;
+    private pageNumElement!: BaseComponent;
 
     private store: Store;
 
-    onBtnClick: () => void;
+    private onBtnClick: () => void;
 
     constructor(parent: BaseComponent, store: Store, onBtnClick: () => void) {
         super({ parent, classNames: ['pagination-container'] });
@@ -22,7 +22,7 @@ export default class Pagination extends BaseComponent {
         this.render();
     }
 
-    private render() {
+    private render(): void {
         this.pageNumElement = new BaseComponent({
             tag: 'span',
             parent: this,
@@ -43,27 +43,27 @@ export default class Pagination extends BaseComponent {
         });
     }
 
-    private handlePrevBtnClick() {
+    private handlePrevBtnClick(): void {
         this.store.page -= 1;
         this.update();
     }
 
-    private handleNextBtnClick() {
+    private handleNextBtnClick(): void {
         this.store.page += 1;
         this.update();
     }
 
-    private update() {
+    private update(): void {
         this.updatePageNum();
         this.updateButtonsState();
         this.onBtnClick();
     }
 
-    private updatePageNum() {
+    private updatePageNum(): void {
         this.pageNumElement.setTextContent(`Page # ${this.store.page}`);
     }
 
-    public updateButtonsState() {
+    public updateButtonsState(): void {
         if (this.store.page === DEFAULT_PAGINATION_PAGE) {
             this.prevBtn.disable();
         } else {

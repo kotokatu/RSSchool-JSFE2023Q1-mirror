@@ -4,8 +4,7 @@ import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
 import { Page } from './components/pages/page';
-import './css/style.css';
-import './css/normalize.css';
+import './css/style.scss';
 
 class App {
     private appRoot: HTMLElement;
@@ -31,22 +30,28 @@ class App {
             parent: this.appRoot,
             classNames: ['header'],
         });
+        const heading = new BaseComponent({
+            tag: 'h1',
+            parent: header,
+            classNames: ['app-title'],
+            content: 'Async Race',
+        });
         const navigation = new BaseComponent({
             tag: 'nav',
             parent: header,
-            classNames: ['navigation'],
+            classNames: ['app-navigation'],
         });
         this.toGarageBtn = new Button({
             parent: navigation,
             classNames: ['garage-button'],
-            content: 'TO GARAGE',
+            content: 'garage',
             onClick: () => this.setActivePage(this.garagePage),
         });
         this.toGarageBtn.disable();
         this.toWinnersBtn = new Button({
             parent: navigation,
             classNames: ['winners-button'],
-            content: 'TO WINNERS',
+            content: 'winners',
             onClick: () => this.setActivePage(this.winnersPage),
         });
         this.pageContainer = new BaseComponent({

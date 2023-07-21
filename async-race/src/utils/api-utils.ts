@@ -209,7 +209,7 @@ export const setDriveMode = async (id: number): Promise<SetDriveModeApiResponse>
         signal: controller.signal,
     };
     const res = await fetch(url, fetchOptions);
-    if (!res.ok) {
+    if (res.status === 500) {
         return { success: false };
     }
     return res.json();

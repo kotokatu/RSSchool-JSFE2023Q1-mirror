@@ -2,7 +2,6 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const EslintPlugin = require("eslint-webpack-plugin");
-const svgToMiniDataURI = require('mini-svg-data-uri');
 
 const baseConfig = {
   entry: path.resolve(__dirname, "./src/app"),
@@ -21,8 +20,8 @@ const baseConfig = {
         type: "asset/resource",
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.(s[ac]|c)ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       { test: /\.ts$/i, use: "ts-loader" },
     ],

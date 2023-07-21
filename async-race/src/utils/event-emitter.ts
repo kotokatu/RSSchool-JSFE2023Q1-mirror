@@ -4,16 +4,16 @@ export enum UpdateEvent {
 }
 
 class EventEmitter {
-    listeners: Record<UpdateEvent, (() => Promise<void>)[]> = {
+    private listeners: Record<UpdateEvent, (() => Promise<void>)[]> = {
         [UpdateEvent.GarageUpdate]: [],
         [UpdateEvent.WinnersUpdate]: [],
     };
 
-    listen(name: UpdateEvent, callback: () => Promise<void>) {
+    public listen(name: UpdateEvent, callback: () => Promise<void>) {
         this.listeners[name].push(callback);
     }
 
-    emit(name: UpdateEvent) {
+    public emit(name: UpdateEvent) {
         this.listeners[name].forEach((callback) => callback());
     }
 }

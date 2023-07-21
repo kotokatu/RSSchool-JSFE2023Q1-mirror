@@ -1,0 +1,128 @@
+@import "colors.scss";
+// @import "normalize.css";
+@import "fonts.scss";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable both-edges;
+  scrollbar-width: thin;
+  scrollbar-color: $base-color-dark-xl rgba(255, 255, 255, 0.1);
+}
+
+html::-webkit-scrollbar {
+  width: 6px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: $base-color-dark-xl;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  outline: 0;
+  border-radius: 3px;
+}
+
+body {
+  background-color: $base-color-dark-xl;
+  color: white
+}
+
+.app-title {
+  position: relative;
+  margin: 0;
+  padding: 30px 0 20px;
+  font-family: "Rocket Script", "Brush Script MT", cursive;
+  font-size: 46px;
+  color: $accent-color-light;
+  text-align: center;
+  text-shadow: 0 0 10px $accent-color-light;
+  text-decoration: overline underline;
+  text-underline-offset: 18px;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 70px;
+      top: 50%;
+      background-image: url('../assets/svg/flags.svg');
+      background-position: center center;
+      background-size: 150px 70px;
+    }
+
+    &::before {
+      transform: translateX(calc(-100% - 20px)) translateY(-50%);
+    }
+
+    &::after {
+      transform: translateX(20px) translateY(-50%);
+    }
+
+    @media (max-width: 768px) {
+
+      font-size: 36px;
+
+      &::before, &::after {
+        width: 100px;
+        height: 50px;
+        background-size: 100px 70px;
+
+      }
+
+      &::before {
+        transform: translateX(calc(-100% - 15px)) translateY(-50%);
+      }
+  
+      &::after {
+        transform: translateX(15px) translateY(-50%);
+      }
+
+    }
+
+}
+
+.app-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+    .button {
+      width: 155px;
+      height: 38px;
+      padding-bottom: 3px;
+      font-family: "Righteous", Helvetica, sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.15rem;
+      color: $base-color-light-xl;
+      border: 6px dotted $border-color-light;
+      border-radius: 3px;
+      // text-shadow: 0 0 3px $base-color-light-xl;
+      // box-shadow: 0 0 0 1px $border-color-light, 0 0 0 1px inset $border-color-light;
+      filter: drop-shadow(0 0 5px $border-color-light);
+      transition: .4s;
+      cursor: pointer;
+
+      &:disabled {
+        background-color: $accent-color-light;
+        // box-shadow: 0 0 20px $accent-color-light;
+        opacity: 0.9;
+        cursor: default;
+      }
+
+      @media (hover: hover) {
+
+        &:hover {
+          background-color: $accent-color-light;
+          // box-shadow: 0 0 20px $accent-color-light;
+          opacity: 0.9;
+        }
+
+      }
+    }
+
+  }

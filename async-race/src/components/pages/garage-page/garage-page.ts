@@ -8,13 +8,13 @@ import CarTrack from './car-track/car-track';
 import { emitter, UpdateEvent } from '../../../utils/event-emitter';
 
 export default class GaragePage extends Page {
-    carTracks: CarTrack[] = [];
+    private carTracks: CarTrack[] = [];
 
-    carGenerationControls!: CarGenerationControls;
+    private carGenerationControls!: CarGenerationControls;
 
-    raceAnimationControls!: AnimationControls;
+    private raceAnimationControls!: AnimationControls;
 
-    isRaceOn = false;
+    private isRaceOn = false;
 
     constructor(store: Store) {
         super(PageName.Garage, store);
@@ -52,12 +52,12 @@ export default class GaragePage extends Page {
         this.carTracks = carsData.map((data: GetCarApiResponse) => new CarTrack(data));
     }
 
-    protected addCarTracksToView(): void {
+    private addCarTracksToView(): void {
         this.mainContainer.clearNode();
         this.carTracks.forEach((carTrack) => this.mainContainer.insertChild(carTrack));
     }
 
-    async createRace(): Promise<void> {
+    private async createRace(): Promise<void> {
         if (!this.carTracks.length) return;
         await this.resetCars();
         this.isRaceOn = true;
@@ -80,23 +80,23 @@ export default class GaragePage extends Page {
             });
     }
 
-    async resetCars(): Promise<void[]> {
+    private async resetCars(): Promise<void[]> {
         return Promise.all(this.carTracks.map((carTrack: CarTrack) => carTrack.resetCar()));
     }
 
-    async resetRace() {
+    private async resetRace(): Promise<void> {
         this.isRaceOn = false;
         await this.resetCars();
         this.raceAnimationControls.startBtn.enable();
     }
 
-    private async handleRaceEnd(carRaceData: CarRaceData) {
+    private async handleRaceEnd(carRaceData: CarRaceData): Promise<void> {
         this.showWinModal(carRaceData.id);
         await addCarToWinners(carRaceData);
         emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
-    showWinModal(id: number) {
+    private showWinModal(id: number): void {
         const winnerCarTrack = this.carTracks.find((carTrack) => carTrack.carId === id);
         winnerCarTrack?.createWinModal();
     }

@@ -7,7 +7,7 @@ import {
 } from './api-utils';
 
 export default async (carRaceData: CarRaceData): Promise<void> => {
-    const winner: GetWinnerApiResponse = await getWinner(carRaceData.id);
+    const winner = await getWinner(carRaceData.id);
     if (!winner.id) {
         const winnerData = { id: carRaceData.id, wins: 1, time: carRaceData.time };
         await createWinner(winnerData);

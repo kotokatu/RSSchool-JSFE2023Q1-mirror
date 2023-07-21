@@ -1,0 +1,19 @@
+@import "../../../../css/colors.scss";
+
+.car {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 0 1px) saturate(2);
+}
+
+.car-icon {
+    width: 120px;
+    height: 40px;
+    stroke: $base-color-dark-xl;
+    stroke-width: 10px;
+    stroke-linejoin: round;
+    paint-order: stroke;
+}

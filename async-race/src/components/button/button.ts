@@ -1,5 +1,5 @@
 import { BaseComponent, ComponentParams } from '../base-component';
-import './button.css';
+import './button.scss';
 
 export interface ButtonParams extends ComponentParams {
     onClick: (e: Event) => void;

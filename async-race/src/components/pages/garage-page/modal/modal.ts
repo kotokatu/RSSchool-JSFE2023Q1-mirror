@@ -1,9 +1,9 @@
 import { BaseComponent } from '../../../base-component';
 
 export default class Modal extends BaseComponent {
-    carName: string;
+    private carName: string;
 
-    time: string;
+    private time: string;
 
     constructor(parent: BaseComponent, carName: string, time: string) {
         super({ parent, classNames: ['modal', 'car-track-modal'] });
@@ -12,7 +12,7 @@ export default class Modal extends BaseComponent {
         this.render();
     }
 
-    render() {
+    private render(): void {
         const modalContent = new BaseComponent({
             tag: 'p',
             parent: this,

@@ -49,6 +49,8 @@ export default class CarTrack extends BaseComponent {
 
     private deleteCarBtn!: Button;
 
+    private trackWidth!: number;
+
     constructor(params: GetCarApiResponse) {
         super({ classNames: ['car-track-container'] });
         this.car = new Car(params.color);
@@ -115,6 +117,7 @@ export default class CarTrack extends BaseComponent {
     }
 
     public async startCar(isRaceMode?: boolean): Promise<void> {
+        this.getTrackWidth();
         this.isCarStarted = true;
         this.carAnimationControls.startBtn.disable();
         if (!isRaceMode) {
@@ -127,19 +130,16 @@ export default class CarTrack extends BaseComponent {
     }
 
     public async animateCar(): Promise<CarRaceData | never> {
-        this.animation.addAnimation(this.getTrackWidth(), this.time);
-        return setDriveMode(this.carId).then(
-            (res: SetDriveModeApiResponse): Promise<CarRaceData | never> => {
-                if (res.success) {
-                    return Promise.resolve({ id: this.carId, time: Number(formatTime(this.time)) });
-                }
-                this.animation.removeAnimation();
-                return Promise.reject();
-            }
-        );
+        this.animation.addAnimation(this.trackWidth, this.time);
+        const res = await setDriveMode(this.carId);
+        if (res.success) {
+            return Promise.resolve({ id: this.carId, time: Number(formatTime(this.time)) });
+        }
+        this.animation.removeAnimation();
+        return Promise.reject();
     }
 
-    private async createSingleCarRace(): Promise<void> {
+    private createSingleCarRace(): void {
         this.startCar()
             .then(() => this.animateCar())
             .catch(() => {});
@@ -159,11 +159,11 @@ export default class CarTrack extends BaseComponent {
         this.modal?.destroy();
     }
 
-    private getTrackWidth(): number {
-        return this.node.clientWidth;
-    }
-
     public createWinModal(): void {
         this.modal = new Modal(this, this.carName, formatTime(this.time));
     }
+
+    private getTrackWidth = (): void => {
+        this.trackWidth = this.node.clientWidth - this.car.getNode().clientWidth;
+    };
 }

@@ -2,9 +2,9 @@ import { BaseComponent } from '../../../../base-component';
 import './table-header-cell.css';
 
 export default class TableHeaderCell extends BaseComponent {
-    onClick?: () => void;
+    private onClick?: () => void;
 
-    marker?: BaseComponent;
+    private marker?: BaseComponent;
 
     constructor(parent: BaseComponent, content: string, onClick?: () => void) {
         super({
@@ -19,7 +19,7 @@ export default class TableHeaderCell extends BaseComponent {
         }
     }
 
-    private renderMarker() {
+    private renderMarker(): void {
         this.addListener('click', () => this.handleClick());
         this.marker = new BaseComponent({
             tag: 'span',
@@ -29,13 +29,17 @@ export default class TableHeaderCell extends BaseComponent {
         });
     }
 
-    private handleClick() {
+    private handleClick(): void {
+        this.showMarker();
         this.onClick?.();
+    }
+
+    private showMarker(): void {
         this.marker?.setCssClasses(['visible']);
         this.marker?.getNode().classList.toggle('arrow-up');
     }
 
-    public hideMarker() {
+    public hideMarker(): void {
         this.marker?.removeCssClasses(['visible']);
     }
 }

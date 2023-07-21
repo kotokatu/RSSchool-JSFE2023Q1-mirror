@@ -17,7 +17,7 @@ export default class CarAnimation {
 
     public addAnimation(numberOfPixels: number, duration: number): void {
         this.start = 0;
-        this.numberOfPixels = numberOfPixels - this.car.clientWidth;
+        this.numberOfPixels = numberOfPixels;
         this.duration = duration;
         this.requestId = requestAnimationFrame(this.animate.bind(this));
     }
