@@ -18,7 +18,7 @@ import CarAnimation from '../car-animation/car-animation';
 import { formatTime } from '../../../../utils/utils';
 import Modal from '../modal/modal';
 import { emitter, UpdateEvent } from '../../../../utils/event-emitter';
-import './car-track.css';
+import './car-track.scss';
 
 export default class CarTrack extends BaseComponent {
     private isCarStarted = false;
@@ -43,11 +43,11 @@ export default class CarTrack extends BaseComponent {
 
     private modal!: Modal;
 
-    private updateCarBtn!: Button;
-
     private deleteCarBtn!: Button;
 
     private trackWidth!: number;
+
+    private finishLine!: BaseComponent;
 
     constructor(params: GetCarApiResponse) {
         super({ classNames: ['car-track-container'] });
@@ -72,11 +72,11 @@ export default class CarTrack extends BaseComponent {
             }
         });
         this.carColorInput = new ColorInput({ parent: header, value: this.carColor });
-        this.updateCarBtn = new Button({
+        const updateCarBtn = new Button({
             classNames: ['button-save'],
             parent: header,
-            content: 'save changes',
-            onClick: () => this.updateCarViewParams(),
+            content: 'save',
+            onClick: () => this.updateCarView(),
         });
         this.deleteCarBtn = new Button({
             classNames: ['button-remove'],
@@ -85,7 +85,13 @@ export default class CarTrack extends BaseComponent {
             onClick: () => this.removeCar(),
         });
         const carTrack = new BaseComponent({ parent: this, classNames: ['car-track'] });
+        const carTrackWay = new BaseComponent({ parent: carTrack, classNames: ['car-track-way'] });
+        this.finishLine = new BaseComponent({
+            parent: carTrackWay,
+            classNames: ['car-track-finish'],
+        });
         this.carAnimationControls = new AnimationControls({
+            class: 'car-track',
             startButtonContent: 'A',
             stopButtonContent: 'B',
             onStart: () => this.createSingleCarRace(),
@@ -95,16 +101,17 @@ export default class CarTrack extends BaseComponent {
         this.carAnimationControls.stopBtn.disable();
     }
 
-    private setCarViewParams(): void {
-        this.carName = this.carNameInput.getValue();
-        this.carColor = this.carColorInput.getValue();
+    private async updateCarView() {
+        this.getCarViewParams();
+        await updateCar(this.carId, { name: this.carName, color: this.carColor });
+        this.car.setColor(this.carColor);
+        this.carNameInput.setValue(this.carName);
+        emitter.emit(UpdateEvent.WinnersUpdate);
     }
 
-    private async updateCarViewParams(): Promise<void> {
-        this.setCarViewParams();
-        await updateCar(this.carId, { name: this.carName, color: this.carColor });
-        emitter.emit(UpdateEvent.GarageUpdate);
-        emitter.emit(UpdateEvent.WinnersUpdate);
+    private getCarViewParams(): void {
+        this.carName = this.carNameInput.getValue();
+        this.carColor = this.carColorInput.getValue();
     }
 
     private async removeCar(): Promise<void> {
@@ -115,13 +122,12 @@ export default class CarTrack extends BaseComponent {
     }
 
     public async startCar(isRaceMode?: boolean): Promise<void> {
-        this.getTrackWidth();
         this.isCarStarted = true;
+        this.getTrackWidth();
         this.carAnimationControls.startBtn.disable();
         if (!isRaceMode) {
             this.carAnimationControls.stopBtn.enable();
         }
-        this.updateCarBtn.disable();
         this.deleteCarBtn.disable();
         const { velocity, distance } = await startEngine(this.carId);
         this.time = distance / velocity;
@@ -152,7 +158,6 @@ export default class CarTrack extends BaseComponent {
         this.animation.removeAnimation();
         this.car.resetPosition();
         this.carAnimationControls.startBtn.enable();
-        this.updateCarBtn.enable();
         this.deleteCarBtn.enable();
         this.modal?.destroy();
     }
@@ -162,6 +167,9 @@ export default class CarTrack extends BaseComponent {
     }
 
     private getTrackWidth = (): void => {
-        this.trackWidth = this.node.clientWidth - this.car.getNode().clientWidth;
+        this.trackWidth =
+            this.node.clientWidth -
+            this.finishLine.getNode().clientWidth -
+            this.car.getNode().clientWidth;
     };
 }

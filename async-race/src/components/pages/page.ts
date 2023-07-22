@@ -1,6 +1,7 @@
 import { BaseComponent } from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
+import './page.scss';
 
 export enum PageName {
     Garage = 'garage',
@@ -27,7 +28,7 @@ export abstract class Page extends BaseComponent {
             tag: 'h2',
             parent: this,
             classNames: ['page-title'],
-            content: pageName.toUpperCase(),
+            content: pageName,
         });
         this.carsCountElement = new BaseComponent({
             tag: 'span',

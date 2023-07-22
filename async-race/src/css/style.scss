@@ -1,9 +1,13 @@
 @import "colors.scss";
-// @import "normalize.css";
 @import "fonts.scss";
 
 * {
   box-sizing: border-box;
+}
+
+*:disabled {
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 html {
@@ -95,21 +99,17 @@ body {
       width: 155px;
       height: 38px;
       padding-bottom: 3px;
-      font-family: "Righteous", Helvetica, sans-serif;
+      font-family: "Speedy", Helvetica, sans-serif;
       font-size: 15px;
-      letter-spacing: 0.15rem;
+      letter-spacing: 0.1rem;
       color: $base-color-light-xl;
       border: 6px dotted $accent-color-secondary-light;
       border-radius: 3px;
-      // text-shadow: 0 0 3px $base-color-light-xl;
-      // box-shadow: 0 0 0 1px $accent-color-secondary-light, 0 0 0 1px inset $accent-color-secondary-light;
       filter: drop-shadow(0 0 5px $accent-color-secondary-light);
       transition: .4s;
-      cursor: pointer;
 
       &:disabled {
         background-color: $accent-color-primary-light;
-        // box-shadow: 0 0 20px $accent-color-primary-light;
         opacity: 0.9;
         cursor: default;
       }
@@ -125,4 +125,8 @@ body {
       }
     }
 
+  }
+
+  .footer {
+    height: 70px;
   }

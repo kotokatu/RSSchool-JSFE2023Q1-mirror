@@ -2,6 +2,7 @@ import { Button } from '../../../button/button';
 import { BaseComponent } from '../../../base-component';
 
 type AnimationControlsParams = {
+    class: string;
     startButtonContent: string;
     stopButtonContent: string;
     onStart: () => void;
@@ -18,7 +19,7 @@ export default class AnimationControls extends BaseComponent {
     private onStop: () => void;
 
     constructor(params: AnimationControlsParams) {
-        super({ classNames: ['animation-controls'] });
+        super({ classNames: [`${params.class}-animation-controls`] });
         this.onStart = params.onStart;
         this.onStop = params.onStop;
         this.render(params.startButtonContent, params.stopButtonContent);

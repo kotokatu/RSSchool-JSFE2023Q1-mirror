@@ -36,6 +36,11 @@ export default class CarGenerationControls extends BaseComponent {
             parent: createCarWrapper,
             classNames: ['create-car-inputs-wrapper'],
         });
+        this.colorInput = new ColorInput({
+            parent: inputsWrapper,
+            onInput: () => this.changeCarIconColor(this.colorInput.getValue()),
+        });
+        this.colorInput.addId('car-color');
         this.nameInput = new TextInput({
             parent: inputsWrapper,
             attributes: {
@@ -45,12 +50,8 @@ export default class CarGenerationControls extends BaseComponent {
             },
         });
         this.nameInput.addListener('animationend', () =>
-            this.nameInput.removeCssClasses(['blink'])
+            this.nameInput.removeCssClasses(['invalid'])
         );
-        this.colorInput = new ColorInput({
-            parent: inputsWrapper,
-            onInput: () => this.changeCarIconColor(this.colorInput.getValue()),
-        });
         this.invalidInputMessage = new InvalidInputMessage(
             createCarWrapper,
             'Please enter a valid name'
@@ -78,7 +79,9 @@ export default class CarGenerationControls extends BaseComponent {
             },
         });
         this.car = new Car(DEFAULT_COLOR);
-        this.insertChild(this.car);
+        const label = new BaseComponent({ tag: 'label', parent: this });
+        label.setAttributes({ for: 'car-color' });
+        label.insertChild(this.car);
     }
 
     private getUserDefinedCarParams(): CarViewParams[] | null {
@@ -89,7 +92,7 @@ export default class CarGenerationControls extends BaseComponent {
             this.colorInput.clearInput();
             return [{ name, color }];
         }
-        this.nameInput.setCssClasses(['blink']);
+        this.nameInput.setCssClasses(['invalid']);
         this.invalidInputMessage.show();
         return null;
     }

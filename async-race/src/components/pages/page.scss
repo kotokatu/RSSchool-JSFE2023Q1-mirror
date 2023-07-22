@@ -1,0 +1,18 @@
+@import '../../css/colors.scss';
+
+.page-title {
+  text-align: center;
+  padding: 10px 0 0;
+  margin-bottom: 5px;
+  font-family: "Speedy", Helvetica, sans-serif;
+  color: $accent-color-secondary-light;
+  letter-spacing: 0.1rem;
+}
+
+.cars-count {
+  color: $accent-color-primary-medium;
+}
+
+.main-container {
+  padding: 15px;
+}

@@ -58,6 +58,11 @@ class App {
             parent: this.appRoot,
             classNames: ['page-container'],
         });
+        const footer = new BaseComponent({
+            tag: 'footer',
+            parent: this.appRoot,
+            classNames: ['footer'],
+        });
         this.renderActivePage(this.garagePage);
     }
 

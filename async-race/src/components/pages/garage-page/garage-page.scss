@@ -1,0 +1,50 @@
+@import '../../../css/colors.scss';
+
+.race-animation-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  .button-start,
+  .button-stop {
+    width: 200px;
+    height: 38px;
+    padding-bottom: 5px;
+    font-family: "Speedy", Helvetica, sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.2rem;
+    background-color: $base-color-dark-l;
+    transition: 0.4s;
+  }
+
+  .button-start {
+    border: 4px solid $accent-color-primary-light;
+    box-shadow: 0 0 5px $accent-color-primary-light;
+
+      @media (hover: hover) {
+        &:hover {
+          box-shadow: 0 0 7px 3px $accent-color-primary-light;
+        }
+      }
+
+      &:active {
+        box-shadow: none;
+      }
+   }
+
+  .button-stop {
+    border: 4px solid $accent-color-secondary-light;
+    box-shadow: 0 0 5px $accent-color-secondary-light;
+
+      @media (hover: hover) {
+        &:hover {
+          box-shadow: 0 0 7px 3px $accent-color-secondary-light;
+        }
+      }
+
+      &:active {
+        box-shadow: none;
+      }
+  }
+
+}

@@ -102,4 +102,8 @@ export class BaseComponent<T extends HTMLElement = HTMLElement> {
     public enable() {
         this.removeAttr('disabled');
     }
+
+    public addId(id: string) {
+        this.node.id = id;
+    }
 }

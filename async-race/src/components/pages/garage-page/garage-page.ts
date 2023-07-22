@@ -6,6 +6,7 @@ import CarGenerationControls from './car-generation-controls/car-generation-cont
 import AnimationControls from './animation-controls/animation-controls';
 import CarTrack from './car-track/car-track';
 import { emitter, UpdateEvent } from '../../../utils/event-emitter';
+import './garage-page.scss';
 
 export default class GaragePage extends Page {
     private carTracks: CarTrack[] = [];
@@ -26,6 +27,7 @@ export default class GaragePage extends Page {
     private renderPageControls(): void {
         this.carGenerationControls = new CarGenerationControls();
         this.raceAnimationControls = new AnimationControls({
+            class: 'race',
             startButtonContent: 'race',
             stopButtonContent: 'reset',
             onStart: () => this.createRace(),
