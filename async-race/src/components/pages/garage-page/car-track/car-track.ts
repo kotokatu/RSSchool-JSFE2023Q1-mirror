@@ -2,7 +2,6 @@ import { BaseComponent } from '../../../base-component';
 import Car from '../car/car';
 import {
     GetCarApiResponse,
-    CarViewParams,
     CarRaceData,
     updateCar,
     deleteCar,
@@ -10,9 +9,8 @@ import {
     stopEngine,
     setDriveMode,
     deleteWinner,
-    SetDriveModeApiResponse,
 } from '../../../../utils/api-utils';
-import ColorInput from '../../../input/color-input/color-input';
+import { ColorInput } from '../../../input/color-input/color-input';
 import TextInput from '../../../input/text-input/text-input';
 import { Button } from '../../../button/button';
 import AnimationControls from '../animation-controls/animation-controls';
@@ -63,17 +61,17 @@ export default class CarTrack extends BaseComponent {
 
     private render(): void {
         const header = new BaseComponent({ parent: this, classNames: ['car-track-header'] });
-        this.carNameInput = new TextInput(
-            header,
-            { required: '', pattern: '.*\\S.*' },
-            this.carName
-        );
+        this.carNameInput = new TextInput({
+            parent: header,
+            attributes: { required: '', pattern: '.*\\S.*' },
+            value: this.carName,
+        });
         this.carNameInput.addListener('change', () => {
             if (!this.carNameInput.getNode().checkValidity()) {
                 this.carNameInput.setValue(this.carName);
             }
         });
-        this.carColorInput = new ColorInput(header, this.carColor);
+        this.carColorInput = new ColorInput({ parent: header, value: this.carColor });
         this.updateCarBtn = new Button({
             classNames: ['button-save'],
             parent: header,

@@ -1,5 +1,5 @@
 import { BaseComponent } from '../../../base-component';
-import carSVG from '../../../../assets/svg/car_icon2.svg';
+import carSVG from '../../../../assets/svg/car_icon.svg';
 import { createSVG } from '../../../../utils/utils';
 import './car.scss';
 
@@ -12,7 +12,7 @@ export default class Car extends BaseComponent {
     }
 
     private render(color: string): void {
-        this.svg = createSVG(`${carSVG}#car_icon2`, 'car-icon');
+        this.svg = createSVG(`${carSVG}#car_icon`, ['car-icon']);
         this.insertChild(this.svg);
         this.setColor(color);
     }

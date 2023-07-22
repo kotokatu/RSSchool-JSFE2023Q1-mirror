@@ -2,29 +2,23 @@
   width: 90vw;
 }
 
-.car-track-container input[type=color] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border: 0;
+.car-track-header input[type=color] {
   width: 30px;
   height: 32px;
-  background-color: transparent;
-  cursor: pointer;
 }
 
-.car-track-container input[type=text] {
+.car-track-header input[type=text] {
   background-color: transparent;
   border: 0;
   border-bottom: 1px dotted #000000;
   cursor: pointer;
 }
 
-.car-track-container input[type=text]:hover {
+.car-track-header input[type=text]:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.car-track-container input[type=text]:focus {
+.car-track-header input[type=text]:focus {
   background-color: rgba(255, 255, 255, 0.4);
   cursor: auto;
 }

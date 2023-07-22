@@ -1,7 +1,6 @@
 import { BaseComponent } from '../../../../base-component';
 import { GetWinnerApiResponse, getCar } from '../../../../../utils/api-utils';
-import carSVG from '../../../../../assets/svg/car_icon.svg';
-import { createSVG } from '../../../../../utils/utils';
+import Car from '../../../garage-page/car/car';
 
 export default class WinnersTableRow extends BaseComponent {
     private id: number;
@@ -34,9 +33,7 @@ export default class WinnersTableRow extends BaseComponent {
             parent: this,
             classNames: ['winners-table-cell', 'image-cell'],
         });
-        const carIcon = createSVG(`${carSVG}#car_icon`, 'car-icon');
-        carIcon.style.fill = carViewParams.color;
-        imageCell.insertChild(carIcon);
+        imageCell.insertChild(new Car(carViewParams.color));
         const nameCell = new BaseComponent({
             tag: 'td',
             parent: this,

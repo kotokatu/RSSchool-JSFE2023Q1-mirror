@@ -28,7 +28,7 @@ html::-webkit-scrollbar-thumb {
 
 body {
   background-color: $base-color-dark-xl;
-  color: white
+  color: $base-color-light-xl;
 }
 
 .app-title {
@@ -37,9 +37,9 @@ body {
   padding: 30px 0 20px;
   font-family: "Rocket Script", "Brush Script MT", cursive;
   font-size: 46px;
-  color: $accent-color-light;
+  color: $accent-color-primary-light;
   text-align: center;
-  text-shadow: 0 0 10px $accent-color-light;
+  text-shadow: 0 0 10px $accent-color-primary-light;
   text-decoration: overline underline;
   text-underline-offset: 18px;
 
@@ -99,17 +99,17 @@ body {
       font-size: 15px;
       letter-spacing: 0.15rem;
       color: $base-color-light-xl;
-      border: 6px dotted $border-color-light;
+      border: 6px dotted $accent-color-secondary-light;
       border-radius: 3px;
       // text-shadow: 0 0 3px $base-color-light-xl;
-      // box-shadow: 0 0 0 1px $border-color-light, 0 0 0 1px inset $border-color-light;
-      filter: drop-shadow(0 0 5px $border-color-light);
+      // box-shadow: 0 0 0 1px $accent-color-secondary-light, 0 0 0 1px inset $accent-color-secondary-light;
+      filter: drop-shadow(0 0 5px $accent-color-secondary-light);
       transition: .4s;
       cursor: pointer;
 
       &:disabled {
-        background-color: $accent-color-light;
-        // box-shadow: 0 0 20px $accent-color-light;
+        background-color: $accent-color-primary-light;
+        // box-shadow: 0 0 20px $accent-color-primary-light;
         opacity: 0.9;
         cursor: default;
       }
@@ -117,8 +117,8 @@ body {
       @media (hover: hover) {
 
         &:hover {
-          background-color: $accent-color-light;
-          // box-shadow: 0 0 20px $accent-color-light;
+          background-color: $accent-color-primary-light;
+          // box-shadow: 0 0 20px $accent-color-primary-light;
           opacity: 0.9;
         }
 

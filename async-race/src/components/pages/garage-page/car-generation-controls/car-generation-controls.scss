@@ -1,0 +1,100 @@
+@import '../../../../css/colors.scss';
+
+.generate-cars-wrapper {
+  display: flex;
+  padding: 10px;
+  margin: 20px auto;
+  max-width: 410px;
+  background-color: $base-color-dark-l;
+  border: 6px solid $base-color-dark-xl;
+  box-shadow: 0 0 6px 2px $accent-color-primary-light, 0 0 0 1px inset $accent-color-secondary-light;
+
+  .car {
+    width: 140px;
+    align-self: center;
+    margin-left: auto;
+  }
+
+  .car-icon {
+    width: 140px;
+  }
+}
+
+.create-car-inputs-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  input[type=text] {
+    width: 183px;
+    padding: 5px;
+    font-family: "Coolvetica", Helvetica, sans-serif;
+    letter-spacing: 0.05rem;
+    color: $base-color-light-xl;
+    background-color: lighten($base-color-dark-l, 15%);
+    border: 1px solid $accent-color-secondary-light;
+    box-shadow: 0 0 2px $accent-color-secondary-light;
+
+    &::placeholder {
+      color: transparentize($accent-color-secondary-light, 0.6);
+    }
+
+    &.blink {
+      animation: blink 0.5s both;
+    }
+  }
+
+  input[type=color] {
+    height: 36px;
+    width: 36px;
+    border: none;
+  }
+
+  input[type=color]::-webkit-color-swatch {
+    border: 1px solid $accent-color-secondary-light;
+  }
+
+  input[type=color]::-moz-color-swatch {
+    border: 1px solid $accent-color-secondary-light;
+  }
+}
+
+.create-car-buttons-wrapper {
+  display: flex;
+  gap: 10px;
+
+  .create-car-button,
+  .generate-cars-button {
+    font-family: "Coolvetica", Helvetica, sans-serif;
+    letter-spacing: 0.05rem;
+    padding: 5px 13px;
+    border: 1px solid $accent-color-secondary-light;
+    box-shadow: 0 0 2px $accent-color-secondary-light;
+    cursor: pointer;
+    transition: 0.4s;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: $accent-color-secondary-light;
+        box-shadow: 0 0 6px $accent-color-secondary-light;
+      }
+    }
+  }
+
+@keyframes blink {
+  20%, 60%, 100% {
+    border: 1px solid $accent-color-secondary-light;
+    box-shadow: 0 0 2px $accent-color-secondary-light;
+  }
+  0%, 40%, 80% {
+    border: 1px solid $accent-color-primary-light;
+    box-shadow: 0 0 3px 2px $accent-color-primary-light;
+  }
+}
+
+
+}
+
+
+
+
