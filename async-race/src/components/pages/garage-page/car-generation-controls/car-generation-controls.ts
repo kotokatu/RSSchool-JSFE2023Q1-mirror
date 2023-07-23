@@ -65,8 +65,11 @@ export default class CarGenerationControls extends BaseComponent {
             parent: buttonsWrapper,
             content: 'create car',
             onClick: async () => {
-                await generateCars(this.getUserDefinedCarParams());
-                emitter.emit(UpdateEvent.GarageUpdate);
+                const carViewParams = this.getUserDefinedCarParams();
+                if (carViewParams) {
+                    await generateCars(carViewParams);
+                    emitter.emit(UpdateEvent.GarageUpdate);
+                }
             },
         });
         this.generateCarsBtn = new Button({
@@ -74,7 +77,8 @@ export default class CarGenerationControls extends BaseComponent {
             parent: buttonsWrapper,
             content: 'generate cars',
             onClick: async () => {
-                await generateCars(createRandomCarsParams());
+                const randomCarParams = createRandomCarsParams();
+                await generateCars(randomCarParams);
                 emitter.emit(UpdateEvent.GarageUpdate);
             },
         });
