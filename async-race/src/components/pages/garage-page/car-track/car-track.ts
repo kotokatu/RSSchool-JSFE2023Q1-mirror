@@ -79,9 +79,8 @@ export default class CarTrack extends BaseComponent {
             onClick: () => this.updateCarView(),
         });
         this.deleteCarBtn = new Button({
-            classNames: ['button-remove'],
+            classNames: ['button-delete'],
             parent: header,
-            content: 'remove',
             onClick: () => this.removeCar(),
         });
         const carTrack = new BaseComponent({ parent: this, classNames: ['car-track'] });

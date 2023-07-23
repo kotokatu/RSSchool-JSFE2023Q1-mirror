@@ -1,4 +1,5 @@
 import { BaseComponent } from '../../../base-component';
+import './modal.scss';
 
 export default class Modal extends BaseComponent {
     private carName: string;
