@@ -1,0 +1,27 @@
+@import '../../../../css/colors.scss';
+
+.modal {
+  position: absolute;
+  min-width: 450px;
+  top: 35%;
+  left: 50%;
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Blazed", Helvetica, sans-serif;
+  font-size: 24px;
+  color: $accent-color-secondary-light;
+  text-shadow: -4px 0 3px $accent-color-primary-light;
+  animation: pulsate 1.5s ease-in-out infinite both;;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}

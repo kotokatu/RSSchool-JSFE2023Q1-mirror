@@ -1,0 +1,35 @@
+@import '../../css/colors.scss';
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-family: "Coolvetica", Helvetica, sans-serif;
+}
+
+.page-number {
+  display: inline-block;
+  padding-right: 2px;
+  min-width: 28px;
+  height: 23px;
+  font-size: 18px;
+  letter-spacing: 0.05rem;
+  text-align: center;
+  background-color: $accent-color-primary-light;
+  transform: skew(-30deg);
+}
+
+.button-prev,
+.button-next {
+  font-family: inherit;
+  font-size: 20px;
+  transition: 0.4s;
+
+  @media (hover: hover) {
+
+    &:hover {
+      color: $accent-color-secondary-light;
+    }
+  }
+}

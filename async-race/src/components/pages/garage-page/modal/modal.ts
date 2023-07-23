@@ -7,7 +7,7 @@ export default class Modal extends BaseComponent {
     private time: string;
 
     constructor(parent: BaseComponent, carName: string, time: string) {
-        super({ parent, classNames: ['modal', 'car-track-modal'] });
+        super({ parent, classNames: ['modal'] });
         this.carName = carName;
         this.time = time;
         this.render();
@@ -24,7 +24,7 @@ export default class Modal extends BaseComponent {
             tag: 'span',
             parent: modalContent,
             classNames: ['modal-time'],
-            content: this.time,
+            content: `${this.time}s`,
         });
     }
 }

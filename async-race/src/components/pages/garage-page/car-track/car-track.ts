@@ -122,12 +122,12 @@ export default class CarTrack extends BaseComponent {
 
     public async startCar(isRaceMode?: boolean): Promise<void> {
         this.isCarStarted = true;
-        this.getTrackWidth();
-        this.carAnimationControls.startBtn.disable();
         if (!isRaceMode) {
             this.carAnimationControls.stopBtn.enable();
         }
+        this.carAnimationControls.startBtn.disable();
         this.deleteCarBtn.disable();
+        this.getTrackWidth();
         const { velocity, distance } = await startEngine(this.carId);
         this.time = distance / velocity;
     }

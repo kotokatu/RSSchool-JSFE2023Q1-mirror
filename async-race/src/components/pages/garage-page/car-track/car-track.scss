@@ -1,6 +1,7 @@
 @import '../../../../css/colors.scss';
 
 .car-track-container {
+  position: relative;
   height: 110px;
   margin-bottom: 3px;
 }
@@ -32,12 +33,12 @@
   input[type=text] {
     width: 200px;
     padding: 4px 4px 3px 5px;
+    text-align: center;
     font-family: inherit;
     font-size: 14px;
     letter-spacing: inherit;
     color: $base-color-light-xl;
     background-color: transparent;
-    border: 0;
     border-bottom: 2px dashed $accent-color-primary-medium;
     cursor: pointer;
     transition: 0.4s;
@@ -107,17 +108,21 @@
       background: linear-gradient(to right, transparent 50%, #223049 50%);
       background-size: 16px 2px, 100% 4px;
     }
+}
 
-    .car-track-finish {
-      position: absolute;
-      right: 147px;
-      height: 100%;
-      width: 30px;
-      background-color: $base-color-dark-l;
-      background-size: cover;
-      background-position: center center;
-      background-image: url('../../../../assets/svg/finish.svg');
-    }
+.car-track-finish {
+  position: absolute;
+  right: 147px;
+  height: 100%;
+  width: 30px;
+  background-color: $base-color-dark-l;
+  background-size: cover;
+  background-position: center center;
+  background-image: url('../../../../assets/svg/finish.svg');
+
+  @media (max-width: 768px) {
+    right: 117px;
+  }
 }
 
 .car-track-animation-controls {
@@ -129,28 +134,39 @@
   .button-stop {
     height: 20px;
     width: 20px;
-    box-shadow: 0 0 2px $accent-color-primary-medium;
     border-radius: 3px;
   }
 
   .button-start {
-    background-color: $accent-color-primary-light;
     padding-left: 5px;
+    background-color: $accent-color-primary-light;
     
       &:disabled {
         opacity: 1;
         background-color: #a51151;
         color: darken($base-color-light-xl, 10%);
       }
+
+      @media (hover: hover) {
+        &:hover {
+          box-shadow: 0 0 5px 2px $accent-color-primary-light;
+        }
+      }
   }
 
   .button-stop {
     background-color: $accent-color-secondary-light;
-
+    
     &:disabled {
       opacity: 1;
       background-color: #977944;
       color: darken($base-color-light-xl, 10%);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: 0 0 5px 2px $accent-color-secondary-light;
+      }
     }
   }
 }
