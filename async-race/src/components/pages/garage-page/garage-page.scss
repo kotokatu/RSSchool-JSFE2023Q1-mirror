@@ -18,7 +18,7 @@
   }
 
   .button-start {
-    border: 4px solid $accent-color-primary-light;
+    border: 3px solid $accent-color-primary-light;
     box-shadow: 0 0 5px $accent-color-primary-light;
 
       @media (hover: hover) {
@@ -33,7 +33,7 @@
    }
 
   .button-stop {
-    border: 4px solid $accent-color-secondary-light;
+    border: 3px solid $accent-color-secondary-light;
     box-shadow: 0 0 5px $accent-color-secondary-light;
 
       @media (hover: hover) {

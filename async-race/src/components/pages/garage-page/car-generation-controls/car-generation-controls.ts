@@ -54,7 +54,7 @@ export default class CarGenerationControls extends BaseComponent {
         );
         this.invalidInputMessage = new InvalidInputMessage(
             createCarWrapper,
-            'Please enter a valid name'
+            'Name should not be empty'
         );
         const buttonsWrapper = new BaseComponent({
             parent: createCarWrapper,

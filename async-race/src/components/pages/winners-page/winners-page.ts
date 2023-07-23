@@ -30,7 +30,7 @@ export default class WinnersPage extends Page {
     }
 
     private sortWinners(sortBy: SortBase): void {
-        if (sortBy !== this.sortBy) {
+        if (this.sortBy !== sortBy) {
             this.sortBy = sortBy;
             this.sortOrder = SortOrder.Ascending;
         } else {

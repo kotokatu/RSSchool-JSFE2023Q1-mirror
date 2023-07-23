@@ -7,7 +7,7 @@
   max-width: 410px;
   background-color: $base-color-dark-l;
   border: 6px solid $base-color-dark-xl;
-  box-shadow: 0 0 6px 5px $accent-color-primary-light, 0 0 0 1px inset $accent-color-secondary-light;
+  box-shadow: 0 0 7px 7px $accent-color-primary-light, 0 0 0 1px inset $accent-color-secondary-light;
 
   label {
     align-self: center;
@@ -37,8 +37,9 @@
     background-color: lighten($base-color-dark-l, 15%);
     border: 1px solid $accent-color-secondary-light;
     box-shadow: 0 0 2px $accent-color-secondary-light;
-
+    
     &::placeholder {
+      font-family: Helvetica, sans-serif;
       color: transparentize($accent-color-secondary-light, 0.6);
     }
 
@@ -68,11 +69,11 @@
 
   .create-car-button,
   .generate-cars-button {
-    font-family: "Coolvetica", Helvetica, sans-serif;
-    letter-spacing: 0.05rem;
+    font-family: "Speedy", Helvetica, sans-serif;
+    font-size: 10px;
     padding: 5px 13px 7px;
     border: 1px solid $accent-color-secondary-light;
-    box-shadow: 0 0 2px $accent-color-secondary-light;
+    box-shadow: 0 0 3px $accent-color-secondary-light;
     transition: 0.4s;
 
     @media (hover: hover) {

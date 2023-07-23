@@ -2,6 +2,7 @@ import { BaseComponent } from '../../../base-component';
 import { GetWinnerApiResponse, SortBase } from '../../../../utils/api-utils';
 import WinnersTableRow from './table-row/table-row';
 import TableHeaderCell from './table-header-cell/table-header-cell';
+import './winners-table.scss';
 
 export default class WinnersTable extends BaseComponent {
     private sortWinners: (sortBy: SortBase) => void;
@@ -24,14 +25,14 @@ export default class WinnersTable extends BaseComponent {
             parent: this,
             classNames: ['winners-table-head'],
         });
-        const numberCell = new TableHeaderCell(tableHead, '№');
-        const imageCell = new TableHeaderCell(tableHead, 'Image');
-        const nameCell = new TableHeaderCell(tableHead, 'Name');
-        this.winsCell = new TableHeaderCell(tableHead, 'Wins', () => {
+        const numberCell = new TableHeaderCell(tableHead, 'number-cell', '№');
+        const imageCell = new TableHeaderCell(tableHead, 'image-cell', 'Image');
+        const nameCell = new TableHeaderCell(tableHead, 'name-cell', 'Name');
+        this.winsCell = new TableHeaderCell(tableHead, 'wins-cell', 'Wins', () => {
             this.sortWinners(SortBase.Wins);
             this.timeCell.hideMarker();
         });
-        this.timeCell = new TableHeaderCell(tableHead, 'Time', () => {
+        this.timeCell = new TableHeaderCell(tableHead, 'time-cell', 'Time', () => {
             this.sortWinners(SortBase.Time);
             this.winsCell.hideMarker();
         });

@@ -1,0 +1,39 @@
+@import '../../../../css/colors.scss';
+
+.winners-table {
+  margin: 0 auto;
+  border: 3px solid $accent-color-primary-light;
+  box-shadow: 0 0 3px $accent-color-primary-light;
+  border-collapse: collapse;
+}
+
+.table-cell {
+  padding: 3px 10px;
+  font-family: "Righteous", Helvetica, sans-serif;
+  text-align: center;
+}
+
+.number-cell {
+  width: 40px;
+}
+
+.image-cell {
+  width: 150px;
+
+  .car {
+    width: 100px;
+    margin: 0 auto;
+  }
+}
+
+.name-cell {
+  width: 250px;
+}
+
+.wins-cell {
+  width: 90px;
+}
+
+.time-cell {
+  width: 90px;
+}

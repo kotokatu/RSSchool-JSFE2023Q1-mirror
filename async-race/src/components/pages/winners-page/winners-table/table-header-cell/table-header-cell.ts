@@ -1,17 +1,17 @@
 import { BaseComponent } from '../../../../base-component';
-import './table-header-cell.css';
+import './table-header-cell.scss';
 
 export default class TableHeaderCell extends BaseComponent {
     private onClick?: () => void;
 
     private marker?: BaseComponent;
 
-    constructor(parent: BaseComponent, content: string, onClick?: () => void) {
+    constructor(parent: BaseComponent, className: string, content: string, onClick?: () => void) {
         super({
             tag: 'th',
             parent,
             content,
-            classNames: ['table-header-cell'],
+            classNames: ['table-cell', 'table-header-cell', className],
         });
         if (onClick) {
             this.onClick = onClick;
@@ -24,7 +24,6 @@ export default class TableHeaderCell extends BaseComponent {
         this.marker = new BaseComponent({
             tag: 'span',
             parent: this,
-            content: '↓',
             classNames: ['marker'],
         });
     }
@@ -41,5 +40,6 @@ export default class TableHeaderCell extends BaseComponent {
 
     public hideMarker(): void {
         this.marker?.removeCssClasses(['visible']);
+        this.marker?.getNode().classList.remove('arrow-up');
     }
 }

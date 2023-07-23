@@ -1,0 +1,26 @@
+.table-cell.table-header-cell {
+  padding: 10px 0;
+  font-family: "Righteous", Helvetica, sans-serif;
+  letter-spacing: 0.15rem;
+  font-size: 18px;
+  vertical-align: bottom;
+}
+
+.marker {
+  display: inline-block;
+  width: 15px;
+  height: 16px;
+  background-image: url('../../../../../assets/svg/arrow-down.svg');
+  background-size: contain;
+  background-position: center top 20%;
+  background-repeat: no-repeat;
+  visibility: hidden;
+}
+
+.marker.arrow-up {
+  transform: rotate(180deg);
+}
+
+.marker.visible {
+  visibility: visible;
+}
