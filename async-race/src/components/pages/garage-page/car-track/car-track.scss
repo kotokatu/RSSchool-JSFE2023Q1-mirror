@@ -146,12 +146,6 @@
         background-color: #a51151;
         color: darken($base-color-light-xl, 10%);
       }
-
-      @media (hover: hover) {
-        &:hover {
-          box-shadow: 0 0 5px 2px $accent-color-primary-light;
-        }
-      }
   }
 
   .button-stop {
@@ -161,12 +155,6 @@
       opacity: 1;
       background-color: #977944;
       color: darken($base-color-light-xl, 10%);
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        box-shadow: 0 0 5px 2px $accent-color-secondary-light;
-      }
     }
   }
 }
