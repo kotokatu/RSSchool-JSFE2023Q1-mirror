@@ -4,7 +4,7 @@ import WinnersPage from './components/pages/winners-page/winners-page';
 import { Button } from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
 import { Page } from './components/pages/page';
-import './css/style.scss';
+import './scss/style.scss';
 
 class App {
     private appRoot: HTMLElement;

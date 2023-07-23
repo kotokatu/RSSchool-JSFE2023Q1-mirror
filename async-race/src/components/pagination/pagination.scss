@@ -1,10 +1,11 @@
-@import '../../css/colors.scss';
+@import '../../scss/colors.scss';
 
 .pagination-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
+  padding: 10px 0;
   font-family: "Coolvetica", Helvetica, sans-serif;
 }
 
@@ -17,6 +18,7 @@
   letter-spacing: 0.05rem;
   text-align: center;
   background-color: $accent-color-primary-medium;
+  box-shadow: 0 0 5px $accent-color-primary-medium;
   transform: skew(-30deg);
 }
 

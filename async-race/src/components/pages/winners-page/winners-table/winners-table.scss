@@ -1,20 +1,28 @@
-@import '../../../../css/colors.scss';
+@import '../../../../scss/colors.scss';
 
 .winners-table {
   margin: 0 auto;
   border: 3px solid $accent-color-primary-light;
-  box-shadow: 0 0 3px $accent-color-primary-light;
+  box-shadow: 0 0 7px $accent-color-primary-light;
   border-collapse: collapse;
 }
 
 .table-cell {
-  padding: 3px 10px;
+  height: 50px;
   font-family: "Righteous", Helvetica, sans-serif;
   text-align: center;
+
+  @media (max-width: 640px) {
+    font-size: 14px;
+  }
 }
 
 .number-cell {
   width: 40px;
+
+  @media (max-width: 640px) {
+    width: 35px;
+  }
 }
 
 .image-cell {
@@ -24,16 +32,32 @@
     width: 100px;
     margin: 0 auto;
   }
+
+  @media (max-width: 640px) {
+    width: 120px;
+  }
 }
 
 .name-cell {
   width: 250px;
+
+  @media (max-width: 640px) {
+    width: 145px;
+  }
 }
 
 .wins-cell {
   width: 90px;
+
+  @media (max-width: 640px) {
+    width: 70px;
+  }
 }
 
 .time-cell {
   width: 90px;
+
+  @media (max-width: 640px) {
+    width: 70px;
+  }
 }
