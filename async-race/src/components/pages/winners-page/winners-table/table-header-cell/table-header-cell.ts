@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../../base-component';
+import BaseComponent from '../../../../base-component';
 import './table-header-cell.scss';
 
 export default class TableHeaderCell extends BaseComponent {
@@ -7,12 +7,7 @@ export default class TableHeaderCell extends BaseComponent {
     private marker?: BaseComponent;
 
     constructor(parent: BaseComponent, className: string, content: string, onClick?: () => void) {
-        super({
-            tag: 'th',
-            parent,
-            content,
-            classNames: ['table-cell', 'table-header-cell', className],
-        });
+        super('th', ['table-cell', 'table-header-cell', className], parent, content);
         if (onClick) {
             this.onClick = onClick;
             this.renderMarker();
@@ -21,11 +16,7 @@ export default class TableHeaderCell extends BaseComponent {
 
     private renderMarker(): void {
         this.addListener('click', () => this.handleClick());
-        this.marker = new BaseComponent({
-            tag: 'span',
-            parent: this,
-            classNames: ['marker'],
-        });
+        this.marker = new BaseComponent('span', ['marker'], this);
     }
 
     private handleClick(): void {

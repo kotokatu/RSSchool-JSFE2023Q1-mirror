@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../base-component';
+import BaseComponent from '../../../base-component';
 import carSVG from '../../../../assets/svg/car_icon.svg';
 import { createSVG } from '../../../../utils/utils';
 import './car.scss';
@@ -6,8 +6,8 @@ import './car.scss';
 export default class Car extends BaseComponent {
     private svg!: SVGSVGElement;
 
-    constructor(color: string) {
-        super({ classNames: ['car'] });
+    constructor(color: string, parent: BaseComponent) {
+        super('div', ['car'], parent);
         this.render(color);
     }
 

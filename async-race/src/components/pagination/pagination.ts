@@ -1,5 +1,5 @@
-import { BaseComponent } from '../base-component';
-import { Button } from '../button/button';
+import BaseComponent from '../base-component';
+import Button from '../button/button';
 import { Store } from '../../store/store';
 import './pagination.scss';
 
@@ -17,31 +17,21 @@ export default class Pagination extends BaseComponent {
     private onBtnClick: () => void;
 
     constructor(parent: BaseComponent, store: Store, onBtnClick: () => void) {
-        super({ parent, classNames: ['pagination-container'] });
+        super('div', ['pagination-container'], parent);
         this.store = store;
         this.onBtnClick = onBtnClick;
         this.render();
     }
 
     private render(): void {
-        this.prevBtn = new Button({
-            parent: this,
-            classNames: ['button-prev'],
-            content: '<<',
-            onClick: this.handlePrevBtnClick.bind(this),
-        });
-        this.pageNumElement = new BaseComponent({
-            tag: 'span',
-            parent: this,
-            classNames: ['page-number'],
-            content: this.store.page.toString(),
-        });
-        this.nextBtn = new Button({
-            parent: this,
-            classNames: ['button-next'],
-            content: '>>',
-            onClick: this.handleNextBtnClick.bind(this),
-        });
+        this.prevBtn = new Button(() => this.handlePrevBtnClick(), this, ['button-prev'], '<<');
+        this.pageNumElement = new BaseComponent(
+            'span',
+            ['page-number'],
+            this,
+            this.store.page.toString()
+        );
+        this.nextBtn = new Button(() => this.handleNextBtnClick(), this, ['button-next'], '>>');
     }
 
     private handlePrevBtnClick(): void {

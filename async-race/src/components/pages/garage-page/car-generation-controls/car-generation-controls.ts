@@ -1,8 +1,8 @@
-import { BaseComponent } from '../../../base-component';
+import BaseComponent from '../../../base-component';
 import { ColorInput, DEFAULT_COLOR } from '../../../input/color-input/color-input';
 import TextInput from '../../../input/text-input/text-input';
 import InvalidInputMessage from '../../../input/invalid-input-message/invalid-input-message';
-import { Button } from '../../../button/button';
+import Button from '../../../button/button';
 import { CarViewParams } from '../../../../utils/api-utils';
 import { emitter, UpdateEvent } from '../../../../utils/event-emitter';
 import { generateCars, createRandomCarsParams } from '../../../../utils/cars-utils';
@@ -23,26 +23,26 @@ export default class CarGenerationControls extends BaseComponent {
     private car!: Car;
 
     constructor() {
-        super({ classNames: ['generate-cars-wrapper'] });
+        super('div', ['generate-cars-wrapper']);
         this.render();
     }
 
     private render(): void {
-        const createCarWrapper = new BaseComponent({
-            parent: this,
-            classNames: ['create-car-wrapper'],
-        });
-        const inputsWrapper = new BaseComponent({
-            parent: createCarWrapper,
-            classNames: ['create-car-inputs-wrapper'],
-        });
+        const createCarWrapper = new BaseComponent('div', ['create-car-wrapper'], this);
+        const inputsWrapper = new BaseComponent(
+            'div',
+            ['create-car-inputs-wrapper'],
+            createCarWrapper
+        );
         this.colorInput = new ColorInput({
             parent: inputsWrapper,
+            classNames: ['car-color-input'],
             onInput: () => this.changeCarIconColor(this.colorInput.getValue()),
         });
         this.colorInput.addId('car-color');
         this.nameInput = new TextInput({
             parent: inputsWrapper,
+            classNames: ['car-name-input'],
             attributes: {
                 placeholder: 'Please enter a car name',
                 required: '',
@@ -56,36 +56,36 @@ export default class CarGenerationControls extends BaseComponent {
             createCarWrapper,
             'Name should not be empty'
         );
-        const buttonsWrapper = new BaseComponent({
-            parent: createCarWrapper,
-            classNames: ['create-car-buttons-wrapper'],
-        });
-        this.createCarBtn = new Button({
-            classNames: ['create-car-button'],
-            parent: buttonsWrapper,
-            content: 'create car',
-            onClick: async () => {
+        const buttonsWrapper = new BaseComponent(
+            'div',
+            ['create-car-buttons-wrapper'],
+            createCarWrapper
+        );
+        this.createCarBtn = new Button(
+            async () => {
                 const carViewParams = this.getUserDefinedCarParams();
                 if (carViewParams) {
                     await generateCars(carViewParams);
                     emitter.emit(UpdateEvent.GarageUpdate);
                 }
             },
-        });
-        this.generateCarsBtn = new Button({
-            classNames: ['generate-cars-button'],
-            parent: buttonsWrapper,
-            content: 'generate cars',
-            onClick: async () => {
+            buttonsWrapper,
+            ['create-car-button'],
+            'create car'
+        );
+        this.generateCarsBtn = new Button(
+            async () => {
                 const randomCarParams = createRandomCarsParams();
                 await generateCars(randomCarParams);
                 emitter.emit(UpdateEvent.GarageUpdate);
             },
-        });
-        this.car = new Car(DEFAULT_COLOR);
-        const label = new BaseComponent({ tag: 'label', parent: this });
+            buttonsWrapper,
+            ['generate-cars-button'],
+            'generate cars'
+        );
+        const label = new BaseComponent('label', ['label-car-color'], this);
         label.setAttributes({ for: 'car-color' });
-        label.insertChild(this.car);
+        this.car = new Car(DEFAULT_COLOR, label);
     }
 
     private getUserDefinedCarParams(): CarViewParams[] | null {

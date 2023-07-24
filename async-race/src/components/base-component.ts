@@ -1,14 +1,12 @@
-export interface ComponentParams {
-    tag?: keyof HTMLElementTagNameMap;
-    parent?: BaseComponent | HTMLElement;
-    classNames?: string[];
-    content?: string;
-}
-
-export class BaseComponent<T extends HTMLElement = HTMLElement> {
+export default class BaseComponent<T extends HTMLElement = HTMLElement> {
     protected node: T;
 
-    constructor({ tag = 'div', parent, classNames, content }: ComponentParams = {}) {
+    constructor(
+        tag: keyof HTMLElementTagNameMap,
+        classNames?: string[],
+        parent?: BaseComponent | HTMLElement | null,
+        content?: string
+    ) {
         this.node = document.createElement(tag) as T;
 
         if (parent instanceof BaseComponent) {

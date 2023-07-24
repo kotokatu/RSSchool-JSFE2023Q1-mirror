@@ -1,15 +1,10 @@
-import { BaseComponent } from '../../base-component';
+import BaseComponent from '../../base-component';
 import { delay } from '../../../utils/utils';
 import './invalid-input-message.scss';
 
 export default class InvalidInputMessage extends BaseComponent {
     constructor(parent: BaseComponent, msg: string) {
-        super({
-            tag: 'p',
-            parent,
-            classNames: ['error'],
-            content: msg,
-        });
+        super('p', ['error'], parent, msg);
     }
 
     public async show(): Promise<void> {

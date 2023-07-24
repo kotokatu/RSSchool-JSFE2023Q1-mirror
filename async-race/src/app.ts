@@ -1,7 +1,7 @@
-import { BaseComponent } from './components/base-component';
+import BaseComponent from './components/base-component';
 import GaragePage from './components/pages/garage-page/garage-page';
 import WinnersPage from './components/pages/winners-page/winners-page';
-import { Button } from './components/button/button';
+import Button from './components/button/button';
 import { garageStore, winnersStore } from './store/store';
 import { Page } from './components/pages/page';
 import './scss/style.scss';
@@ -25,44 +25,24 @@ class App {
     }
 
     private render(): void {
-        const header = new BaseComponent({
-            tag: 'header',
-            parent: this.appRoot,
-            classNames: ['header'],
-        });
-        const heading = new BaseComponent({
-            tag: 'h1',
-            parent: header,
-            classNames: ['app-title'],
-            content: 'Async Race',
-        });
-        const navigation = new BaseComponent({
-            tag: 'nav',
-            parent: header,
-            classNames: ['app-navigation'],
-        });
-        this.toGarageBtn = new Button({
-            parent: navigation,
-            classNames: ['garage-button'],
-            content: 'garage',
-            onClick: () => this.setActivePage(this.garagePage),
-        });
+        const header = new BaseComponent('header', ['header'], this.appRoot);
+        const heading = new BaseComponent('h1', ['app-title'], header, 'Async Race');
+        const navigation = new BaseComponent('nav', ['app-navigation'], header);
+        this.toGarageBtn = new Button(
+            () => this.setActivePage(this.garagePage),
+            navigation,
+            ['garage-button'],
+            'garage'
+        );
         this.toGarageBtn.disable();
-        this.toWinnersBtn = new Button({
-            parent: navigation,
-            classNames: ['winners-button'],
-            content: 'winners',
-            onClick: () => this.setActivePage(this.winnersPage),
-        });
-        this.pageContainer = new BaseComponent({
-            parent: this.appRoot,
-            classNames: ['page-container'],
-        });
-        const footer = new BaseComponent({
-            tag: 'footer',
-            parent: this.appRoot,
-            classNames: ['footer'],
-        });
+        this.toWinnersBtn = new Button(
+            () => this.setActivePage(this.winnersPage),
+            navigation,
+            ['winners-button'],
+            'winners'
+        );
+        this.pageContainer = new BaseComponent('div', ['page-container'], this.appRoot);
+        const footer = new BaseComponent('footer', ['footer'], this.appRoot);
         this.renderActivePage(this.garagePage);
     }
 

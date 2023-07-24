@@ -1,16 +1,17 @@
-import { BaseComponent } from '../base-component';
+import BaseComponent from '../base-component';
 
 export default class Input extends BaseComponent<HTMLInputElement> {
     private defaultValue: string;
 
     constructor(params: {
         parent: BaseComponent;
+        classNames: string[];
         attributes: Record<string, string>;
         defaultValue: string;
         value?: string;
         onInput?: (e?: Event) => void;
     }) {
-        super({ tag: 'input', parent: params.parent });
+        super('input', params.classNames, params.parent);
         this.defaultValue = params.defaultValue;
         this.setAttributes(params.attributes);
 

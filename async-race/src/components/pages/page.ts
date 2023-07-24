@@ -1,4 +1,4 @@
-import { BaseComponent } from '../base-component';
+import BaseComponent from '../base-component';
 import { Store } from '../../store/store';
 import Pagination from '../pagination/pagination';
 import './page.scss';
@@ -18,25 +18,20 @@ export abstract class Page extends BaseComponent {
     protected mainContainer!: BaseComponent;
 
     constructor(pageName: PageName, store: Store) {
-        super({ classNames: ['page', `${pageName}-page`] });
+        super('div', ['page', `${pageName}-page`]);
         this.store = store;
         this.renderBaseView(pageName);
     }
 
     protected renderBaseView(pageName: PageName) {
-        const title = new BaseComponent({
-            tag: 'h2',
-            parent: this,
-            classNames: ['page-title'],
-            content: pageName,
-        });
-        this.carsCountElement = new BaseComponent({
-            tag: 'span',
-            parent: title,
-            classNames: ['cars-count'],
-            content: `(#${this.store.carsCount})`,
-        });
-        this.mainContainer = new BaseComponent({ parent: this, classNames: ['main-container'] });
+        const title = new BaseComponent('h2', ['page-title'], this, pageName);
+        this.carsCountElement = new BaseComponent(
+            'span',
+            ['cars-count'],
+            title,
+            `(#${this.store.carsCount})`
+        );
+        this.mainContainer = new BaseComponent('div', ['main-container'], this);
         this.pagination = new Pagination(this, this.store, () => this.renderMainView());
     }
 

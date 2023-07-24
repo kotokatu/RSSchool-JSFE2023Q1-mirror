@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../base-component';
+import BaseComponent from '../../../base-component';
 import Car from '../car/car';
 import {
     GetCarApiResponse,
@@ -12,7 +12,7 @@ import {
 } from '../../../../utils/api-utils';
 import { ColorInput } from '../../../input/color-input/color-input';
 import TextInput from '../../../input/text-input/text-input';
-import { Button } from '../../../button/button';
+import Button from '../../../button/button';
 import AnimationControls from '../animation-controls/animation-controls';
 import CarAnimation from '../car-animation/car-animation';
 import { formatTime } from '../../../../utils/utils';
@@ -23,15 +23,15 @@ import './car-track.scss';
 export default class CarTrack extends BaseComponent {
     private isCarStarted = false;
 
-    private car: Car;
-
     public carId: number;
 
     private carName: string;
 
     private carColor: string;
 
-    private animation: CarAnimation;
+    private animation!: CarAnimation;
+
+    private car!: Car;
 
     private carAnimationControls!: AnimationControls;
 
@@ -50,19 +50,36 @@ export default class CarTrack extends BaseComponent {
     private finishLine!: BaseComponent;
 
     constructor(params: GetCarApiResponse) {
-        super({ classNames: ['car-track-container'] });
-        this.car = new Car(params.color);
+        super('div', ['car-track-container']);
         this.carId = params.id;
         this.carName = params.name;
         this.carColor = params.color;
-        this.animation = new CarAnimation(this.car);
         this.render();
     }
 
     private render(): void {
-        const header = new BaseComponent({ parent: this, classNames: ['car-track-header'] });
+        this.renderCarTrackHeader();
+        const carTrack = new BaseComponent('div', ['car-track'], this);
+        const carTrackWay = new BaseComponent('div', ['car-track-way'], carTrack);
+        this.finishLine = new BaseComponent('div', ['car-track-finish'], carTrackWay);
+        this.carAnimationControls = new AnimationControls({
+            class: 'car-track',
+            startButtonContent: 'A',
+            stopButtonContent: 'B',
+            onStart: () => this.createSingleCarRace(),
+            onStop: () => this.resetCar(),
+            parent: carTrack,
+        });
+        this.carAnimationControls.stopBtn.disable();
+        this.car = new Car(this.carColor, carTrack);
+        this.animation = new CarAnimation(this.car);
+    }
+
+    private renderCarTrackHeader() {
+        const header = new BaseComponent('div', ['car-track-header'], this);
         this.carNameInput = new TextInput({
             parent: header,
+            classNames: ['car-tract-name-input'],
             attributes: { required: '', pattern: '.*\\S.*' },
             value: this.carName,
         });
@@ -71,33 +88,18 @@ export default class CarTrack extends BaseComponent {
                 this.carNameInput.setValue(this.carName);
             }
         });
-        this.carColorInput = new ColorInput({ parent: header, value: this.carColor });
-        const updateCarBtn = new Button({
-            classNames: ['button-save'],
+        this.carColorInput = new ColorInput({
             parent: header,
-            content: 'save',
-            onClick: () => this.updateCarView(),
+            classNames: ['carTrack-color-input'],
+            value: this.carColor,
         });
-        this.deleteCarBtn = new Button({
-            classNames: ['button-delete'],
-            parent: header,
-            onClick: () => this.removeCar(),
-        });
-        const carTrack = new BaseComponent({ parent: this, classNames: ['car-track'] });
-        const carTrackWay = new BaseComponent({ parent: carTrack, classNames: ['car-track-way'] });
-        this.finishLine = new BaseComponent({
-            parent: carTrackWay,
-            classNames: ['car-track-finish'],
-        });
-        this.carAnimationControls = new AnimationControls({
-            class: 'car-track',
-            startButtonContent: 'A',
-            stopButtonContent: 'B',
-            onStart: () => this.createSingleCarRace(),
-            onStop: () => this.resetCar(),
-        });
-        carTrack.insertChildren([this.carAnimationControls, this.car]);
-        this.carAnimationControls.stopBtn.disable();
+        const updateCarBtn = new Button(
+            () => this.updateCarView(),
+            header,
+            ['button-save'],
+            'save'
+        );
+        this.deleteCarBtn = new Button(() => this.removeCar(), header, ['button-delete']);
     }
 
     private async updateCarView() {

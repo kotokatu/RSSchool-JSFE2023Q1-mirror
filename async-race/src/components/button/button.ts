@@ -1,22 +1,18 @@
-import { BaseComponent, ComponentParams } from '../base-component';
+import BaseComponent from '../base-component';
 import './button.scss';
 
-export interface ButtonParams extends ComponentParams {
-    onClick: (e: Event) => void;
-}
-
-export class Button extends BaseComponent {
+export default class Button extends BaseComponent {
     private isDisabled = false;
 
-    constructor(params: ButtonParams) {
-        super({
-            tag: 'button',
-            classNames: ['button', ...(params.classNames ?? '')],
-            parent: params.parent,
-            content: params.content,
-        });
+    constructor(
+        onClick: (e: Event) => void,
+        parent?: BaseComponent | HTMLElement,
+        classNames?: string[],
+        content?: string
+    ) {
+        super('button', ['button', ...(classNames ?? '')], parent, content);
 
-        this.addListener('click', params.onClick);
+        this.addListener('click', onClick);
     }
 
     public toggleState(): void {

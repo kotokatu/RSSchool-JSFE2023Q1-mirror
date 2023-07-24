@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../base-component';
+import BaseComponent from '../../../base-component';
 import { GetWinnerApiResponse, SortBase } from '../../../../utils/api-utils';
 import WinnersTableRow from './table-row/table-row';
 import TableHeaderCell from './table-header-cell/table-header-cell';
@@ -14,17 +14,13 @@ export default class WinnersTable extends BaseComponent {
     private winsCell!: TableHeaderCell;
 
     constructor(parent: BaseComponent, sortWinners: (sortBy: SortBase) => void) {
-        super({ tag: 'table', parent, classNames: ['winners-table'] });
+        super('table', ['winners-table'], parent);
         this.sortWinners = sortWinners;
         this.render();
     }
 
     private render(): void {
-        const tableHead = new BaseComponent({
-            tag: 'thead',
-            parent: this,
-            classNames: ['winners-table-head'],
-        });
+        const tableHead = new BaseComponent('thead', ['winners-table-head'], this);
         const numberCell = new TableHeaderCell(tableHead, 'number-cell', '№');
         const imageCell = new TableHeaderCell(tableHead, 'image-cell', 'Image');
         const nameCell = new TableHeaderCell(tableHead, 'name-cell', 'Name');
@@ -36,7 +32,7 @@ export default class WinnersTable extends BaseComponent {
             this.sortWinners(SortBase.Time);
             this.winsCell.hideMarker();
         });
-        this.tableBody = new BaseComponent({ tag: 'tbody', parent: this });
+        this.tableBody = new BaseComponent('tbody', ['winners-table-head'], this);
     }
 
     public renderRows(winnersData: GetWinnerApiResponse[], pageNum: number): void {

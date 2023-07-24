@@ -1,4 +1,4 @@
-import { BaseComponent } from '../../../base-component';
+import BaseComponent from '../../../base-component';
 import './modal.scss';
 
 export default class Modal extends BaseComponent {
@@ -7,24 +7,19 @@ export default class Modal extends BaseComponent {
     private time: string;
 
     constructor(parent: BaseComponent, carName: string, time: string) {
-        super({ parent, classNames: ['modal'] });
+        super('div', ['modal'], parent);
         this.carName = carName;
         this.time = time;
         this.render();
     }
 
     private render(): void {
-        const modalContent = new BaseComponent({
-            tag: 'p',
-            parent: this,
-            classNames: ['modal-text'],
-            content: `${this.carName} wins in `,
-        });
-        const modalTime = new BaseComponent({
-            tag: 'span',
-            parent: modalContent,
-            classNames: ['modal-time'],
-            content: `${this.time}s`,
-        });
+        const modalContent = new BaseComponent(
+            'p',
+            ['modal-text'],
+            this,
+            `${this.carName} wins in `
+        );
+        const modalTime = new BaseComponent('span', ['modal-time'], modalContent, `${this.time}s`);
     }
 }

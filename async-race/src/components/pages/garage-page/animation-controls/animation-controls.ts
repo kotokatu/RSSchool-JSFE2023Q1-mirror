@@ -1,5 +1,5 @@
-import { Button } from '../../../button/button';
-import { BaseComponent } from '../../../base-component';
+import Button from '../../../button/button';
+import BaseComponent from '../../../base-component';
 
 type AnimationControlsParams = {
     class: string;
@@ -7,6 +7,7 @@ type AnimationControlsParams = {
     stopButtonContent: string;
     onStart: () => void;
     onStop: () => void;
+    parent?: BaseComponent;
 };
 
 export default class AnimationControls extends BaseComponent {
@@ -19,24 +20,14 @@ export default class AnimationControls extends BaseComponent {
     private onStop: () => void;
 
     constructor(params: AnimationControlsParams) {
-        super({ classNames: [`${params.class}-animation-controls`] });
+        super('div', [`${params.class}-animation-controls`], params.parent);
         this.onStart = params.onStart;
         this.onStop = params.onStop;
         this.render(params.startButtonContent, params.stopButtonContent);
     }
 
     private render(startButtonContent: string, stopButtonContent: string): void {
-        this.startBtn = new Button({
-            parent: this,
-            classNames: ['button-start'],
-            content: startButtonContent,
-            onClick: this.onStart,
-        });
-        this.stopBtn = new Button({
-            parent: this,
-            classNames: ['button-stop'],
-            content: stopButtonContent,
-            onClick: this.onStop,
-        });
+        this.startBtn = new Button(this.onStart, this, ['button-start'], startButtonContent);
+        this.stopBtn = new Button(this.onStop, this, ['button-stop'], stopButtonContent);
     }
 }
