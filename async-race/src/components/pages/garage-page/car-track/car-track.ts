@@ -89,16 +89,17 @@ export default class CarTrack extends BaseComponent {
                     this.carNameInput.setValue(this.carName);
                     return;
                 }
-                this.updateCarBtn.setCssClasses(['blink']);
+                this.activatUpdateBtn();
             },
         });
         this.carColorInput = new ColorInput({
             parent: header,
             classNames: ['carTrack-color-input'],
-            onChange: () => this.updateCarBtn.setCssClasses(['blink']),
+            onChange: () => this.activatUpdateBtn(),
             value: this.carColor,
         });
         this.updateCarBtn = new Button(() => this.updateCarView(), header, ['button-save'], 'save');
+        this.updateCarBtn.disable();
         this.updateCarBtn.addListener('animationend', () =>
             this.updateCarBtn.removeCssClasses(['blink'])
         );
@@ -110,7 +111,13 @@ export default class CarTrack extends BaseComponent {
         await updateCar(this.carId, { name: this.carName, color: this.carColor });
         this.car.setColor(this.carColor);
         this.carNameInput.setValue(this.carName);
+        this.updateCarBtn.disable();
         emitter.emit(UpdateEvent.WinnersUpdate);
+    }
+
+    private activatUpdateBtn() {
+        this.updateCarBtn.enable();
+        this.updateCarBtn.setCssClasses(['blink']);
     }
 
     private getCarViewParams(): void {
