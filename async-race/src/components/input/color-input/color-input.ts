@@ -9,6 +9,7 @@ export class ColorInput extends Input {
         parent: BaseComponent;
         classNames: string[];
         onInput?: (e?: Event) => void;
+        onChange?: (e?: Event) => void;
         value?: string;
     }) {
         super({
@@ -18,6 +19,7 @@ export class ColorInput extends Input {
             defaultValue: DEFAULT_COLOR,
             value: params.value,
             onInput: params.onInput,
+            onChange: params.onChange,
         });
     }
 }

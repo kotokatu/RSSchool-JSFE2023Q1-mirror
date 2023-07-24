@@ -55,34 +55,37 @@
       cursor: auto;
     }
   }
+}
 
-  .button-save, 
-  .button-delete {
-    height: 22px;
-    padding-bottom: 3px;
-    font-family: inherit;
-    letter-spacing: 0.05rem;
-    border: 1px solid $accent-color-primary-medium;
-    box-shadow: 0 0 2px $accent-color-primary-medium;
-    transition: 0.4s;
+.button-save, 
+.button-delete {
+  height: 22px;
+  padding-bottom: 3px;
+  font-family: inherit;
+  letter-spacing: 0.05rem;
+  border: 1px solid $accent-color-primary-medium;
+  box-shadow: 0 0 2px $accent-color-primary-medium;
+  transition: 0.4s;
 
-    @media (hover: hover) {
+  @media (hover: hover) {
 
-      &:hover {
-        background-color: $accent-color-primary-medium;
-        box-shadow: 0 0 5px $accent-color-primary-medium;
-      }
+    &:hover {
+      background-color: $accent-color-primary-medium;
+      box-shadow: 0 0 5px $accent-color-primary-medium;
     }
   }
+}
 
-  .button-delete {
-    width: 22px;
-    background-image: url('../../../../assets/svg/cross.svg');
-    background-position: center center;
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
-  }
+.button-delete {
+  width: 22px;
+  background-image: url('../../../../assets/svg/cross.svg');
+  background-position: center center;
+  background-size: 12px 12px;
+  background-repeat: no-repeat;
+}
 
+.button-save.blink {
+  animation: blink 0.5s both;
 }
 
 .car-track {

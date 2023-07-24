@@ -10,6 +10,7 @@ export default class Input extends BaseComponent<HTMLInputElement> {
         defaultValue: string;
         value?: string;
         onInput?: (e?: Event) => void;
+        onChange?: (e?: Event) => void;
     }) {
         super('input', params.classNames, params.parent);
         this.defaultValue = params.defaultValue;
@@ -23,6 +24,10 @@ export default class Input extends BaseComponent<HTMLInputElement> {
 
         if (params.onInput) {
             this.addListener('input', params.onInput);
+        }
+
+        if (params.onChange) {
+            this.addListener('change', params.onChange);
         }
     }
 

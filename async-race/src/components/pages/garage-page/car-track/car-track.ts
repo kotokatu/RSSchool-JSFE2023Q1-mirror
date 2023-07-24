@@ -45,6 +45,8 @@ export default class CarTrack extends BaseComponent {
 
     private deleteCarBtn!: Button;
 
+    updateCarBtn!: Button;
+
     private trackWidth!: number;
 
     private finishLine!: BaseComponent;
@@ -82,22 +84,23 @@ export default class CarTrack extends BaseComponent {
             classNames: ['car-tract-name-input'],
             attributes: { required: '', pattern: '.*\\S.*' },
             value: this.carName,
-        });
-        this.carNameInput.addListener('change', () => {
-            if (!this.carNameInput.getNode().checkValidity()) {
-                this.carNameInput.setValue(this.carName);
-            }
+            onChange: () => {
+                if (!this.carNameInput.getNode().checkValidity()) {
+                    this.carNameInput.setValue(this.carName);
+                    return;
+                }
+                this.updateCarBtn.setCssClasses(['blink']);
+            },
         });
         this.carColorInput = new ColorInput({
             parent: header,
             classNames: ['carTrack-color-input'],
+            onChange: () => this.updateCarBtn.setCssClasses(['blink']),
             value: this.carColor,
         });
-        const updateCarBtn = new Button(
-            () => this.updateCarView(),
-            header,
-            ['button-save'],
-            'save'
+        this.updateCarBtn = new Button(() => this.updateCarView(), header, ['button-save'], 'save');
+        this.updateCarBtn.addListener('animationend', () =>
+            this.updateCarBtn.removeCssClasses(['blink'])
         );
         this.deleteCarBtn = new Button(() => this.removeCar(), header, ['button-delete']);
     }

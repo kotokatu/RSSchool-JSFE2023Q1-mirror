@@ -7,7 +7,8 @@ export default class TextInput extends Input {
         parent: BaseComponent;
         classNames: string[];
         attributes?: Record<string, string>;
-        onInput?: (e?: Event) => void;
+        onInput?: () => void;
+        onChange?: () => void;
         value?: string;
     }) {
         super({
@@ -16,6 +17,7 @@ export default class TextInput extends Input {
             attributes: { type: 'text', ...params.attributes },
             defaultValue: '',
             onInput: params.onInput,
+            onChange: params.onChange,
             value: params.value,
         });
     }
