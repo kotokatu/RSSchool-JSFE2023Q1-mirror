@@ -1,0 +1,26 @@
+li {
+  font-size: 24px;
+  padding-top: 10px;
+}
+
+.reveal h2, 
+.reveal h3, 
+.reveal h4, 
+.reveal h5 {
+  color: rgb(95, 157, 238);
+}
+
+.reveal h5 {
+  font-size: 30px;
+}
+
+.reveal p {
+  margin: 0 auto;
+  max-width: 70vw;
+  font-size: 24px;
+}
+
+.reveal a {
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+}
