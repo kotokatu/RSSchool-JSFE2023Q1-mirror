@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="./style.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+          <h2 style="color:rgb(13, 107, 230)">OWASP Top-10</h2>
+        </section>
+				<section>
+          <h4>What is OWASP?</h4>
+          <ul>
+            <li>Open Worldwide Application Security Project</li>
+            <li>Non-profit open community organization dedicated to web application security</li>
+            <li>Founded in 2001</li>
+            <li>Over 250 chapters and 32,000 volunteers around the world </li>
+          </ul>
+        </section>
+        <section>
+          <h4>OWASP Top-10 list</h4>
+          <img src="./assets/inphographic.png">
+        </section>
+        <section data-auto-animate>
+          <h5>A01. Broken Access Control</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A01. Broken Access Control</h5>
+          <p>
+            Allows an unauthorized user access to restricted resources.
+          </p>
+            <img class="fragment fade-up" src="./assets/a01.jpg" alt="">
+        </section>
+        <section data-auto-animate>
+          <h5>A02. Cryptographic Failures</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A02. Cryptographic Failures</h5>
+          <p>
+            Allow an attacker to obtain access to sensitive data like passwords, credit card numbers, health records, personal information.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A03. Injection</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A03. Injection</h5>
+          <p>
+            Occurs when untrusted user data is sent to the web application as part of a command or query.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A04. Insecure Design</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A04. Insecure Design</h5>
+          <p>
+            Various risks that arise from ignoring design and architectural best practices, starting from the planning phase before actual implementation.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A05. Security Misconfiguration</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A05. Security Misconfiguration</h5>
+          <p>
+            Occurs when security settings are not adequately defined in the configuration process.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A06. Vulnerable and Outdated Components</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A06. Vulnerable and Outdated Components</h5>
+          <p>
+            Third-party libraries or frameworks used in web applications that have known vulnerabilities or are no longer supported by their developers.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A07. Identification and Authentication Failures</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A07. Identification and Authentication Failures</h5>
+          <p>
+            Occur when a user’s identity confirmation, authentication, or session management is not implemented appropriately.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A08. Software and Data Integrity Failures</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A08. Software and Data Integrity Failures</h5>
+          <p>
+            Occur when critical data and software updates are added to the delivery pipeline without verifying their integrity.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A09. Security Logging and Monitoring Failures</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A09. Security Logging and Monitoring Failures</h5>
+          <p>
+            Insufficient logging, detection, monitoring.
+          </p>
+        </section>
+        <section data-auto-animate>
+          <h5>A10. Server-Side Request Forgery (SSRF)</h5>
+        </section>
+        <section data-auto-animate>
+          <h5>A10. Server-Side Request Forgery (SSRF)</h5>
+          <p>
+            Occurs when a web application proceeds to fetch data without first validating user-supplied URL.
+          </p>
+        </section>
+        <section>
+          <h5>Links:</h5>
+          <ol>
+            <li><a href="https://owasp.org/Top10/">OWASP Top-10 </a></li>
+            <li><a href="https://www.horangi.com/blog/real-life-examples-of-web-vulnerabilities">Real Life Examples of Web Vulnerabilities (OWASP Top 10) </a></li>
+          </ol>
+        </section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
