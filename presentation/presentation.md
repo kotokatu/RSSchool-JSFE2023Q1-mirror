@@ -1,1 +1,2 @@
-https://rolling-scopes-school.github.io/kotokatu-JSFE2023Q1/presentation/reveal/
+- Video: https://youtu.be/g_LXTf5jXaI
+- Slides: https://rolling-scopes-school.github.io/kotokatu-JSFE2023Q1/presentation/reveal/
